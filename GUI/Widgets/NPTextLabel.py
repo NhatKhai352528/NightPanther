@@ -1,7 +1,7 @@
 from tkinter import Frame, Label
 from tkinter.font import Font
 from typing import Literal
-from Customs.NPTheme import NPTheme
+from ..Customs.NPTheme import NPTheme
 
 currentTheme = NPTheme.getTheme()
 

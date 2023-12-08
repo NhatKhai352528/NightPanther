@@ -1,5 +1,5 @@
-from Customs.Themes.Default import Default
-from Customs.Themes.Dark import Dark
+from .Themes.Default import Default
+from .Themes.Dark import Dark
 
 class NPTheme:
     

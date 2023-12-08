@@ -1,8 +1,8 @@
 from tkinter import Frame, DoubleVar
 from typing import Literal
-from Customs.NPTheme import NPTheme
-from Widgets.NPFrame import NPFrame
 from math import ceil
+from ..Customs.NPTheme import NPTheme
+from ..Widgets.NPFrame import NPFrame
 
 currentTheme = NPTheme.getTheme()
 

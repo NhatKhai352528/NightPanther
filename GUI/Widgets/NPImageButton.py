@@ -1,7 +1,7 @@
 from tkinter import Button, Frame
 from typing import Any, Literal
-from Customs.NPTheme import NPTheme
-from Widgets.NPImage import NPImage
+from .NPImage import NPImage
+from ..Customs.NPTheme import NPTheme
 
 currentTheme = NPTheme.getTheme()
 

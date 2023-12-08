@@ -1,8 +1,7 @@
 from tkinter import Frame, Label
 from typing import Literal
-from Customs.NPTheme import NPTheme
-from Widgets.NPImage import NPImage
-from Customs.NPTheme import NPTheme
+from .NPImage import NPImage
+from ..Customs.NPTheme import NPTheme
 
 currentTheme = NPTheme.getTheme()
 

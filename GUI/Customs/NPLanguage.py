@@ -1,5 +1,5 @@
-from Customs.Languages.English import English
-from Customs.Languages.Vietnamese import Vietnamese
+from .Languages.English import English
+from .Languages.Vietnamese import Vietnamese
 
 class NPLanguage:
     

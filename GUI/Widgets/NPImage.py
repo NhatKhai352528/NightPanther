@@ -1,5 +1,5 @@
 from PIL import Image, ImageTk
-from Customs.NPTheme import NPTheme
+from ..Customs.NPTheme import NPTheme
 
 currentTheme = NPTheme.getTheme()
         

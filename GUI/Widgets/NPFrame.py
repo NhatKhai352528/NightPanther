@@ -1,6 +1,6 @@
 from tkinter import Frame, Tk
 from typing import Literal
-from Customs.NPTheme import NPTheme
+from ..Customs.NPTheme import NPTheme
 
 currentTheme = NPTheme.getTheme()
 

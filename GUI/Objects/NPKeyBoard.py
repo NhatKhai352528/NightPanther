@@ -1,11 +1,11 @@
 from tkinter import Frame, StringVar
 from tkinter.font import Font
 from typing import Any, Literal
-from Customs.NPLanguage import NPLanguage
-from Customs.NPTheme import NPTheme
-from Widgets.NPEntry import NPEntry
-from Widgets.NPFrame import NPFrame
-from Widgets.NPTextButton import NPTextButton
+from ..Customs.NPLanguage import NPLanguage
+from ..Customs.NPTheme import NPTheme
+from ..Widgets.NPEntry import NPEntry
+from ..Widgets.NPFrame import NPFrame
+from ..Widgets.NPTextButton import NPTextButton
 
 currentTheme = NPTheme.getTheme()
 currentLanguage = NPLanguage.getLanguage()

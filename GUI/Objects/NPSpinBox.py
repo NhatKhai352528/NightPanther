@@ -1,10 +1,10 @@
 from tkinter import Frame, DoubleVar
 from tkinter.font import Font
 from typing import Any, Literal
-from Customs.NPTheme import NPTheme
-from Widgets.NPEntry import NPEntry
-from Widgets.NPFrame import NPFrame
-from Widgets.NPTextButton import NPTextButton
+from ..Customs.NPTheme import NPTheme
+from ..Widgets.NPEntry import NPEntry
+from ..Widgets.NPFrame import NPFrame
+from ..Widgets.NPTextButton import NPTextButton
 
 currentTheme = NPTheme.getTheme()
 
