@@ -1,0 +1,18 @@
+from Customs.Languages.English import English
+from Customs.Languages.Vietnamese import Vietnamese
+
+class NPLanguage:
+    
+    currentLanguage = English
+    availableLanguages = {"English": English, "Vietnamese": Vietnamese}
+    
+    @classmethod
+    def setLanguage(cls, language: str = "English"):
+        if language in cls.availableLanguages:
+            cls.currentLanguage = cls.availableLanguages[language]
+        else:
+            cls.currentLanguage = English
+            
+    @classmethod
+    def getLanguage(cls):
+        return cls.currentLanguage

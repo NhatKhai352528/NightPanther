@@ -3,8 +3,12 @@ import Customs.NPColor as NPColor
 import Customs.NPFont as NPFont
 
 Default = {
-    "color": NPColor.Azure4,
+    "default": {
+        "color": NPColor.Azure4,
+        "size": 16
+    },
     "font": {
+        "default": Font(family = NPFont.Verdana, size = 16, weight = "normal", slant = "roman", underline = False, overstrike = False),
         "title": Font(family = NPFont.Verdana, size = 32, weight = "bold", slant = "roman", underline = False, overstrike = False),
         "section": Font(family = NPFont.Verdana, size = 24, weight = "bold", slant = "roman", underline = False, overstrike = False),
         "heading": Font(family = NPFont.Verdana, size = 20, weight = "bold", slant = "roman", underline = False, overstrike = False),
@@ -28,14 +32,26 @@ Default = {
         "select": NPColor.Azure4,
         "disabled": NPColor.Black8
     },
-    "inputButton": {
-        "default": NPColor.Black3,
-        "active": NPColor.Black2,
-        "disabled": NPColor.Black6
+    "button": {
+        "input": {
+            "default": NPColor.Black3,
+            "active": NPColor.Black2,
+            "disabled": NPColor.Black6
+        },
+        "action": {
+            "default": NPColor.Azure4,
+            "active": NPColor.Azure3,
+            "disabled": NPColor.Azure7
+        },
+        "select": {
+            "default": NPColor.Black4,
+            "active": NPColor.Azure3,
+            "disabled": NPColor.Black6
+        }
     },
-    "actionButton": {
+    "progressBar": {
         "default": NPColor.Azure4,
-        "active": NPColor.Azure3,
-        "disabled": NPColor.Azure7
+        "filled": NPColor.Green4,
+        "unfilled": NPColor.Black8
     }
 }

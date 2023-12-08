@@ -7,14 +7,16 @@ currentTheme = NPTheme.getTheme()
 
 class NPEntry(Entry):
     
-    def __init__(self, master: Frame, x: int, y: int, width: int, height: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], font: Font = currentTheme["font"]["normal"], invalidcommand: Any = None, show: str = "", state: Literal["normal", "disabled", "readonly"] = "normal", validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = "none", validatecommand: Any = None, textvariable: Variable = None) -> None:
+    def __init__(self, master: Frame, x: int, y: int, width: int, height: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], font: Font = currentTheme["font"]["default"], invalidcommand: Any = None, show: str = "", state: Literal["normal", "disabled", "readonly"] = "normal", validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = "none", validatecommand: Any = None, textvariable: Variable = None) -> None:
         
+        # Location variables
         self.x = int(x)
         self.y = int(y)
         self.width = int(width)
         self.height = int(height)
         self.anchor = anchor
         
+        # Theme variables
         self.foreground = currentTheme["foreground"]["default"]
         self.background = currentTheme["entry"]["default"]
         self.selectbackground = currentTheme["entry"]["select"]
