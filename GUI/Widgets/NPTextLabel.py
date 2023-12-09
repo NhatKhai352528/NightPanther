@@ -7,22 +7,55 @@ currentTheme = NPTheme.getTheme()
 
 class NPTextLabel(Label):
     
-    def __init__(self, master: Frame, x: int, y: int, width: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str = currentTheme["background"]["default"], font: Font = currentTheme["font"]["default"], foreground: str = currentTheme["foreground"]["default"], justify: Literal["left", "center", "right"] = "left", text: str = None, textAnchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = "nw", underline: int = -1, wraplength: int = 0) -> None:
+    def __init__(self, master: Frame, x: int, y: int, width: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str = currentTheme["background"]["default"], font: Font = currentTheme["font"]["default"], foreground: str = currentTheme["foreground"]["default"], justify: Literal["left", "center", "right"] = "left", text: str = None, textAnchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = "nw", underline: int = -1, wraplength: int = 0):
         
         # Location variables
-        self.x = int(x)
-        self.y = int(y)
-        self.width = int(width)
-        self.anchor = anchor
+        self._master = master
+        self._x = int(x)
+        self._y = int(y)
+        self._width = int(width)
         
-        super().__init__(master = master, activebackground = background, activeforeground = foreground, anchor = textAnchor, background = background, bitmap = None, borderwidth = 0, compound = "center", cursor = "arrow", disabledforeground = foreground, font = font, foreground = foreground, highlightbackground = background, highlightcolor = background, highlightthickness = 0, image = None, justify = justify, relief = "flat", state = "normal", takefocus = False, text = text, textvariable = None, underline = underline, wraplength = wraplength)
+        self._anchor = anchor
+        self._background = background
+        
+        # Text variables
+        self._font = font
+        self._foreground = foreground
+        self._justify = justify
+        self._text = text
+        self._textAnchor = textAnchor
+        self._underline = underline
+        self._wraplength = wraplength
+        
+        if self._wraplength == 0:
+            self._rewrite()
+        
+        super().__init__(master = self._master, activebackground = self._background, activeforeground = self._foreground, anchor = self._textAnchor, background = self._background, bitmap = None, borderwidth = 0, compound = "center", cursor = "arrow", disabledforeground = self._foreground, font = self._font, foreground = self._foreground, highlightbackground = self._background, highlightcolor = self._background, highlightthickness = 0, image = None, justify = self._justify, relief = "flat", state = "normal", takefocus = False, text = self._text, textvariable = None, underline = self._underline, wraplength = self._wraplength)
+
+    def _rewrite(self):
+        textWidth = self._font.measure(self._text)
+        if textWidth > self._width:
+            while textWidth > self._width - self._font.measure("..."):
+                self._text = self._text[:-1]
+                textWidth = self._font.measure(self._text)
+            self._text = self._text + "..."
     
     def place(self):
-        super().place(x = self.x, y = self.y, width = self.width, anchor = self.anchor)
+        super().place(x = self._x, y = self._y, width = self._width, anchor = self._anchor)
+    
+    def destroy(self):
+        super().destroy()
+        self.__dict__.clear()
         
     def setText(self, text: str = None):
         if text != None:
-            super().configure(text = text)
+            self._text = text
+            if self._wraplength == 0:
+                self._rewrite()
+            super().configure(text = self._text)
     
-    def getHeight(self):
-        return self.winfo_reqheight()
+    def npget(self, attribute: str):
+        if attribute == "width":
+            return self._width
+        if attribute == "height":
+            return super().winfo_reqheight()

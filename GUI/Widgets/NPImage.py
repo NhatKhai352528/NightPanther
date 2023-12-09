@@ -1,20 +1,24 @@
-from PIL import Image, ImageTk
+from PIL import Image
+from PIL.ImageTk import PhotoImage
 from ..Customs.NPTheme import NPTheme
 
 currentTheme = NPTheme.getTheme()
         
-class NPImage:
+class NPImage(PhotoImage):
     
-    def __init__(self, file: str, width: int, height: int) -> None:
+    def __init__(self, file: str, width: int, height: int):
+        
+        # File path
+        self._file = file
         
         # Size variables
-        self.width = int(width)
-        self.height = int(height)
+        self._width = int(width)
+        self._height = int(height)
         
         try:
-            self.image = Image.open(file = file, mode = "r")
-            self.image = self.image.resize(size = (self.width, self.height))
+            self._image = Image.open(fp = self._file, mode = "r")
+            self._image = self._image.resize(size = (self._width, self._height))
         except:
-            self.image = Image.new(mode = "RGB", size = (self.width, self.height), color = currentTheme["default"]["color"])
-            
-        self.image = ImageTk.PhotoImage(image = self.image)
+            self._image = Image.new(mode = "RGB", size = (self._width, self._height), color = currentTheme["default"]["color"])
+        
+        super().__init__(image = self._image)
