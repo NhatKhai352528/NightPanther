@@ -87,11 +87,11 @@ class NPInteract(NPFrames):
     #
     # NPButtonArray
     
-    def initButtonArray(self, mode: Literal["single", "multiple", "voting"], rows: int, columns: int, widthSize: int, heightSize: int, defaults: list[list[Literal["default", "active", "disabled"]]] = None, texts: list[list[str]] = None):
+    def initButtonArray(self, mode: Literal["single", "multiple", "voting"], rows: int, columns: int, defaults: list[list[Literal["default", "active", "disabled"]]] = None, texts: list[list[str]] = None):
         
         currentFont = currentTheme["font"]["strong"]
         
-        self._items.append(NPButtonArray(master = self._frame, mode = mode, x = 0.5 * self._width, y = self._currentY, distance = self._distance, anchor = "n", background = self.npget("background"), rows = rows, columns = columns, widthSize = widthSize, heightSize = heightSize, font = currentFont, defaults = defaults, texts = texts))
+        self._items.append(NPButtonArray(master = self._frame, mode = mode, x = 0.5 * self._width, y = self._currentY, distance = self._distance, anchor = "n", background = self.npget("background"), rows = rows, columns = columns, widthSize = 100, heightSize = 50, font = currentFont, defaults = defaults, texts = texts))
         
         return self._recheck()
     
