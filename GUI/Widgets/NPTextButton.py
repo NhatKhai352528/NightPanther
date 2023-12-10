@@ -45,11 +45,6 @@ class NPTextButton(Button):
     def destroy(self):
         super().destroy()
         self.__dict__.clear()
-        
-    def setText(self, text: str = None):
-        if text != None:
-            self._text = text
-            super().configure(text = self._text)
     
     def npget(self, attribute: str):
         if attribute == "background":

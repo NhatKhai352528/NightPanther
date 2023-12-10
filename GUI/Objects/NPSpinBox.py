@@ -72,26 +72,36 @@ class NPSpinBox(NPObjects):
         self._actionButton.place()
         
     def _decrease(self):
-        value = roundFloat(self._value.get(), self._decimal)
+        value = roundFloat(num = self._value.get(), decimal = self._decimal)
         if value - self._step >= self._minimum:
-            self._value.set(roundFloat(value - self._step, self._decimal))
+            self._value.set(roundFloat(num =value - self._step, decimal = self._decimal))
         elif self._wrap == True and value == self._minimum:
-            self._value.set(roundFloat(self._maximum, self._decimal))
+            self._value.set(roundFloat(num = self._maximum, decimal = self._decimal))
         else:
-            self._value.set(roundFloat(self._minimum, self._decimal))
+            self._value.set(roundFloat(num = self._minimum, decimal = self._decimal))
     
     def _increase(self):
-        value = roundFloat(self._value.get(), self._decimal)
+        value = roundFloat(num = self._value.get(), decimal = self._decimal)
         if value + self._step <= self._maximum:
-            self._value.set(roundFloat(value + self._step, self._decimal))
+            self._value.set(roundFloat(num = value + self._step, decimal = self._decimal))
         elif self._wrap == True and value == self._maximum:
-            self._value.set(roundFloat(self._minimum, self._decimal))
+            self._value.set(roundFloat(num = self._minimum, decimal = self._decimal))
         else:
-            self._value.set(roundFloat(self._maximum, self._decimal))
+            self._value.set(roundFloat(num = self._maximum, decimal = self._decimal))
     
-    def resetValue(self):
-        self._value.set(roundFloat(self._default, self._decimal, self._decimal))
+    def npconfigure(self, actionCommand: Any = None):
+        if actionCommand != None:
+            self._actionCommand = actionCommand
+            self._actionButton.configure(command = self._actionCommand)
     
-    def getValue(self):
-        return roundFloat(self._value.get(), self._decimal)
-        
+    def npset(self, attribute: str, value: Any = None):
+        if attribute == "value":
+            self._value.set(roundFloat(num = self._default if value == None else value, decimal = self._decimal))
+        else:
+            return super().npset(attribute = attribute, value = value)
+    
+    def npget(self, attribute: str):
+        if attribute == "value":
+            return roundFloat(num = self._value.get(), decimal = self._decimal)
+        else:
+            return super().npget(attribute = attribute)

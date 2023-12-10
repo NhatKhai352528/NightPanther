@@ -13,25 +13,28 @@ currentLanguage = NPLanguage.getLanguage()
 # Status
 from .Frames.NPStatus import NPStatus
 stt = NPStatus(root)
-stt.initImage("w", None)
+stt.initImage("w", "GUI/Images/Logo1.png")
 stt.initImage("e", None)
 stt.initText(400, "w", "Wakanda Forever")
 stt.place()
 
-# Workspace
+# # Workspace
 def tester():
     try:
-        pass
+        print(f1._format.npget("filePaper"))
+        print(f1._format.npget("fileSides"))
     except:
         print("Fail")
+    root.after(1000, tester)
 
 from .Pages.Prints.NPPrints import NPPrints
-NPPrints(root)
+f1 = NPPrints(root)
 
-# from .Pages.Prints.NPFormat import NPFormat
-# pg12 = NPFormat(root)
-# pg12.place()
-# root.after(2000, tester)
+# fr = Frame(root)
+# fr.place(x=0, y=0, width=800, height=480)
+# from .Objects.NPButtonArray import NPButtonArray
+# btns = NPButtonArray(fr, "multiple", 10, 10, 10, "nw", "red", 2, 3, 30, 30, None, [["default", "default", "active"], ["active", "disabled", "default"]])
+# btns.place()
 
 # Run the main application loop
 root.mainloop()

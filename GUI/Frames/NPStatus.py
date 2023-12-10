@@ -33,7 +33,7 @@ class NPStatus(NPFrames):
         if anchor == "w":
             if self._currentLeft + self._items[currentIndex].npget("width") + self._distance > self._currentRight:
                 self._items[currentIndex].destroy()
-                return -1
+                return None
             else:
                 self._items[currentIndex].place()
                 self._currentLeft = self._currentLeft + self._items[currentIndex].npget("width") + self._distance
@@ -41,7 +41,7 @@ class NPStatus(NPFrames):
         elif anchor == "e":
             if self._currentRight - self._items[currentIndex].npget("height") - self._distance < self._currentLeft:
                 self._items[currentIndex].destroy()
-                return -1
+                return None
             else:
                 self._items[currentIndex].place()
                 self._currentRight = self._currentRight - self._items[currentIndex].npget("height") - self._distance
@@ -53,7 +53,7 @@ class NPStatus(NPFrames):
             return
         if not isinstance(self._items[index], NPImageLabel):
             return
-        self._items[index].setImage(imageFile)
+        self._items[index].npset(attribute = "imageFile", value = imageFile)
     
     def initText(self, width: int, anchor: Literal["w", "e"], text: str):
         
@@ -71,7 +71,7 @@ class NPStatus(NPFrames):
         if anchor == "w":
             if self._currentLeft + self._items[currentIndex].npget("width") + self._distance > self._currentRight:
                 self._items[currentIndex].destroy()
-                return -1
+                return None
             else:
                 self._items[currentIndex].place()
                 self._currentLeft = self._currentLeft + self._items[currentIndex].npget("width") + self._distance
@@ -79,7 +79,7 @@ class NPStatus(NPFrames):
         elif anchor == "e":
             if self._currentRight - self._items[currentIndex].npget("height") - self._distance < self._currentLeft:
                 self._items[currentIndex].destroy()
-                return -1
+                return None
             else:
                 self._items[currentIndex].place()
                 self._currentRight = self._currentRight - self._items[currentIndex].npget("height") - self._distance
@@ -90,4 +90,4 @@ class NPStatus(NPFrames):
             return
         if not isinstance(self._items[index], NPTextLabel):
             return
-        self._items[index].setText(text)
+        self._items[index].npset(attribute = "text", value = text)

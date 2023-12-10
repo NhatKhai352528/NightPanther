@@ -26,6 +26,6 @@ class NPFrame(Frame):
         super().destroy()
         self.__dict__.clear()
     
-    def npset(self, attribute: str, value: Any):
+    def npset(self, attribute: str, value: Any = None):
         if attribute == "width":
             self._width = value

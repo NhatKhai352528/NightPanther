@@ -29,14 +29,14 @@ class NPInteract(NPFrames):
         try:
             if self._currentY + self._items[currentIndex].npget("height") >= self._height:
                 self._items[currentIndex].destroy()
-                return -1
+                return None
             else:
                 self._items[currentIndex].place()
                 self._currentY = self._currentY + self._items[currentIndex].npget("height")
                 return currentIndex
         # Can not access the currentIndex-th object of the list self._items
         except:
-            return -1
+            return None
     
     #
     # NPImageLabel
@@ -53,7 +53,7 @@ class NPInteract(NPFrames):
             return
         if not isinstance(self._items[index], NPImageLabel):
             return
-        self._items[index].setImage(imageFile)
+        self._items[index].npset(attribute = "imageFile", value = imageFile)
     
     #
     # NPTextLabel
@@ -82,12 +82,12 @@ class NPInteract(NPFrames):
             return
         if not isinstance(self._items[index], NPTextLabel):
             return
-        self._items[index].setText(text)
+        self._items[index].npset(attribute = "text", value = text)
     
     #
     # NPButtonArray
     
-    def initButtonArray(self, mode: Literal["single", "multiple", "voting"], rows: int, columns: int, defaults: list[list[Literal["default", "active", "disabled"]]] = None, texts: list[list[str]] = None):
+    def initButtonArray(self, mode: Literal["single", "multiple"], rows: int, columns: int, defaults: list[list[Literal["default", "active", "disabled"]]] = None, texts: list[list[str]] = None):
         
         currentFont = currentTheme["font"]["strong"]
         
@@ -131,3 +131,31 @@ class NPInteract(NPFrames):
         self._items.append(NPSpinBox(master = self._frame, x = 0.5 * self._width, y = self._currentY, distance = self._distance, anchor = "n", background = self.npget("background"), size = 50, default = default, minimum = minimum, maximum = maximum, step = step, wrap = wrap, entryFont = entryFont, inputFont = inputFont, actionFont = actionFont, actionText = actionText, actionCommand = actionCommand))
         
         return self._recheck()
+    
+    def npget(self, attribute: str, index: Any = None):
+        if index == None:
+            return super().npget(attribute = attribute)
+        if attribute == "buttonArray":
+            if index >= len(self._items):
+                return
+            if not isinstance(self._items[index], NPButtonArray):
+                return
+            return self._items[index]
+        elif attribute == "keyBoard":
+            if index >= len(self._items):
+                return
+            if not isinstance(self._items[index], NPKeyBoard):
+                return
+            return self._items[index]
+        elif attribute == "progressBar":
+            if index >= len(self._items):
+                return
+            if not isinstance(self._items[index], NPProgressBar):
+                return
+            return self._items[index]
+        elif attribute == "spinBox":
+            if index >= len(self._items):
+                return
+            if not isinstance(self._items[index], NPSpinBox):
+                return
+            return self._items[index]

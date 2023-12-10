@@ -9,7 +9,7 @@ currentTheme = NPTheme.getTheme()
 
 class NPButtonArray(NPObjects):
     
-    def __init__(self, master: Frame, mode: Literal["single", "multiple", "voting"], x: int, y: int, distance: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str, rows: int, columns: int, widthSize: int, heightSize: int, font: Font = currentTheme["font"]["default"], defaults: list[list[Literal["default", "active", "disabled"]]] = None, texts: list[list[str]] = None):
+    def __init__(self, master: Frame, mode: Literal["single", "multiple"], x: int, y: int, distance: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str, rows: int, columns: int, widthSize: int, heightSize: int, font: Font = currentTheme["font"]["default"], defaults: list[list[Literal["default", "active", "disabled"]]] = None, texts: list[list[str]] = None):
         
         """
         defaults: matrix of rows x columns Literal
@@ -62,13 +62,9 @@ class NPButtonArray(NPObjects):
                     self._buttons[i][j].configure(command = lambda event = None, i = i, j = j: self._single(row = i, column = j))
                 elif self._mode == "multiple":
                     self._buttons[i][j].configure(command = lambda event = None, i = i, j = j: self._multiple(row = i, column = j))
-                elif self._mode == "voting":
-                    self._buttons[i][j].configure(command = lambda event = None, i = i, j = j: self._voting(row = i, column = j))
                 self._buttons[i][j].place()
     
     def _setStatus(self, row: int, column: int, status: Literal["default", "active", "disabled"]):
-        if self._status[row][column] == "disabled":
-            return
         if status == self._status[row][column]:
             return
         if status == "disabled":
@@ -85,6 +81,8 @@ class NPButtonArray(NPObjects):
     def _single(self, row: int, column: int):
         for i in range(self._rows):
             for j in range(self._columns):
+                if self._status[i][j] == "disabled":
+                    continue
                 if i == row and j == column:
                     self._setStatus(row = i, column = j, status = "active")
                 else:
@@ -96,19 +94,20 @@ class NPButtonArray(NPObjects):
         elif self._status[row][column] == "default":
             self._setStatus(row = row, column = column, status = "active")
     
-    def _voting(self, row: int, column: int):
-        for i in range(self._rows):
-            for j in range(self._columns):
-                if i <= row and j <= column:
-                    self._setStatus(row = i, column = j, status = "active")
-                else:
-                    self._setStatus(row = i, column = j, status = "default")
+    def npset(self, attribute: str, value: Any = None):
+        if attribute == "status":
+            self._setStatus(row = value[0], column = value[1], status = value[2])
+        return super().npset(attribute = attribute, value = value)
     
-    def isDefault(self, row: int, column: int):
-        return self._status[row][column] == "default"
-    
-    def isActive(self, row: int, column: int):
-        return self._status[row][column] == "active"
-    
-    def isDisabled(self, row: int, column: int):
-        return self._status[row][column] == "disabled"
+    def npget(self, attribute: str):
+        if attribute == "default" or attribute == "active" or attribute == "disabled":
+            result = [[bool for _ in range(self._columns)] for _ in range(self._rows)]
+            for i in range(self._rows):
+                for j in range(self._columns):
+                    if self._status[i][j] == attribute:
+                        result[i][j] = True
+                    else:
+                        result[i][j] = False
+            return result
+        else:
+            return super().npget(attribute = attribute)

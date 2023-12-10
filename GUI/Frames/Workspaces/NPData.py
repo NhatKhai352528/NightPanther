@@ -19,7 +19,7 @@ class NPData(NPFrames):
         
         # This frame allows the last item to exceed its boundaries
         if self._currentY >= self._height:
-            return -1
+            return None
         
         # Get current index, font anf foreground
         currentIndex = len(self._items)
@@ -51,4 +51,4 @@ class NPData(NPFrames):
             return
         if not isinstance(self._items[index], NPTextLabel):
             return
-        self._items[index].setText(text)
+        self._items[index].npset(attribute = "text", value = text)

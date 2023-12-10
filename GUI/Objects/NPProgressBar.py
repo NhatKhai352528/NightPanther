@@ -1,5 +1,5 @@
 from tkinter import Frame, DoubleVar
-from typing import Literal
+from typing import Any, Literal
 from .NPObjects import NPObjects
 from ..Customs.NPTheme import NPTheme
 from ..Widgets.NPFrame import NPFrame
@@ -37,24 +37,30 @@ class NPProgressBar(NPObjects):
     
     def _fill(self):
         if self._maximum != 0:
-            self._filledBar.npset("width", int((self._value.get() / self._maximum) * (self._barSize - 2 * self._barDistance)))
+            self._filledBar.npset(attribute = "width", value = int((self._value.get() / self._maximum) * (self._barSize - 2 * self._barDistance)))
         else:
-            self._filledBar.npset("width", int(self._barSize - 2 * self._barDistance))
+            self._filledBar.npset(attribute = "width", value = int(self._barSize - 2 * self._barDistance))
         self._filledBar.place()
     
-    def setValue(self, value: float = None):
-        if value == None:
-            return
-        if value < 0:
-            value = 0
-        elif value > self._maximum:
-            value = self._maximum
-        if value != self._value.get():
-            self._value.set(value)
+    def npset(self, attribute: str, value: Any = None):
+        if attribute == "maximum":
+            self._maximum = value
             self._fill()
-                
-    def resetValue(self):
-        self._setValue(self._default)
+        elif attribute == "value":
+            if value == None:
+                value = self._default
+            elif value < 0:
+                value = 0
+            elif value > self._maximum:
+                value = self._maximum
+            if value != self._value.get():
+                self._value.set(value = value)
+                self._fill()
+        else:
+            return super().npset(attribute = attribute, value = value)
     
-    def getValue(self):
-        return self._value.get()
+    def npget(self, attribute: str):
+        if attribute == "value":
+            return self._value.get()
+        else:
+            return super().npget(attribute = attribute)

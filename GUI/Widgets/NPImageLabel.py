@@ -1,5 +1,5 @@
 from tkinter import Frame, Label
-from typing import Literal
+from typing import Any, Literal
 from .NPImage import NPImage
 from ..Customs.NPTheme import NPTheme
 
@@ -35,9 +35,12 @@ class NPImageLabel(Label):
         super().destroy()
         self.__dict__.clear()
     
-    def setImage(self, imageFile: str = None):
-        if imageFile != None:
-            self._imageFile = imageFile
+    def npset(self, attribute: str, value: Any = None):
+        if attribute == "image":
+            self._image = NPImage(file = self._imageFile, width = self._imageWidth, height = self._imageHeight)
+            self.configure(image = self._image)
+        elif attribute == "imageFile":
+            self._imageFile = value
             self._image = NPImage(file = self._imageFile, width = self._imageWidth, height = self._imageHeight)
             self.configure(image = self._image)
     

@@ -22,9 +22,9 @@ English = {
         "data": {
             "title": "Upload",
             "text0": "Place to upload:",
-            "text1": "Link:",
-            "text2": "Key:",
-            "text3": "File name:",
+            "text1": "Link: ",
+            "text2": "Key: ",
+            "text3": "File name: ",
             "text4": "Wating for you",
         },
         "control": {
@@ -38,7 +38,7 @@ English = {
     "format": {
         "data": {
             "title": "Formatting",
-            "text0": "File name:",
+            "text0": "File name: ",
             "text1": "Wating for you",
         },
         "control": {
@@ -48,6 +48,67 @@ English = {
         "interact": {
             "text0": "Choose your page size!",
             "text1": "Choose number of sides!",
+        },
+    },
+    "order": {
+        "data": {
+            "title": "Your order",
+            "text0": "File name: ",
+            "text1": "Price per copy: ",
+            "text2": "Total prices: ",
+        },
+        "control": {
+            "left": "Back",
+            "right": "Next",
+        },
+        "interact": {
+            "text0": "How many?",
+            "text1": "Confirm",
+        },
+    },
+    "payment": {
+        "data": {
+            "title": "Payment",
+            "text0": "File name: ",
+            "text1": "Number of copies: ",
+            "text2": "Total prices: ",
+        },
+        "control": {
+            "left": "Back",
+            "right": "Next",
+        },
+        "interact": {
+            "text0": "Scan to pay",
+        },
+    },
+    "printing": {
+        "data": {
+            "title": "Printing",
+            "text0": "Something here",
+            "text1": "File name: ",
+        },
+        "control": {
+            "left": "Back",
+            "right": "Next",
+        },
+        "interact": {
+            "text0": "Something here",
+            "text1": "Something here: ",
+            "text2": "Something here: ",
+        },
+    },
+    "success": {
+        "data": {
+            "title": "Success",
+            "text0": "Something here",
+        },
+        "control": {
+            "left": "Skip",
+            "right": "Submit",
+        },
+        "interact": {
+            "text0": "Something here",
+            "text1": "Something here",
         },
     },
 }

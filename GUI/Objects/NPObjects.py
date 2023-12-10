@@ -1,5 +1,5 @@
 from tkinter import Frame
-from typing import Literal
+from typing import Any, Literal
 from ..Widgets.NPFrame import NPFrame
 
 class NPObjects:
@@ -27,6 +27,9 @@ class NPObjects:
     def destroy(self):
         self._frame.destroy()
         self.__dict__.clear()
+    
+    def npset(self, attribute: str, value: Any):
+        return
     
     def npget(self, attribute: str):
         if attribute == "x":

@@ -1,6 +1,6 @@
 from tkinter import Frame, Label
 from tkinter.font import Font
-from typing import Literal
+from typing import Any, Literal
 from ..Customs.NPTheme import NPTheme
 
 currentTheme = NPTheme.getTheme()
@@ -46,10 +46,10 @@ class NPTextLabel(Label):
     def destroy(self):
         super().destroy()
         self.__dict__.clear()
-        
-    def setText(self, text: str = None):
-        if text != None:
-            self._text = text
+    
+    def npset(self, attribute: str, value: Any = None):
+        if attribute == "text":
+            self._text = value
             if self._wraplength == 0:
                 self._rewrite()
             super().configure(text = self._text)

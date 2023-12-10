@@ -113,8 +113,14 @@ class NPKeyBoard(NPObjects):
         if len(self._value.get()) == 0:
             self._value.set(self._default)
     
-    def resetValue(self):
-        self._value.set(self._default)
+    def npset(self, attribute: str, value: Any = None):
+        if attribute == "value":
+            self._value.set(self._default)
+        else:
+            return super().npset(attribute = attribute, value = value)
     
-    def getValue(self):
-        return self._value.get()
+    def npget(self, attribute: str):
+        if attribute == "value":
+            return self._value.get()
+        else:
+            return super().npget(attribute = attribute)
