@@ -1,15 +1,15 @@
-from tkinter import Frame
+from tkinter import Tk
 from typing import Any, Literal
-from ..NPFrames import NPFrames
-from ...Constants.NPWorkspace import Menu
-from ...Customs.NPTheme import NPTheme
-from ...Widgets.NPImageButton import NPImageButton
+from .NPFrames import NPFrames
+from ..Constants.NPWorkspace import Menu
+from ..Customs.NPTheme import NPTheme
+from ..Widgets.NPImageButton import NPImageButton
 
 currentTheme = NPTheme.getTheme()
 
 class NPMenu(NPFrames):
     
-    def __init__(self, master: Frame):
+    def __init__(self, master: Tk):
         
         super().__init__(master = master, x = Menu["x"], y = Menu["y"], width = Menu["width"], height = Menu["height"], distance = Menu["distance"], anchor = "nw", background = currentTheme["background"]["menu"])
         

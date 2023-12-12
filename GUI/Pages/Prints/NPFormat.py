@@ -9,18 +9,7 @@ class NPFormat(NPPages):
     
     def __init__(self, master: Tk, commands: list[Any, Any] = None, fileName: str = None, availablePaper: list[bool] = None, availableSides: list[bool] = None):
         
-        super().__init__(master)
-        
-        # Passed commands handler
-        self._commands = [Any, Any]
-        try:
-            self._commands[0] = commands[0]
-        except:
-            self._commands[0] = None
-        try:
-            self._commands[1] = commands[1]
-        except:
-            self._commands[1] = None
+        super().__init__(master = master, commands = commands)
         
         # Passed variables handler
         self._fileName = fileName if fileName != None else ""
@@ -65,14 +54,14 @@ class NPFormat(NPPages):
     
     def npget(self, attribute: str):
         if attribute == "filePaper":
-            if self._filePaperButtonArray.npget("active")[0][0] == True:
+            if self._filePaperButtonArray.npget(attribute = "active")[0][0] == True:
                 return "a3"
-            elif self._filePaperButtonArray.npget("active")[0][1] == True:
+            elif self._filePaperButtonArray.npget(attribute = "active")[0][1] == True:
                 return "a4"
-            elif self._filePaperButtonArray.npget("active")[0][2] == True:
+            elif self._filePaperButtonArray.npget(attribute = "active")[0][2] == True:
                 return "a5"
         elif attribute == "fileSides":
-            if self._fileSidesButtonArray.npget("active")[0][0]:
+            if self._fileSidesButtonArray.npget(attribute = "active")[0][0]:
                 return "1s"
-            elif self._fileSidesButtonArray.npget("active")[0][1]:
+            elif self._fileSidesButtonArray.npget(attribute = "active")[0][1]:
                 return "2s"

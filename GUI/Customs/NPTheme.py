@@ -16,3 +16,7 @@ class NPTheme:
     @classmethod
     def getTheme(cls):
         return cls.currentTheme
+    
+    @classmethod
+    def getThemes(cls):
+        return list(cls.availableThemes.keys())

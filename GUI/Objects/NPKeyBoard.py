@@ -14,12 +14,6 @@ class NPKeyBoard(NPObjects):
     
     def __init__(self, master: Frame, x: int, y: int, distance: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str, size: int, default: str, maximum: int, show: str, entryFont: Font = currentTheme["font"]["default"], inputFont: Font = currentTheme["font"]["default"], actionFont: Font = currentTheme["font"]["default"], inputTexts: list[str] = None, actionTexts: list[str] = None, actionCommands: list[Any] = None):
         
-        """
-        inputTexts: list of 2 str
-        actionTexts: list of 2 str
-        actionCommands: list of 2 Any
-        """
-        
         # Size variables
         self._rows = 4
         self._columns = 4

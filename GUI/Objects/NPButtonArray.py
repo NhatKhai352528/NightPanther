@@ -11,11 +11,6 @@ class NPButtonArray(NPObjects):
     
     def __init__(self, master: Frame, mode: Literal["single", "multiple"], x: int, y: int, distance: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str, rows: int, columns: int, widthSize: int, heightSize: int, font: Font = currentTheme["font"]["default"], defaults: list[list[Literal["default", "active", "disabled"]]] = None, texts: list[list[str]] = None):
         
-        """
-        defaults: matrix of rows x columns Literal
-        texts: matrix of rows x columns str
-        """
-        
         # Mode variables
         self._mode = mode
         
@@ -59,17 +54,18 @@ class NPButtonArray(NPObjects):
                 self._buttons[i][j] = NPTextButton(master = self._frame, mode = "select", x = j * self._widthSize + (j + 1) * self._distance, y = i * self._heightSize + (i + 1) * self._distance, width = self._widthSize, height = self._heightSize, anchor = "nw", command = None, font = self._font, repeat = False, state = "normal", text = self._texts[i][j])
                 self._setStatus(row = i, column = j, status = self._defaults[i][j])
                 if self._mode == "single":
-                    self._buttons[i][j].configure(command = lambda event = None, i = i, j = j: self._single(row = i, column = j))
+                    self._buttons[i][j].npset(attribute = "command", value = lambda event = None, i = i, j = j: self._single(row = i, column = j))
                 elif self._mode == "multiple":
-                    self._buttons[i][j].configure(command = lambda event = None, i = i, j = j: self._multiple(row = i, column = j))
+                    self._buttons[i][j].npset(attribute = "command", value = lambda event = None, i = i, j = j: self._multiple(row = i, column = j))
                 self._buttons[i][j].place()
     
     def _setStatus(self, row: int, column: int, status: Literal["default", "active", "disabled"]):
         if status == self._status[row][column]:
             return
         if status == "disabled":
-            self._buttons[row][column].configure(background = self._buttons[row][column].npget(attribute = "disabledbackground"))
-            self._buttons[row][column].configure(state = "disabled")
+            # self._buttons[row][column].configure(background = self._buttons[row][column].npget(attribute = "disabledbackground"))
+            # self._buttons[row][column].configure(state = "disabled")
+            self._buttons[row][column].npset(attribute = "state", value = "disabled")
         elif status == "default":
             self._buttons[row][column].configure(activebackground = self._buttons[row][column].npget(attribute = "activebackground"))
             self._buttons[row][column].configure(background = self._buttons[row][column].npget(attribute = "background"))

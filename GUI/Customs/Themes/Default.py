@@ -30,6 +30,7 @@ Default = {
         "data": BasicRGB["white"]["0"],
         "control": BasicRGB["white"]["0"],
         "interact": BasicRGB["white"]["1"],
+        "confirm": BasicRGB["black"]["1"],
     },
     "entry": {
         "default": BasicRGB["white"]["0"],

@@ -38,11 +38,11 @@ class NPImageLabel(Label):
     def npset(self, attribute: str, value: Any = None):
         if attribute == "image":
             self._image = NPImage(file = self._imageFile, width = self._imageWidth, height = self._imageHeight)
-            self.configure(image = self._image)
+            super().configure(image = self._image)
         elif attribute == "imageFile":
             self._imageFile = value
             self._image = NPImage(file = self._imageFile, width = self._imageWidth, height = self._imageHeight)
-            self.configure(image = self._image)
+            super().configure(image = self._image)
     
     def npget(self, attribute: str):
         if attribute == "width":

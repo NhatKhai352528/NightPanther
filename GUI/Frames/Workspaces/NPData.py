@@ -1,4 +1,4 @@
-from tkinter import Frame
+from tkinter import Tk
 from typing import Literal
 from ..NPFrames import NPFrames
 from ...Constants.NPWorkspace import Data
@@ -9,7 +9,7 @@ currentTheme = NPTheme.getTheme()
 
 class NPData(NPFrames):
     
-    def __init__(self, master: Frame):
+    def __init__(self, master: Tk):
         
         super().__init__(master = master, x = Data["x"], y = Data["y"], width = Data["width"], height = Data["height"], distance = Data["distance"], anchor = "nw", background = currentTheme["background"]["data"])
         
@@ -42,7 +42,7 @@ class NPData(NPFrames):
         # Define a new text label, place it onto the frame, and update position for the next item
         self._items.append(NPTextLabel(master = self._frame, x = self._distance, y = self._currentY, width = self._width - 2 * self._distance, anchor = "nw", background = currentTheme["background"]["default"], font = currentFont, foreground = currentForeground, justify = "left", text = text, textAnchor = "nw", underline = -1, wraplength = 0 if wrap == False else self._width - 2 * self._distance))
         self._items[currentIndex].place()
-        self._currentY = self._currentY + self._items[currentIndex].npget("height")
+        self._currentY = self._currentY + self._items[currentIndex].npget(attribute = "height")
         
         return currentIndex
     

@@ -12,18 +12,7 @@ class NPOrder(NPPages):
     
     def __init__(self, master: Tk, commands: list[Any, Any] = None, fileName: str = None, filePrice: int = None):
         
-        super().__init__(master)
-        
-        # Passed commands handler
-        self._commands = [Any, Any]
-        try: 
-            self._commands[0] = commands[0]
-        except:
-            self._commands[0] = None
-        try: 
-            self._commands[1] = commands[1]
-        except:
-            self._commands[1] = None
+        super().__init__(master = master, commands = commands)
         
         # Passed variables handler
         self._fileName = fileName if fileName != None else ""
@@ -50,9 +39,9 @@ class NPOrder(NPPages):
         # Initialize items for interact frame
         self._interact.initText(mode = "content", text = "", justify = "center")
         self._interact.initText(mode = "heading", text = currentLanguage["order"]["interact"]["text0"], justify = "center")
-        self._userCopiesIndex = self._interact.initSpinBox(default = self._userCopies, minimum = 1, maximum = 100, step = 1, wrap = False, actionText = currentLanguage["order"]["interact"]["text1"], actionCommand = None)
+        self._userCopiesIndex = self._interact.initSpinBox(default = self._userCopies, minimum = 1, maximum = 100, step = 1, wrap = False, actionCommand = None)
         self._userCopiesSpinBox = self._interact.npget(attribute = "spinBox", index = self._userCopiesIndex)
-        self._userCopiesSpinBox.npconfigure(actionCommand = lambda event = None: self.npset(attribute = "userCopies", value = self._userCopiesSpinBox.npget(attribute = "value")))
+        self._userCopiesSpinBox.npset(attribute = "actionCommand", value = lambda event = None: self.npset(attribute = "userCopies", value = self._userCopiesSpinBox.npget(attribute = "value")))
     
     def npset(self, attribute: str, value: Any = None):
         if attribute == "fileName":

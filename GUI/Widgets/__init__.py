@@ -3,5 +3,7 @@ from .NPFrame import NPFrame
 from .NPImage import NPImage
 from .NPImageButton import NPImageButton
 from .NPImageLabel import NPImageLabel
+from .NPMessage import NPMessage
 from .NPTextButton import NPTextButton
 from .NPTextLabel import NPTextLabel
+from .NPToplevel import NPToplevel

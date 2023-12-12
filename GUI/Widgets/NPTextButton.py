@@ -46,6 +46,15 @@ class NPTextButton(Button):
         super().destroy()
         self.__dict__.clear()
     
+    def npset(self, attribute: str, value: Any = None):
+        if attribute == "command":
+            self._command = value
+            super().configure(command = self._command)
+        elif attribute == "state":
+            self._state = value
+            super().configure(background = self._background if self._state == "normal" else self._disabledbackground)
+            super().configure(state = self._state)
+    
     def npget(self, attribute: str):
         if attribute == "background":
             return self._background
@@ -53,3 +62,5 @@ class NPTextButton(Button):
             return self._activebackground
         elif attribute == "disabledbackground":
             return self._disabledbackground
+        elif attribute == "height":
+            return self._height

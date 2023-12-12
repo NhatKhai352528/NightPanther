@@ -9,18 +9,7 @@ class NPPrinting(NPPages):
     
     def __init__(self, master: Tk, commands: list[Any, Any] = None, fileName: str = None, filePages: int = None, userCopies: int = None):
         
-        super().__init__(master)
-        
-        # Passed commands handler
-        self._commands = [Any, Any]
-        try: 
-            self._commands[0] = commands[0]
-        except:
-            self._commands[0] = None
-        try: 
-            self._commands[1] = commands[1]
-        except:
-            self._commands[1] = None
+        super().__init__(master = master, commands = commands)
         
         # Passed variables handler
         self._fileName = fileName if fileName != None else ""

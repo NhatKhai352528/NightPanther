@@ -1,4 +1,4 @@
-from tkinter import Frame
+from tkinter import Tk
 from typing import Any, Literal
 from ..NPFrames import NPFrames
 from ...Constants.NPWorkspace import Control
@@ -9,7 +9,7 @@ currentTheme = NPTheme.getTheme()
 
 class NPControl(NPFrames):
     
-    def __init__(self, master: Frame):
+    def __init__(self, master: Tk):
         
         super().__init__(master = master, x = Control["x"], y = Control["y"], width = Control["width"], height = Control["height"], distance = Control["distance"], anchor = "nw", background = currentTheme["background"]["control"])
         

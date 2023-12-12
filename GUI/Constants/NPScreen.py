@@ -14,10 +14,18 @@ Status = {
     "distance": int(Screen["distance"])
 }
 
-Workspace = {
+Viewport = {
     "x": 0,
     "y": int(Status["height"]),
     "width": int(Screen["width"]),
     "height": int(0.9 * Screen["height"]),
     "distance": int(Screen["distance"])
+}
+
+Menu = {
+    "x": 0,
+    "y": int(Viewport["y"]),
+    "width": int(0.4 * Viewport["width"]),
+    "height": int(0.2 * Viewport["height"]),
+    "distance": int(Viewport["distance"])
 }

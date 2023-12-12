@@ -1,18 +1,20 @@
 from tkinter import Tk
 from threading import Thread
-from .NPFormat import NPFormat
-from .NPOrder import NPOrder
-from .NPPayment import NPPayment
-from .NPPrinting import NPPrinting
-from .NPSuccess import NPSuccess
-from .NPUpload import NPUpload
-from ...Constants.NPPrice import Price
+from typing import Any
+from ..Pages.Prints.NPFormat import NPFormat
+from ..Pages.Prints.NPOrder import NPOrder
+from ..Pages.Prints.NPPayment import NPPayment
+from ..Pages.Prints.NPPrinting import NPPrinting
+from ..Pages.Prints.NPSuccess import NPSuccess
+from ..Pages.Prints.NPUpload import NPUpload
+from ..Constants.NPPrice import Price
 
 class NPPrints:
     
-    def __init__(self, master: Tk):
+    def __init__(self, master: Tk, destroyCommand: Any):
         
         self._master = master
+        self._destroyCommand = destroyCommand
         
         # Pages
         self._upload = None
@@ -42,6 +44,7 @@ class NPPrints:
         self._printerPage = 0
         self._printerCopy = 0
         
+    def place(self):
         getServerVariables = Thread(target = None)
         getServerVariables.start()
         self._upload = NPUpload(master = self._master, commands = [None, lambda event = None: self._uploadToFormat()], serverLink = self._serverLink, serverKey = self._serverKey, fileName = self._fileName)
@@ -66,8 +69,8 @@ class NPPrints:
         self._upload.place_forget()
     
     def _formatToOrder(self):
-        self._filePaper = self._format.npget("filePaper")
-        self._fileSides = self._format.npget("fileSides")
+        self._filePaper = self._format.npget(attribute = "filePaper")
+        self._fileSides = self._format.npget(attribute = "fileSides")
         self._filePrice = Price[self._filePaper][self._fileSides]
         if self._order == None:
             self._order = NPOrder(master = self._master, commands = [lambda event = None: self._orderToFormat(), lambda event = None: self._orderToPayment()], fileName = self._fileName, filePrice = self._filePrice)
@@ -81,8 +84,8 @@ class NPPrints:
         self._order.place_forget()
     
     def _orderToPayment(self):
-        self._userCopies = self._order.npget("userCopies")
-        self._userPrice = self._order.npget("userPrice")
+        self._userCopies = self._order.npget(attribute = "userCopies")
+        self._userPrice = self._order.npget(attribute = "userPrice")
         getUserVariables = Thread(target = None)
         getUserVariables.start()
         self._payment = NPPayment(master = self._master, commands = [None, lambda event = None: self._paymentToPrinting()], fileName = self._fileName, userCopies = self._userCopies, userPrice = self._userPrice, userQRFile = self._userQRFile)
@@ -95,7 +98,7 @@ class NPPrints:
         self._payment.place_forget()
     
     def _printingToSuccess(self):
-        self._success = NPSuccess(master = self._master, commands = [None, lambda event = None: self.destroy()])
+        self._success = NPSuccess(master = self._master, commands = [None, self._destroyCommand])
         self._success.place()
         self._printing.place_forget()
         

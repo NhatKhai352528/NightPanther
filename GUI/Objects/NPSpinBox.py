@@ -2,10 +2,12 @@ from tkinter import Frame, DoubleVar
 from tkinter.font import Font
 from typing import Any, Literal
 from .NPObjects import NPObjects
+from ..Customs.NPLanguage import NPLanguage
 from ..Customs.NPTheme import NPTheme
 from ..Widgets.NPEntry import NPEntry
 from ..Widgets.NPTextButton import NPTextButton
 
+currentLanguage = NPLanguage.getLanguage()
 currentTheme = NPTheme.getTheme()
 
 def maxDecimal(nums: list[float]):
@@ -24,7 +26,7 @@ def roundFloat(num: float, decimal: int):
 
 class NPSpinBox(NPObjects):
     
-    def __init__(self, master: Frame, x: int, y: int, distance: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str, size: int, default: float, minimum: float, maximum: float, step: float, wrap: bool, entryFont: Font = currentTheme["font"]["default"], inputFont: Font = currentTheme["font"]["default"], actionFont: Font = currentTheme["font"]["default"], actionText: str = None, actionCommand: Any = None):
+    def __init__(self, master: Frame, x: int, y: int, distance: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str, size: int, default: float, minimum: float, maximum: float, step: float, wrap: bool, entryFont: Font = currentTheme["font"]["default"], inputFont: Font = currentTheme["font"]["default"], actionFont: Font = currentTheme["font"]["default"], actionCommand: Any = None):
         
         # Size variables
         self._size = int(size)
@@ -52,7 +54,6 @@ class NPSpinBox(NPObjects):
         self._actionFont = actionFont
         
         # Action variables
-        self._actionText = actionText
         self._actionCommand = actionCommand
         
         # SpinBox's screen
@@ -68,7 +69,7 @@ class NPSpinBox(NPObjects):
         self._increaseButton.place()
         
         # SpinBox's action button
-        self._actionButton = NPTextButton(master = self._frame, mode = "action", x = self._width - self._distance, y = self._distance, width = self._actionSize, height = self._size, anchor = "ne", command = self._actionCommand, font = self._actionFont, repeat = False, state = "normal" if self._actionText != None else "disabled", text = self._actionText)
+        self._actionButton = NPTextButton(master = self._frame, mode = "action", x = self._width - self._distance, y = self._distance, width = self._actionSize, height = self._size, anchor = "ne", command = self._actionCommand, font = self._actionFont, repeat = False, state = "normal" if self._actionCommand != None else "disabled", text = currentLanguage["spinBox"]["confirm"])
         self._actionButton.place()
         
     def _decrease(self):
@@ -89,14 +90,13 @@ class NPSpinBox(NPObjects):
         else:
             self._value.set(roundFloat(num = self._maximum, decimal = self._decimal))
     
-    def npconfigure(self, actionCommand: Any = None):
-        if actionCommand != None:
-            self._actionCommand = actionCommand
-            self._actionButton.configure(command = self._actionCommand)
-    
     def npset(self, attribute: str, value: Any = None):
         if attribute == "value":
             self._value.set(roundFloat(num = self._default if value == None else value, decimal = self._decimal))
+        elif attribute == "actionCommand":
+            self._actionCommand = value
+            self._actionButton.npset(attribute = "command", value = value)
+            self._actionButton.npset(attribute = "state", value = "normal" if self._actionCommand != None else "disabled")
         else:
             return super().npset(attribute = attribute, value = value)
     

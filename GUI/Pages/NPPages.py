@@ -1,32 +1,40 @@
 from tkinter import Tk
+from typing import Any
 from ..Frames.Workspaces.NPControl import NPControl
 from ..Frames.Workspaces.NPData import NPData
 from ..Frames.Workspaces.NPInteract import NPInteract
-from ..Frames.Workspaces.NPWorkspace import NPWorkspace
 
 class NPPages:
     
-    def __init__(self, master: Tk):
+    def __init__(self, master: Tk, commands: list[Any] = None):
         
         self._master = master
-        self._workspace = NPWorkspace(master = self._master)
-        self._mainFrame = self._workspace.npget(attribute = "frame")
+
+        # Passed commands handler
+        self._commands = [Any, Any]
+        for i in range(2):
+            try:
+                self._commands[i] = commands[i]
+            except:
+                self._commands[i] = None
         
-        self._data = NPData(master = self._mainFrame)
-        self._control = NPControl(master = self._mainFrame)
-        self._interact = NPInteract(master = self._mainFrame)
-        
+        self._data = NPData(master = self._master)
+        self._control = NPControl(master = self._master)
+        self._interact = NPInteract(master = self._master)
+    
+    def place(self):
         self._data.place()
         self._control.place()
         self._interact.place()
     
-    def place(self):
-        self._workspace.place()
-    
     def place_forget(self):
-        self._workspace.place_forget()
+        self._data.place_forget()
+        self._control.place_forget()
+        self._interact.place_forget()
     
     def destroy(self):
-        self._workspace.destroy()
+        self._data.destroy()
+        self._control.destroy()
+        self._interact.destroy()
         self.__dict__.clear()
         

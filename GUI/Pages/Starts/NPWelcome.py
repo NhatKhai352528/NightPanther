@@ -9,18 +9,7 @@ class NPWelcome(NPPages):
     
     def __init__(self, master: Tk, commands: list[Any, Any] = None):
         
-        super().__init__(master)
-        
-        # Passed commands handler
-        self._commands = [Any, Any]
-        try: 
-            self._commands[0] = commands[0]
-        except:
-            self._commands[0] = None
-        try: 
-            self._commands[1] = commands[1]
-        except:
-            self._commands[1] = None
+        super().__init__(master = master, commands = commands)
         
         # Initialize items for data frame
         self._data.initText(mode = "title", text = currentLanguage["welcome"]["data"]["title"], wrap = True)

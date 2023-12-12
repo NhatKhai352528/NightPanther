@@ -16,3 +16,7 @@ class NPLanguage:
     @classmethod
     def getLanguage(cls):
         return cls.currentLanguage
+    
+    @classmethod
+    def getLanguages(cls):
+        return list(cls.availableLanguages.keys())
