@@ -1,5 +1,5 @@
 from tkinter import Tk
-from typing import Any
+from typing import Any, Literal
 from ..Frames.Workspaces.NPControl import NPControl
 from ..Frames.Workspaces.NPData import NPData
 from ..Frames.Workspaces.NPInteract import NPInteract
@@ -37,4 +37,6 @@ class NPPages:
         self._control.destroy()
         self._interact.destroy()
         self.__dict__.clear()
-        
+    
+    def initControlButton(self, position: Literal["left", "right"], command: Any, state: Literal["normal", "disabled"], text: str):
+        self._control.initButton(position = position, command = command, state = state, text = text)

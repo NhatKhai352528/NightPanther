@@ -61,7 +61,7 @@ class NPInteract(NPFrames):
     
     def initButton(self, command: Any, text: str):
         
-        currentFont = currentTheme["font"]["heading"]
+        currentFont = currentTheme["font"]["strong"]
         
         self._items.append(NPTextButton(master = self._frame, mode = "action", x = 0.5 * self._width, y = self._currentY, width = 400, height = 50, anchor = "n", command = command, font = currentFont, repeat = False, state = "normal", text = text))
         
