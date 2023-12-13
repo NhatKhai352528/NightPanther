@@ -1,6 +1,8 @@
 from tkinter import Tk
 from typing import Any
 from ..NPPages import NPPages
+from ...Constants.NPPaper import Paper
+from ...Constants.NPSides import Sides
 from ...Customs.NPLanguage import NPLanguage
 
 currentLanguage = NPLanguage.getLanguage()
@@ -14,15 +16,14 @@ class NPFormat(NPPages):
         # Passed variables handler
         self._fileName = fileName if fileName != None else ""
         
-        availablePaper = availablePaper if availablePaper != None else [True, True, True]
-        availablePaper = [["default" if value == True else "disabled" for value in availablePaper]]
-        for i in range(len(availablePaper)):
+        availablePaper = [["default" if value else "disabled" for value in Paper.values()]]
+        for i in range(len(availablePaper[0])):
             if availablePaper[0][i] == "default":
                 availablePaper[0][i] = "active"
                 break
-        availableSides = availableSides if availableSides != None else [True, True]
-        availableSides = [["default" if value == True else "disabled" for value in availableSides]]
-        for i in range(len(availableSides)):
+        
+        availableSides =  [["default" if value else "disabled" for value in Sides.values()]]
+        for i in range(len(availableSides[0])):
             if availableSides[0][i] == "default":
                 availableSides[0][i] = "active"
                 break

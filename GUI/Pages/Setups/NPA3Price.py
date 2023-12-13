@@ -2,6 +2,9 @@ from tkinter import Tk
 from typing import Any
 from ..NPPages import NPPages
 from ...Constants.NPPrice import Price
+from ...Constants.NPPaper import Paper
+from ...Constants.NPSides import Sides
+from .NPPrice import setPrice
 from ...Customs.NPLanguage import NPLanguage
 
 currentLanguage = NPLanguage.getLanguage()
@@ -27,7 +30,11 @@ class NPA3Price(NPPages):
         self._interact.initText(mode = "content", text = "", justify = "center")
         self._a31sPriceIndex = self._interact.initSpinBox(default = Price["a3"]["1s"], minimum = 0, maximum = 5000, step = 100, wrap = True, actionCommand = None)
         self._a31sPriceSpinBox = self._interact.npget(attribute = "spinBox", index = self._a31sPriceIndex)
+        if Paper["a3"] and Sides["1s"]:
+            self._a31sPriceSpinBox.npset(attribute = "actionCommand", value = lambda event = None: setPrice("a3", "1s", self._a31sPriceSpinBox.npget(attribute = "value")))
         
         self._interact.initText(mode = "content", text = "", justify = "center")
         self._a32sPriceIndex = self._interact.initSpinBox(default = Price["a3"]["2s"], minimum = 0, maximum = 5000, step = 100, wrap = True, actionCommand = None)
-        self._a32sPriceSpinBox = self._interact.npget(attribute = "spinBox", index = self._a32sPriceIndex)
+        self._a32sPriceSpinBox = self._interact.npget(attribute = "spinBox", index = self._a32sPriceIndex)        
+        if Paper["a3"] and Sides["2s"]:
+            self._a32sPriceSpinBox.npset(attribute = "actionCommand", value = lambda event = None: setPrice("a3", "2s", self._a32sPriceSpinBox.npget(attribute = "value")))

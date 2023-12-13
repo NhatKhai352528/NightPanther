@@ -1,7 +1,7 @@
 from tkinter import Tk
 from typing import Any
 from ..NPPages import NPPages
-from ...Constants.NPPrice import Price
+from ...Constants.NPSides import Sides
 from ...Customs.NPLanguage import NPLanguage
 
 currentLanguage = NPLanguage.getLanguage()
@@ -18,16 +18,13 @@ class NPSides(NPPages):
         
         # Initialize items for control frame
         self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = currentLanguage["sides"]["control"]["left"])
-        self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = currentLanguage["sides"]["control"]["right"])
+        self._control.initButton(position = "right", command = lambda event = None: self._saveAvailableSides(), state = "normal", text = currentLanguage["sides"]["control"]["right"])
         
         # Initialize items for interact frame
         self._interact.initText(mode = "content", text = "", justify = "center")
         self._interact.initText(mode = "heading", text = currentLanguage["sides"]["interact"]["text0"], justify = "center")
         
-        availableSides = [list(value.values()) for value in Price.values()]
-        availableSides = [[availableSides[j][i] for j in range(len(availableSides))] for i in range(len(availableSides[0]))]
-        availableSides = [False if row == [None, None, None] else True for row in availableSides]
-        availableSides = [["active" if value == True else "default" for value in availableSides]]
+        availableSides = [["active" if value else "default" for value in Sides.values()]]
         
         self._interact.initText(mode = "content", text = "", justify = "center")
         self._availableSidesIndex = self._interact.initButtonArray(mode = "multiple", rows = 1, columns = 2, defaults = availableSides, texts = [["1", "2"]])
@@ -35,13 +32,8 @@ class NPSides(NPPages):
     
     def _saveAvailableSides(self):
         currentActive = self._availableSidesButtonArray.npget(attribute = "active")
-        sidesList = list(Price[next(iter(Price))].keys())
-        for sides, active in zip(sidesList, currentActive[0]):
-            if active:
-                for i in Price:
-                    Price[i][sides] = 0
-            else:
-                for i in Price:
-                    Price[i][sides] = None
-        with open("GUI/Constants/NPPrice.py", "w") as file:
-            file.write("Price = " + repr(Price))
+        for (side, active) in zip(Sides.keys(), currentActive[0]):
+            Sides[side] = active
+        self._currentActive = currentActive
+        with open("GUI/Constants/NPSides.py", "w") as file:
+            file.write("Sides = " + repr(Sides))

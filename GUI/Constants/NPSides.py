@@ -1,0 +1,1 @@
+Sides = {'1s': False, '2s': True}
