@@ -1,0 +1,3 @@
+global ipcPort
+global ipcSocket
+global webServerSocket

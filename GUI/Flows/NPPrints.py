@@ -8,6 +8,10 @@ from ..Pages.Prints.NPPrinting import NPPrinting
 from ..Pages.Prints.NPSuccess import NPSuccess
 from ..Pages.Prints.NPUpload import NPUpload
 from ..Constants.NPPrice import Price
+import subprocess
+import qrcode
+import random
+import globals
 
 class NPPrints:
     
@@ -45,10 +49,10 @@ class NPPrints:
         self._printerCopy = 0
         
     def place(self):
-        getServerVariables = Thread(target = None)
-        getServerVariables.start()
         self._upload = NPUpload(master = self._master, commands = [None, lambda event = None: self._uploadToFormat()], serverLink = self._serverLink, serverKey = self._serverKey, fileName = self._fileName)
         self._upload.place()
+        getServerVariables = Thread(target = self._getServerVariables)
+        getServerVariables.start()
     
     def destroy(self):
         attributes = ["_upload", "_format", "_order", "_payment", "_printing", "_success"]
@@ -101,4 +105,28 @@ class NPPrints:
         self._success = NPSuccess(master = self._master, commands = [None, self._destroyCommand])
         self._success.place()
         self._printing.place_forget()
+
+    def _getServerVariables(self):
+        # For test 
+        self._serverLink = "192.168.0.0" # subprocess.check_output(['hostname','-I']).decode().strip() + ':3000'
+        self._upload.npset(attribute = "serverLink", value = self._serverLink)
+        uploadQR = qrcode.make("http://" + self._serverLink)
+        type(uploadQR)
+        uploadQR.save("GUI/Images/UploadQR.png")
+        self._upload.npset(attribute = "serverQRFile", value = "GUI/Images/UploadQR.png")
+
+        random.seed()
+        self.printingCode = random.randint(100000, 999999)
+        self._serverKey = str(self.printingCode)
+        self._upload.npset(attribute = "serverKey", value = self._serverKey)
+        self._fileName = "Waiting for user to upload file ..."
+        self._upload.npset(attribute = "fileName", value = self._fileName)
+        
+        def _listenWebServer():
+            globals.webServerSocket.send(str(self.printingCode).encode())
+            self._fileName = globals.webServerSocket.recv(1024).decode()
+            self._upload.npset(attribute = "fileName", value = self._fileName)
+        listenWebServer = Thread(target = _listenWebServer)
+        listenWebServer.start()
+       
         

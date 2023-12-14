@@ -1,6 +1,9 @@
 from tkinter import Tk
+from threading import Thread
 from typing import Any
 from ..Pages.Starts.NPWelcome import NPWelcome
+import globals
+import socket
 
 class NPStarts:
     
@@ -13,6 +16,8 @@ class NPStarts:
         self._welcome = None
     
     def place(self):
+        startConnection = Thread(target = self._startConnection)
+        startConnection.start()
         self._welcome = NPWelcome(master = self._master, commands = self._controlCommands)
         self._welcome.place()
     
@@ -24,3 +29,10 @@ class NPStarts:
             except:
                 pass
         self.__dict__.clear()
+
+    def _startConnection(self):
+        globals.ipcPort = 2020
+        globals.ipcSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        globals.ipcSocket.bind(('', globals.ipcPort))
+        globals.ipcSocket.listen(100)
+        (globals.webServerSocket, _) = globals.ipcSocket.accept()

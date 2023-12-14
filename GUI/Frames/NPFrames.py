@@ -1,10 +1,10 @@
 from tkinter import Frame, Tk
-from typing import Literal
+from typing import Literal, Union
 from ..Widgets.NPFrame import NPFrame
 
 class NPFrames:
     
-    def __init__(self, master: Frame | Tk, x: int, y: int, width: int, height: int, distance: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str):
+    def __init__(self, master: Union[Frame, Tk], x: int, y: int, width: int, height: int, distance: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str):
         
         # Location variables
         self._master = master
