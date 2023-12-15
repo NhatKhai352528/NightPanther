@@ -132,7 +132,7 @@ class NPPrints:
         listenWebServer.start()
 
     def _printUserFile(self):        
-        reader = PdfReader("../FileServer/user_file.pdf")
+        reader = PdfReader("../CO3091_BE/user_file.pdf")
 
         def isPageLandscape(pageIndex):
             page = reader.pages[pageIndex]
@@ -180,7 +180,7 @@ class NPPrints:
                         break
                 writer = PdfWriter()
                 writer.add_page(reader.pages[page])
-                with open("../FileServer/current_page.pdf", "wb") as fp:
+                with open("../CO3091_BE/current_page.pdf", "wb") as fp:
                     writer.write(fp)
                 
                 printerFile = open("printer.txt")
@@ -188,7 +188,7 @@ class NPPrints:
                 printCommand = ["lp", "-d", printerName, "-o","media=" + getFileSize(), "-n", "1", "-o", "sides=" + getSideOption(), "-o", "fit-to-page"]
                 if isPageLandscape(page):
                     printCommand.extend(["-o", "landscape]"])
-                printCommand.append("../FileServer/current_page.pdf")
+                printCommand.append("../CO3091_BE/current_page.pdf")
                 subprocess.run(printCommand)
                 
                 # Time out for error
