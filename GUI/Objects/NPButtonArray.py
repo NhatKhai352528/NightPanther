@@ -67,10 +67,10 @@ class NPButtonArray(NPObjects):
             # self._buttons[row][column].configure(state = "disabled")
             self._buttons[row][column].npset(attribute = "state", value = "disabled")
         elif status == "default":
-            self._buttons[row][column].configure(activebackground = self._buttons[row][column].npget(attribute = "activebackground"))
+            self._buttons[row][column].configure(activebackground = self._buttons[row][column].npget(attribute = "background"))
             self._buttons[row][column].configure(background = self._buttons[row][column].npget(attribute = "background"))
         elif status == "active":
-            self._buttons[row][column].configure(activebackground = self._buttons[row][column].npget(attribute = "background"))
+            self._buttons[row][column].configure(activebackground = self._buttons[row][column].npget(attribute = "activebackground"))
             self._buttons[row][column].configure(background = self._buttons[row][column].npget(attribute = "activebackground"))
         self._status[row][column] = status
     
