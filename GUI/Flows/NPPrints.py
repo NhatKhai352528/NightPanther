@@ -133,7 +133,7 @@ class NPPrints:
 
     def _printUserFile(self):        
         reader = PdfReader("../FileServer/user_file.pdf")
-        
+
         def isPageLandscape(pageIndex):
             page = reader.pages[pageIndex]
             rotation = page.get('/Rotate')
@@ -159,7 +159,11 @@ class NPPrints:
                 return "A4"
             if (fileSize == "a5"):
                 return "A5"
-            
+        
+        # For test
+        def handlePrintError(self, strError):
+            print(strError)
+
         def getSideOption():
             sideOption = self._format.npget(attribute = "fileSides")
             if (sideOption == "1s"):
@@ -193,13 +197,13 @@ class NPPrints:
                     if (printer_status.find("idle") != -1):
                         pass
                     elif (printer_status.find("unplugged") != -1 or printer_status.find("turned off") != -1):
-                        self.handlePrintError(strError = "The printer is unplugged or turned off")
+                        handlePrintError(strError = "The printer is unplugged or turned off")
                     elif (printer_status.find("rendering completed") != -1):
-                        self.handlePrintError(strError = "The printer is not working properly")
+                        handlePrintError(strError = "The printer is not working properly")
                     elif (printer_status.find("sending data to printer") != -1):
-                        self.handlePrintError(strError = "There's an error in our system")
+                        handlePrintError(strError = "There's an error in our system")
                     else:
-                        self.handlePrintError(strError = "Unknown error")
+                        handlePrintError(strError = "Unknown error")
                 printTimeOut = Timer(20.0, printingTimeOut)
                 printTimeOut.start()
 
