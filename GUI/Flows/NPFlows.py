@@ -8,6 +8,9 @@ from .NPSettings import NPSettings
 from .NPSetups import NPSetups
 from .NPStarts import NPStarts
 from ..Objects.NPConfirmBox import NPConfirmBox
+import globals
+import socket
+from threading import Thread
 
 class NPFlows:
     
@@ -33,6 +36,8 @@ class NPFlows:
         self._bars = NPBars(master = self._master, menuCommands = [lambda event = None: self._currentToStarts(), lambda event = None: self._currentToHelps(), lambda event = None: self._currentToSettings(), lambda event = None: self._currentToAdmins()])
         self._bars.place()
         self._currentToStarts()
+        startConnection = Thread(target = self._startConnection)
+        startConnection.start()
     
     def destroy(self):
         attributes = ["_bars", "_starts", "_setups", "_prints", "_helps", "_settings", "_admins"]
@@ -146,3 +151,12 @@ class NPFlows:
             self._setups.place()
             self._starts.destroy()
             self._starts = None
+
+    #
+    # Start connection to Local web server
+    def _startConnection(self):
+        globals.ipcPort = 2020
+        globals.ipcSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        globals.ipcSocket.bind(('', globals.ipcPort))
+        globals.ipcSocket.listen(100)
+        (globals.webServerSocket, _) = globals.ipcSocket.accept()
