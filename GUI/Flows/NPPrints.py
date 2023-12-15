@@ -75,7 +75,8 @@ class NPPrints:
     def _formatToOrder(self):
         self._filePaper = self._format.npget(attribute = "filePaper")
         self._fileSides = self._format.npget(attribute = "fileSides")
-        self._filePrice = Price[self._filePaper][self._fileSides]
+        reader = PdfReader("../CO3091_BE/user_file.pdf")
+        self._filePrice = Price[self._filePaper][self._fileSides] * len(reader.pages)
         if self._order == None:
             self._order = NPOrder(master = self._master, commands = [lambda event = None: self._orderToFormat(), lambda event = None: self._orderToPayment()], fileName = self._fileName, filePrice = self._filePrice)
         else:
@@ -133,7 +134,7 @@ class NPPrints:
 
     def _printUserFile(self):        
         reader = PdfReader("../CO3091_BE/user_file.pdf")
-
+        
         def isPageLandscape(pageIndex):
             page = reader.pages[pageIndex]
             rotation = page.get('/Rotate')
@@ -161,7 +162,7 @@ class NPPrints:
                 return "A5"
         
         # For test
-        def handlePrintError(self, strError):
+        def handlePrintError(strError):
             print(strError)
 
         def getSideOption():
@@ -170,8 +171,10 @@ class NPPrints:
                 return "one-sided"
             if (sideOption == "2s"):
                 return "two-sided-short-edge" # For test
-
+        
+        self._filePages = len(reader.pages)
         self._printing.npset(attribute = "userCopies", value = self._userCopies)
+        self._printing.npset(attribute = "filePages", value = self._filePages)
         # Printing
         for _ in range(0, self._userCopies):
             for page in range(0, self._filePages):
@@ -195,7 +198,7 @@ class NPPrints:
                 def printingTimeOut():
                     printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode().lower();
                     if (printer_status.find("idle") != -1):
-                        pass
+                        handlePrinterError(strError = "nono")
                     elif (printer_status.find("unplugged") != -1 or printer_status.find("turned off") != -1):
                         handlePrintError(strError = "The printer is unplugged or turned off")
                     elif (printer_status.find("rendering completed") != -1):
@@ -204,7 +207,7 @@ class NPPrints:
                         handlePrintError(strError = "There's an error in our system")
                     else:
                         handlePrintError(strError = "Unknown error")
-                printTimeOut = Timer(20.0, printingTimeOut)
+                printTimeOut = Timer(2.0, printingTimeOut)
                 printTimeOut.start()
 
                 while True:

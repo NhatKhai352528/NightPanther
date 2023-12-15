@@ -23,10 +23,12 @@ class NPConfirmBox:
         self._y = (Screen["height"] - self._height) / 2
         
         self._overlay = NPToplevel(master = self._master, x = Screen["x"], y = Screen["y"], width = Screen["width"], height = Screen["height"], background = currentTheme["background"]["default"])
-        self._overlay.attributes("-alpha", 0.5)
+        self._overlay.wait_visibility()
+        self._overlay.wm_attributes("-alpha", 0.5)
         
         self._toplevel = NPToplevel(master = self._master, x = self._x, y = self._y, width = self._width, height = self._height, background = currentTheme["background"]["confirm"])
-        self._toplevel.attributes("-topmost", True)
+        self._toplevel.wait_visibility()
+        self._toplevel.wm_attributes("-topmost", True)
         self._toplevel.grab_set()
         
         self._frame = NPFrame(master = self._toplevel, x = 0, y = 0, width = self._width, height = self._height, anchor = "nw", background = currentTheme["background"]["confirm"])
