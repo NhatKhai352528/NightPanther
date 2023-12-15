@@ -10,7 +10,7 @@ class NPTk(Tk):
         
         super().geometry(str(Screen["width"]) + "x" + str(Screen["height"]) + "+" + str(Screen["x"]) + "+" + str(Screen["y"]))
         
-        # super().overrideredirect(boolean = True)
+        super().overrideredirect(boolean = True)
         
         self._mode: Literal["user", "admin"] = "admin"
     

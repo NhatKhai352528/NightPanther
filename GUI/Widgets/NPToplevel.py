@@ -14,4 +14,4 @@ class NPToplevel(Toplevel):
         super().__init__(master = self._master, background = self._background, borderwidth = 0, container = False, cursor = "arrow", highlightbackground = self._background, highlightcolor = self._background, highlightthickness = 0, relief = "flat", takefocus = False)
         super().geometry(str(self._width) + "x" + str(self._height) + "+" + str(self._x) + "+" + str(self._y))
         
-        # super().overrideredirect(boolean = True)
+        super().overrideredirect(boolean = True)

@@ -1,5 +1,5 @@
 from tkinter import Tk
-from threading import Thread
+from threading import Thread, Timer
 from typing import Any
 from ..Pages.Prints.NPFormat import NPFormat
 from ..Pages.Prints.NPOrder import NPOrder
@@ -12,9 +12,9 @@ import subprocess
 import qrcode
 import random
 import globals
+from PyPDF2 import PdfReader, PdfWriter
 
 class NPPrints:
-    
     def __init__(self, master: Tk, destroyCommand: Any):
         
         self._master = master
@@ -100,6 +100,8 @@ class NPPrints:
         self._printing = NPPrinting(master = self._master, commands = [None, lambda event = None: self._printingToSuccess()], fileName = self._fileName, filePages = self._filePages, userCopies = self._userCopies)
         self._printing.place()
         self._payment.place_forget()
+        printUserFile = Thread(target = self._printUserFile)
+        printUserFile.start()
     
     def _printingToSuccess(self):
         self._success = NPSuccess(master = self._master, commands = [None, self._destroyCommand])
@@ -128,5 +130,97 @@ class NPPrints:
             self._upload.npset(attribute = "fileName", value = self._fileName)
         listenWebServer = Thread(target = _listenWebServer)
         listenWebServer.start()
+
+    def _printUserFile(self):        
+        reader = PdfReader("../FileServer/user_file.pdf")
+        
+        def isPageLandscape(pageIndex):
+            page = reader.pages[pageIndex]
+            rotation = page.get('/Rotate')
+            mediabox = page.mediabox
+
+            # Landscape attribute
+            if mediabox.right > mediabox.top:
+                if rotation in [0, 180, None]:
+                    return True
+                else:
+                    return False
+            else:
+                if rotation in [0, 180, None]:
+                    return False
+                else:
+                    return True
+        
+        def getFileSize():
+            fileSize = self._format.npget(attribute = "filePaper")
+            if (fileSize == "a3"):
+                return "A3"
+            if (fileSize == "a4"):
+                return "A4"
+            if (fileSize == "a5"):
+                return "A5"
+            
+        def getSideOption():
+            sideOption = self._format.npget(attribute = "fileSides")
+            if (sideOption == "1s"):
+                return "one-sided"
+            if (sideOption == "2s"):
+                return "two-sided-short-edge" # For test
+
+        self._printing.npset(attribute = "userCopies", value = self._userCopies)
+        # Printing
+        for _ in range(0, self._userCopies):
+            for page in range(0, self._filePages):
+                while True:
+                    # if pauseEvent.is_set() == False:
+                        break
+                writer = PdfWriter()
+                writer.add_page(reader.pages[page])
+                with open("../FileServer/current_page.pdf", "wb") as fp:
+                    writer.write(fp)
+                
+                printerFile = open("printer.txt")
+                printerName = printerFile.read().strip()
+                printCommand = ["lp", "-d", printerName, "-o","media=" + getFileSize(), "-n", "1", "-o", "sides=" + getSideOption(), "-o", "fit-to-page"]
+                if isPageLandscape(page):
+                    printCommand.extend(["-o", "landscape]"])
+                printCommand.append("../FileServer/current_page.pdf")
+                subprocess.run(printCommand)
+                
+                # Time out for error
+                def printingTimeOut():
+                    printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode().lower();
+                    if (printer_status.find("idle") != -1):
+                        pass
+                    elif (printer_status.find("unplugged") != -1 or printer_status.find("turned off") != -1):
+                        self.handlePrintError(strError = "The printer is unplugged or turned off")
+                    elif (printer_status.find("rendering completed") != -1):
+                        self.handlePrintError(strError = "The printer is not working properly")
+                    elif (printer_status.find("sending data to printer") != -1):
+                        self.handlePrintError(strError = "There's an error in our system")
+                    else:
+                        self.handlePrintError(strError = "Unknown error")
+                printTimeOut = Timer(20.0, printingTimeOut)
+                printTimeOut.start()
+
+                while True:
+                    printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode()
+                    if (printer_status.find("idle") != -1):
+                        break
+                # Print successfully, cancel the error time out
+                printTimeOut.cancel()
+
+                # Update GUI
+                if self._printerCopy < self._userCopies:
+                    self._printerPage = self._printerPage + 1
+                if self._printerPage > self._filePages:
+                    self._printerPage = 1
+                if self._printerPage == self._filePages:
+                    self._printerCopy = self._printerCopy + 1
+                # if self._printerCopy >= self._userCopies:
+                #     # self._updatePrinting("Finish")
+                            
+                self._printing.npset(attribute = "printerPage", value = self._printerPage)
+                self._printing.npset(attribute = "printerCopy", value = self._printerCopy)
        
         
