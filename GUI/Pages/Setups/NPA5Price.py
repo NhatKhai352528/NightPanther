@@ -28,12 +28,14 @@ class NPA5Price(NPPages):
         self._interact.initText(mode = "heading", text = currentLanguage["a5Price"]["interact"]["text0"], justify = "center")
         
         self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "content", text = currentLanguage["a5Price"]["interact"]["text1"], justify = "center")
         self._a51sPriceIndex = self._interact.initSpinBox(default = Price["a5"]["1s"], minimum = 0, maximum = 5000, step = 100, wrap = True, actionCommand = None)
         self._a51sPriceSpinBox = self._interact.npget(attribute = "spinBox", index = self._a51sPriceIndex)
         if Paper["a5"] and Sides["1s"]:
             self._a51sPriceSpinBox.npset(attribute = "actionCommand", value = lambda event = None: setPrice("a5", "1s", self._a51sPriceSpinBox.npget(attribute = "value")))
         
         self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "content", text = currentLanguage["a5Price"]["interact"]["text2"], justify = "center")
         self._a52sPriceIndex = self._interact.initSpinBox(default = Price["a5"]["2s"], minimum = 0, maximum = 5000, step = 100, wrap = True, actionCommand = None)
         self._a52sPriceSpinBox = self._interact.npget(attribute = "spinBox", index = self._a52sPriceIndex)
         if Paper["a5"] and Sides["2s"]:

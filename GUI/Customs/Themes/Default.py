@@ -9,7 +9,7 @@ Default = {
     },
     "font": {
         "default": Font(family = BasicFont["verdana"], size = 16, weight = "normal", slant = "roman", underline = False, overstrike = False),
-        "title": Font(family = BasicFont["verdana"], size = 32, weight = "bold", slant = "roman", underline = False, overstrike = False),
+        "title": Font(family = BasicFont["verdana"], size = 28, weight = "bold", slant = "roman", underline = False, overstrike = False),
         "section": Font(family = BasicFont["verdana"], size = 24, weight = "bold", slant = "roman", underline = False, overstrike = False),
         "heading": Font(family = BasicFont["verdana"], size = 20, weight = "bold", slant = "roman", underline = False, overstrike = False),
         "strong": Font(family = BasicFont["verdana"], size = 16, weight = "bold", slant = "roman", underline = False, overstrike = False),

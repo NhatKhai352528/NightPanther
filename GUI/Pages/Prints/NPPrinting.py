@@ -20,13 +20,13 @@ class NPPrinting(NPPages):
         
         # Initialize items for data frame
         self._data.initText(mode = "title", text = currentLanguage["printing"]["data"]["title"], wrap = True)
-        self._data.initText(mode = "Content", text = currentLanguage["printing"]["data"]["text0"], wrap = False)
+        # self._data.initText(mode = "Content", text = currentLanguage["printing"]["data"]["text0"], wrap = False)
         
         self._data.initText(mode = "heading", text = currentLanguage["printing"]["data"]["text1"], wrap = False)
         self._fileNameIndex = self._data.initText(mode = "content", text = self._fileName, wrap = False)
         
         # Initialize items for control frame
-        self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = currentLanguage["printing"]["control"]["left"])
+        # self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = currentLanguage["printing"]["control"]["left"])
         self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = currentLanguage["printing"]["control"]["right"])
         
         # Initialize items for interact frame

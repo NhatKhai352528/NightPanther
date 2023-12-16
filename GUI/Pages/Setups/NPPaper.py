@@ -21,8 +21,8 @@ class NPPaper(NPPages):
         self._control.initButton(position = "right", command = lambda event = None: self._saveAvailablePaper(), state = "normal", text = currentLanguage["paper"]["control"]["right"])
         
         # Initialize items for interact frame
-        self._interact.initText(mode = "content", text = "", justify = "center")
         self._interact.initText(mode = "heading", text = currentLanguage["paper"]["interact"]["text0"], justify = "center")
+        self._interact.initText(mode = "content", text = currentLanguage["paper"]["interact"]["text1"], justify = "center")
         
         availablePaper = [["active" if value else "default" for value in Paper.values()]]
         

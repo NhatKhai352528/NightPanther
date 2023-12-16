@@ -28,7 +28,7 @@ class NPUpload(NPPages):
         self._fileNameIndex = self._data.initText(mode = "Content", text = self._fileName, wrap = True)
         
         # Initialize items for control frame
-        self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = currentLanguage["upload"]["control"]["left"])
+        # self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = currentLanguage["upload"]["control"]["left"])
         self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = currentLanguage["upload"]["control"]["right"])
         
         # Initialize items for interact frame

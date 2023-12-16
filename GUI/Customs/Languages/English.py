@@ -6,23 +6,24 @@ English = {
         "delete": "Delete",
     },
     "spinBox": {
-        "confirm": "Confirm",
+        "confirm": "Check",
     },
     
     # Starts
     "welcome": {
         "data": {
             "title": "Welcome",
-            "text0": "Welcome to Night Panther Application",
+            "text0": "Need to print documents yourself? Place an order now!",
         },
         "control": {
-            "left": "Click me",
-            "right": "Click you",
+            "left": "Root access",
+            "right": "Order now",
         },
         "interact": {
-            "text0": "System requirements",
-            "text1": "You must be a panther!",
-            "text2": "If you are not a panther, get out!",
+            "text0": "Requirement to print",
+            "text1": "- Connect your device (laptop/mobile) to 'HCMUT2' wifi.",
+            "text2": "- Format and convert your document to PDF (Print to PDF).",
+            "text3": "- The system use non-cash payment, you'll have to scan QR code to pay.",
         },
     },
     
@@ -38,25 +39,25 @@ English = {
         },
         "control": {
             "left": "Click me",
-            "right": "Click you",
+            "right": "Next",
         },
         "interact": {
-            "text0": "Or you can scan to upload!",
+            "text0": "Or scan to upload.",
         },
     },
     "format": {
         "data": {
-            "title": "Formatting",
+            "title": "Print options",
             "text0": "File name: ",
             "text1": "Wating for you",
         },
         "control": {
-            "left": "Click me",
-            "right": "Click you",
+            "left": "Back",
+            "right": "Next",
         },
         "interact": {
-            "text0": "Choose your page size!",
-            "text1": "Choose number of sides!",
+            "text0": "Page size:",
+            "text1": "Number of side:",
         },
     },
     "order": {
@@ -64,14 +65,14 @@ English = {
             "title": "Your order",
             "text0": "File name: ",
             "text1": "Price per copy: ",
-            "text2": "Total prices: ",
+            "text2": "Total price: ",
         },
         "control": {
             "left": "Back",
             "right": "Next",
         },
         "interact": {
-            "text0": "How many?",
+            "text0": "Number of copies:",
         },
     },
     "payment": {
@@ -79,14 +80,14 @@ English = {
             "title": "Payment",
             "text0": "File name: ",
             "text1": "Number of copies: ",
-            "text2": "Total prices: ",
+            "text2": "Total price: ",
         },
         "control": {
             "left": "Back",
             "right": "Next",
         },
         "interact": {
-            "text0": "Scan to pay",
+            "text0": "Scan QR code to pay",
         },
     },
     "printing": {
@@ -100,23 +101,23 @@ English = {
             "right": "Next",
         },
         "interact": {
-            "text0": "Something here",
-            "text1": "Something here: ",
-            "text2": "Something here: ",
+            "text0": "Processing...",
+            "text1": "Number of pages: ",
+            "text2": "Number of copies: ",
         },
     },
     "success": {
         "data": {
-            "title": "Success",
+            "title": "Completed",
             "text0": "Something here",
         },
         "control": {
             "left": "Skip",
-            "right": "Submit",
+            "right": "Skip",
         },
         "interact": {
-            "text0": "Something here",
-            "text1": "Something here",
+            "text0": "Thank you for using our service.",
+            "text1": "Make sure you've collected all of your documents at the printer.",
         },
     },
     
@@ -124,149 +125,180 @@ English = {
     "origin": {
         "data": {
             "title": "Setup",
-            "text0": "Admin setup",
+            "text0": "System setup",
+            "text1": "- Login admin account to make changes.",
+            "text2": "- Check the printer's features to setup accordingly."
         },
         "control": {
             "left": "Exit",
             "right": "",
         },
         "interact": {
-            "text0": "Set up something",
-            "text1": "Paper setup",
-            "text2": "Sides setup",
+            "text0": "Setup options",
+            "text1": "Paper size setup",
+            "text2": "Number of sides setup",
             "text3": "Price setup",
             "text4": "Future setup",
         },
     },
     "paper": {
         "data": {
-            "title": "Paper",
-            "text0": "Paper setup",
+            "title": "Setup",
+            "text0": "Paper size",
         },
         "control": {
-            "left": "Cancel",
+            "left": "Back",
             "right": "Save",
         },
         "interact": {
-            "text0": "Some text here",
-            "text1": "Another text here",
+            "text0": "Allowed paper size:",
+            "text1": "(Select all that applied)",
         },
     },
     "sides": {
         "data": {
-            "title": "Sides",
-            "text0": "Sides setup",
+            "title": "Setup",
+            "text0": "Number of sides",
         },
         "control": {
-            "left": "Cancel",
+            "left": "Back",
             "right": "Save",
         },
         "interact": {
-            "text0": "Some one here",
-            "text1": "Another one here",
+            "text0": "Allowed number of sides:",
+            "text1": "(Select all that applied)",
         },
     },
     "a3Price": {
         "data": {
-            "title": "A3 Price",
-            "text0": "A3 Price setup",
+            "title": "Setup",
+            "text0": "A3 Pricing",
         },
         "control": {
-            "left": "Cancel",
-            "right": "Next",
+            "left": "Back",
+            "right": "Setup A4",
         },
         "interact": {
-            "text0": "Some a3 here",
-            "text1": "Another a3 here",
+            "text0": "Pricing options:",
+            "text1": "Per sheet of paper",
+            "text2": "Per printed side"
         },
     },
     "a4Price": {
         "data": {
-            "title": "A4 Price",
-            "text0": "A4 Price setup",
+            "title": "Setup",
+            "text0": "A4 Pricing",
         },
         "control": {
-            "left": "Back",
-            "right": "Next",
+            "left": "Setup A3",
+            "right": "Setup A5",
         },
         "interact": {
-            "text0": "Some a4 here",
-            "text1": "Another a4 here",
+            "text0": "Pricing options:",
+            "text1": "Per sheet of paper",
+            "text2": "Per printed side"
         },
     },
     "a5Price": {
         "data": {
-            "title": "A5 Price",
-            "text0": "A5 Price setup",
+            "title": "Setup",
+            "text0": "A5 Pricing",
         },
         "control": {
-            "left": "Back",
+            "left": "Setup A4",
             "right": "Finish",
         },
         "interact": {
-            "text0": "Some a5 here",
-            "text1": "Another a5 here",
+            "text0": "Pricing options:",
+            "text1": "Per sheet of paper",
+            "text2": "Per printed side"
         },
     },
     
     # Helps
     "initial": {
         "data": {
-            "title": "Help",
-            "text0": "Help center",
+            "title": "Help Center",
+            "text0": "How can we help you?",
+            "text1": "Can't find the answer you're looking for? Call us for help."
         },
         "control": {
             "left": "Exit",
-            "right": "",
+            "right": "Call us",
         },
         "interact": {
-            "text0": "Choose me",
-            "text1": "Topic 1",
-            "text2": "Topic 2",
-            "text3": "Topic 3",
-            "text4": "Topic 4",
+            "text0": "Common topics",
+            "text1": "How to upload documents?",
+            "text2": "How to choose print options?",
+            "text3": "How to pay?",
+            "text4": "Error while printing.",
+        },
+    },
+    "upload": {
+        "data": {
+            "title": "Help Center",
+            "text0": "QUESTION: How to upload documents?",
+            "text1": "Can't find the answer you're looking for? Call us for help."
+        },
+        "control": {
+            "left": "Back",
+            "right": "Call us",
+        },
+        "interact": {
+            "text0": "What is a key?",
+            "text1": "The key is a secret number to connect your device 1-1 with our dashboard.",
+            "text2": "Can I upload another file?",
+            "text3": "Yes, but you must complete printing this file or cancel this order.",
+            "text4": "How to format and convert my document to PDF?",
+            "text5": "You can use the 'Print to PDF' option on your computer and format to document as desired before uploading to the website."
         },
     },
     "print": {
         "data": {
-            "title": "Print Topic",
-            "text0": "Help print",
+            "title": "Help Center",
+            "text0": "QUESTION: How to choose print options?",
+            "text1": "Can't find the answer you're looking for? Call us for help."
         },
         "control": {
-            "left": "Exit",
-            "right": "",
+            "left": "Back",
+            "right": "Call us",
         },
         "interact": {
-            "text0": "Some thing",
-            "text1": "Some things",
+            "text0": "Why I can't choose some options?",
+            "text1": "Some printers doesn't provide the option you want. Please try with other options.",
+            "text2": "What is page sides?",
+            "text3": "Print on a single side or both side. With both side, you have the option to print on long edge/short edge."
         },
     },
     "pay": {
         "data": {
-            "title": "Pay Topic",
-            "text0": "Help pay",
+            "title": "Help Center",
+            "text0": "QUESTION: How to pay?",
+            "text1": "Can't find the answer you're looking for? Call us for help."
         },
         "control": {
-            "left": "Exit",
-            "right": "",
+            "left": "Back",
+            "right": "Call us",
         },
         "interact": {
-            "text0": "Some one",
-            "text1": "Some two",
+            "text0": "Can I pay with cash?",
+            "text1": "No, the system only accept non-cash payment with scan to pay (any platform supported by VietQR).",
+            "text2": "Can I get a refund?",
+            "text3": "No, the refund feature is still in development. If you encountered any inconvenient, please call us with the number in 'Help Center'."
         },
     },
     "error": {
         "data": {
-            "title": "Error Topic",
-            "text0": "Help error",
+            "title": "Help Center",
+            "text0": "QUESTION: Error while printing.",
+            "text1": "Can't find the answer you're looking for? Call us for help."
         },
         "control": {
-            "left": "Exit",
-            "right": "",
+            "left": "Back",
+            "right": "Call us",
         },
         "interact": {
-            "text0": "Some four",
-            "text1": "Some five",
+            "text0": "Please call us with the number in 'Help Center' if you received any error.",
         },
     },
 }
