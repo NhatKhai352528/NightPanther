@@ -72,7 +72,7 @@ class NPFlows:
     
     def _currentToHelps(self):
         if self._currentFlow in self._subFlow.__args__:
-            NPConfirmBox(master = self._master, messageText = "Hha kitchen", buttonTexts = [None, None, "Kayy"], buttonCommands = [None, None, None])
+            NPConfirmBox(master = self._master, messageText = "Please exit first!", buttonTexts = [None, None, "OK"], buttonCommands = [None, None, None])
             return
         if self._currentFlow != "helps":
             self._previousFlow = self._currentFlow

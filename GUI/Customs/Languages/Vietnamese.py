@@ -115,10 +115,7 @@ Vietnamese = {
             "text1": "Bạn nhớ nhận tài liệu đã in tại máy in nhé!",
         },
     },
-}
-
-
-# Setups
+    # Setups
     "origin": {
         "data": {
             "title": "Cài đặt",
@@ -211,7 +208,7 @@ Vietnamese = {
             "text2": "Mỗi mặt in:"
         },
     },
-    
+
     # Helps
     "initial": {
         "data": {
