@@ -135,10 +135,10 @@ English = {
         },
         "interact": {
             "text0": "Setup options",
-            "text1": "Paper size setup",
-            "text2": "Number of sides setup",
-            "text3": "Price setup",
-            "text4": "Future setup",
+            "text1": "Paper size",
+            "text2": "Number of sides",
+            "text3": "Pricing options",
+            "text4": "Future",
         },
     },
     "paper": {
@@ -267,7 +267,7 @@ English = {
             "text0": "Why I can't choose some options?",
             "text1": "Some printers doesn't provide the option you want. Please try with other options.",
             "text2": "What is page sides?",
-            "text3": "Print on a single side or both side. With both side, you have the option to print on long edge/short edge."
+            "text3": "You can print on a single side or both side. With both side, you have the option to print on long edge/short edge."
         },
     },
     "pay": {
@@ -298,7 +298,8 @@ English = {
             "right": "Call us",
         },
         "interact": {
-            "text0": "Please call us with the number in 'Help Center' if you received any error.",
+            "text0": "Call us with the number in 'Help Center' if you received any error.",
+            "text1": "Please don't try to fix it yourself."
         },
     },
 }

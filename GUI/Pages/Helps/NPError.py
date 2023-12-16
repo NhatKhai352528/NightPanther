@@ -22,3 +22,4 @@ class NPError(NPPages):
         # Initialize items for interact frame
         self._interact.initText(mode = "content", text = "", justify = "center")
         self._interact.initText(mode = "heading", text = currentLanguage["error"]["interact"]["text0"], justify = "center")
+        self._interact.initText(mode = "content", text = currentLanguage["error"]["interact"]["text1"], justify = "center")
