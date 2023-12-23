@@ -9,7 +9,7 @@ Vietnamese = {
     "welcome": {
         "data": {
             "title": "Xin chào",
-            "text0": "Bạn cần tự in tài liệu? Hãy đặt in tại đây!",
+            "text0": "Bạn mong muốn tự in tài liệu? Hãy đặt in tại đây!",
         },
         "control": {
             "left": "Quản lý",
@@ -124,7 +124,7 @@ Vietnamese = {
             "text2": "- Kiểm tra tính năng của máy in để cài đặt tương ứng."
         },
         "control": {
-            "left": "Thoát",
+            "left": "Trở lại",
             "right": "",
         },
         "interact": {
@@ -210,14 +210,14 @@ Vietnamese = {
     },
 
     # Helps
-    "initial": {
+    "helpInitial": {
         "data": {
             "title": "Trợ giúp",
             "text0": "Chúng tôi có thể giúp gì cho bạn?",
             "text1": "Nếu bạn không tìm thấy câu trả lời mong muốn, hãy liên hệ với chúng tôi để nhận hỗ trợ."
         },
         "control": {
-            "left": "Thoát",
+            "left": "Trở lại",
             "right": "Liên hệ",
         },
         "interact": {
@@ -228,7 +228,7 @@ Vietnamese = {
             "text4": "Lỗi khi in tài liệu.",
         },
     },
-    "upload": {
+    "helpUpload": {
         "data": {
             "title": "Trợ giúp",
             "text0": "CÂU HỎI: Làm sao tải tài liệu lên?",
@@ -247,7 +247,7 @@ Vietnamese = {
             "text5": "Sử dụng chức năng 'Print to PDF' trên máy tính để địng dạng và xuất file PDF trước khi gửi lên website tải tài liệu."
         },
     },
-    "print": {
+    "helpPrint": {
         "data": {
             "title": "Trợ giúp",
             "text0": "CÂU HỎI: Làm sao chọn các lựa chọn in?",
@@ -264,7 +264,7 @@ Vietnamese = {
             "text3": "Bạn có thể in trên một mặt hoặc cả hai mặt (với lựa chọn: long edge/short edge)."
         },
     },
-    "pay": {
+    "helpPay": {
         "data": {
             "title": "Trợ giúp",
             "text0": "CÂU HỎI: Làm sao để thanh toán?",
@@ -281,7 +281,7 @@ Vietnamese = {
             "text3": "Không, chức năng hoàn tiền đang được phát triển. Nếu bạn gặp bất kỳ bất tiện nào, vui lòng liên hệ với chúng tôi qua SĐT ở mục 'Trợ giúp' để được hỗ trợ."
         },
     },
-    "error": {
+    "helpError": {
         "data": {
             "title": "Trợ giúp",
             "text0": "CÂU HỎI: Lỗi khi in tài liệu.",
@@ -292,8 +292,35 @@ Vietnamese = {
             "right": "Liên hệ",
         },
         "interact": {
-            "text0": "Liên hệ qua SĐT trong mục 'Trợ giúp' khi bạn gặp phải bất kỳ lỗ nào.",
+            "text0": "Liên hệ qua SĐT trong mục 'Trợ giúp' khi bạn gặp phải bất kỳ lỗi nào.",
             "text1": "Vui lòng không tự sửa trang thiết bị."
         },
     },
+    "admin":{
+        "data": {
+            "title": "Admin",
+            "text0": "Đăng nhập tài khoản Admin"
+        },
+        "control": {
+            "left": "Trở lại",
+            "right": "Đăng xuất",
+        },
+        "interact":{
+            "text0": "Nhập mật khẩu"
+        }
+    },
+    "settingsInitial":{
+        "data": {
+            "title": "Cài đặt",
+            "text0": ""
+        },
+        "control": {
+            "left": "Trở lại",
+            "right": "Liên hệ",
+        },
+        "interact":{
+            "text0": "Ngôn ngữ",
+            "text1": ""
+        }
+    }
 }

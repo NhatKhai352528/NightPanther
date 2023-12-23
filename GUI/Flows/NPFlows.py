@@ -11,6 +11,11 @@ from ..Objects.NPConfirmBox import NPConfirmBox
 import globals
 import socket
 from threading import Thread
+from ..Customs.NPLanguage import NPLanguage
+from ..Customs.NPTheme import NPTheme
+
+currentLanguage = NPLanguage.getLanguage()
+currentTheme = NPTheme.getTheme()
 
 class NPFlows:
     
@@ -72,7 +77,7 @@ class NPFlows:
     
     def _currentToHelps(self):
         if self._currentFlow in self._subFlow.__args__:
-            NPConfirmBox(master = self._master, messageText = "Please exit first!", buttonTexts = [None, None, "OK"], buttonCommands = [None, None, None])
+            NPConfirmBox(master = self._master, messageText = "Please go back first!", buttonTexts = [None, None, "OK"], buttonCommands = [None, None, None])
             return
         if self._currentFlow != "helps":
             self._previousFlow = self._currentFlow

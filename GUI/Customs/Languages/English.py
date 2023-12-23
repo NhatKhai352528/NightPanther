@@ -16,7 +16,7 @@ English = {
             "text0": "Need to print documents yourself? Place an order now!",
         },
         "control": {
-            "left": "Root access",
+            "left": "Manage",
             "right": "Order now",
         },
         "interact": {
@@ -130,7 +130,7 @@ English = {
             "text2": "- Check the printer's features to setup accordingly."
         },
         "control": {
-            "left": "Exit",
+            "left": "Back",
             "right": "",
         },
         "interact": {
@@ -216,14 +216,14 @@ English = {
     },
     
     # Helps
-    "initial": {
+    "helpInitial": {
         "data": {
             "title": "Help Center",
             "text0": "How can we help you?",
             "text1": "Can't find the answer you're looking for? Call us for help."
         },
         "control": {
-            "left": "Exit",
+            "left": "Back",
             "right": "Call us",
         },
         "interact": {
@@ -234,7 +234,7 @@ English = {
             "text4": "Error while printing.",
         },
     },
-    "upload": {
+    "helpUpload": {
         "data": {
             "title": "Help Center",
             "text0": "QUESTION: How to upload documents?",
@@ -253,7 +253,7 @@ English = {
             "text5": "You can use the 'Print to PDF' option on your computer and format to document as desired before uploading to the website."
         },
     },
-    "print": {
+    "helpPrint": {
         "data": {
             "title": "Help Center",
             "text0": "QUESTION: How to choose print options?",
@@ -270,7 +270,7 @@ English = {
             "text3": "You can print on a single side or both side. With both side, you have the option to print on long edge/short edge."
         },
     },
-    "pay": {
+    "helpPay": {
         "data": {
             "title": "Help Center",
             "text0": "QUESTION: How to pay?",
@@ -287,7 +287,7 @@ English = {
             "text3": "No, the refund feature is still in development. If you encountered any inconvenient, please call us with the number in 'Help Center'."
         },
     },
-    "error": {
+    "helpError": {
         "data": {
             "title": "Help Center",
             "text0": "QUESTION: Error while printing.",
@@ -302,4 +302,30 @@ English = {
             "text1": "Please don't try to fix it yourself."
         },
     },
+    "admin":{
+        "data": {
+            "title": "Admin",
+            "text0": "Log in admin account"
+        },
+        "control": {
+            "left": "Back",
+            "right": "Call us",
+        },
+        "interact":{
+            "text0": "Enter password"
+        }
+    },
+    "settingsInitial":{
+        "data": {
+            "title": "Settings",
+            "text0": ""
+        },
+        "control": {
+            "left": "Back",
+            "right": "Call us",
+        },
+        "interact":{
+            "text0": "Language"
+        }
+    }
 }
