@@ -110,8 +110,7 @@ class NPPrints:
         self._printing.place_forget()
 
     def _getServerVariables(self):
-        # For test 
-        self._serverLink = "192.168.0.0" # subprocess.check_output(['hostname','-I']).decode().strip() + ':3000'
+        self._serverLink = subprocess.check_output(['hostname','-I']).decode().strip().split()[0] + ':3000'
         self._upload.npset(attribute = "serverLink", value = self._serverLink)
         uploadQR = qrcode.make("http://" + self._serverLink)
         type(uploadQR)
@@ -199,8 +198,6 @@ class NPPrints:
                     printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode().lower();
                     if (printer_status.find("idle") != -1):
                         handlePrinterError(strError = "nono")
-                    elif (printer_status.find("unplugged") != -1 or printer_status.find("turned off") != -1):
-                        handlePrintError(strError = "The printer is unplugged or turned off")
                     elif (printer_status.find("rendering completed") != -1):
                         handlePrintError(strError = "The printer is not working properly")
                     elif (printer_status.find("sending data to printer") != -1):
