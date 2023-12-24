@@ -12,7 +12,7 @@ class NPTk(Tk):
         
         super().overrideredirect(boolean = True)
         
-        self._mode: Literal["user", "admin"] = "admin"
+        self._mode: Literal["user", "admin"] = "user"
     
     def mainloop(self):
         super().mainloop()

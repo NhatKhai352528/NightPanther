@@ -9,7 +9,7 @@ Vietnamese = {
     "welcome": {
         "data": {
             "title": "Xin chào",
-            "text0": "Bạn mong muốn tự in tài liệu? Hãy đặt in tại đây!",
+            "text0": "Bạn muốn tự in tài liệu? Hãy đặt in tại đây!",
         },
         "control": {
             "left": "Quản lý",
@@ -299,7 +299,8 @@ Vietnamese = {
     "admin":{
         "data": {
             "title": "Admin",
-            "text0": "Đăng nhập tài khoản Admin"
+            "loggedOut": "Bạn đã đăng xuất. Vui lòng đăng nhập tài khoản admin để tiếp tục.",
+            "loggedIn": "Bạn đã đăng nhập thành công."
         },
         "control": {
             "left": "Trở lại",
@@ -312,7 +313,6 @@ Vietnamese = {
     "settingsInitial":{
         "data": {
             "title": "Cài đặt",
-            "text0": ""
         },
         "control": {
             "left": "Trở lại",
@@ -320,7 +320,17 @@ Vietnamese = {
         },
         "interact":{
             "text0": "Ngôn ngữ",
-            "text1": ""
+            "text1": "Chế độ màu",
+            "light": "Sáng",
+            "dark": "Tối"
+        }
+    },
+    "confirmBox":{
+        "message":{
+            "goToHelpFromAny": "Nhấn 'Trở lại' trước khi chuyển tới 'Trợ giúp'.",
+            "goToSettingFromSubflow": "Nhấn 'Trở lại' trước khi chuyển tới 'Cài đặt'.",
+            "goToAdminFromAny": "Nhấn 'Trở lại' trước khi chuyển tới 'Admin'.",
+            "goToSetupNotLoggedIn": "Vui lòng đăng nhập với tài khoản Admin."
         }
     }
 }

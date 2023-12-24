@@ -7,7 +7,7 @@ NPTheme.setTheme(theme = "Default")
 currentTheme = NPTheme.getTheme()
 
 from .Customs.NPLanguage import NPLanguage
-NPLanguage.setLanguage(language = "English")
+NPLanguage.setLanguage(language = "Vietnamese")
 currentLanguage = NPLanguage.getLanguage()
 
 from .Flows.NPFlows import NPFlows

@@ -305,11 +305,12 @@ English = {
     "admin":{
         "data": {
             "title": "Admin",
-            "text0": "Log in admin account"
+            "loggedOut": "You've logged out. Please log in as admin to proceed.",
+            "loggedIn": "You've logged in successfully.",
         },
         "control": {
             "left": "Back",
-            "right": "Call us",
+            "right": "Quit",
         },
         "interact":{
             "text0": "Enter password"
@@ -318,14 +319,24 @@ English = {
     "settingsInitial":{
         "data": {
             "title": "Settings",
-            "text0": ""
         },
         "control": {
             "left": "Back",
             "right": "Call us",
         },
         "interact":{
-            "text0": "Language"
+            "text0": "Language",
+            "text1": "Mode",
+            "light": "Light",
+            "dark": "Dark"
+        }
+    },
+    "confirmBox":{
+        "message":{
+            "goToHelpFromAny": "Click 'Back' before going to 'Help Center'.",
+            "goToSettingFromSubflow": "Click 'Back' before going 'Settings'.",
+            "goToAdminFromAny": "Click 'Back' before going to 'Admin'.",
+            "goToSetupNotLoggedIn": "Log in as admin first."
         }
     }
 }

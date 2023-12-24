@@ -35,20 +35,20 @@ class NPConfirmBox:
         self._frame.place()
         
         self._messageText = messageText
-        self._buttonTexts = [str, str, str]
-        for i in range(3):
+        self._buttonTexts = [str, str]
+        for i in range(2):
             try:
                 self._buttonTexts[i] = buttonTexts[i]
             except:
                 self._buttonTexts[i] = None
-        commands = [Any, Any, Any]
-        for i in range(3):
+        commands = [Any, Any]
+        for i in range(2):
             try:
                 commands[i] = buttonCommands[i]
             except:
                 commands[i] = None
-        self._buttonCommands = [Any, Any, Any]
-        for i in range(3):
+        self._buttonCommands = [Any, Any]
+        for i in range(2):
             if commands[i] != None:
                 self._buttonCommands[i] = lambda event = None, i = i: (self.destroy(), commands[i]())
             else:
@@ -57,14 +57,14 @@ class NPConfirmBox:
         # Size variables
         self._messageWidth = int(self._width - 2 * self._distance)
         self._messageHeight = int(0.75 * self._height - 2 * self._distance)
-        self._buttonWidth = int((self._width - 4 * self._distance) / 3)
+        self._buttonWidth = int((self._width - 3 * self._distance) / 2)
         self._buttonHeight = int(self._height - self._messageHeight - 3 * self._distance)
         
         self._message = NPMessage(master = self._frame, x = self._distance, y = self._distance, width = self._messageWidth, height = self._messageHeight, anchor = "nw", background = currentTheme["background"]["default"], font = currentTheme["font"]["heading"], foreground = currentTheme["foreground"]["highlight"], text = self._messageText)
         self._message.place()
         
-        self._buttons = [Any, Any, Any]
-        for i in range(3):
+        self._buttons = [Any, Any]
+        for i in range(2):
             self._buttons[i] = NPTextButton(master = self._frame, mode = "action", x = i * self._buttonWidth + (i + 1) * self._distance, y = self._messageHeight + 2 * self._distance, width = self._buttonWidth, height = self._buttonHeight, anchor = "nw", command = self._buttonCommands[i], font = currentTheme["font"]["strong"], repeat = False, state = "normal" if self._buttonTexts[i] != None else "disabled", text = self._buttonTexts[i])
             self._buttons[i].place()
         
