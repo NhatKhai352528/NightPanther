@@ -6,7 +6,7 @@ English = {
         "delete": "Delete",
     },
     "spinBox": {
-        "confirm": "Check",
+        "confirm": "Confirm",
     },
     
     # Starts
@@ -38,7 +38,7 @@ English = {
             "text4": "Wating for you",
         },
         "control": {
-            "left": "Click me",
+            "left": "Back",
             "right": "Next",
         },
         "interact": {
@@ -337,7 +337,12 @@ English = {
             "goToHelpFromAny": "Click 'Back' before going to 'Help Center'.",
             "goToSettingFromSubflow": "Click 'Back' before going 'Settings'.",
             "goToAdminFromAny": "Click 'Back' before going to 'Admin'.",
-            "goToSetupNotLoggedIn": "Log in as admin first."
+            "goToSetupNotLoggedIn": "Log in as admin first.",
+            "reset": "Current progress will be lost. Are you sure you want to go back?"
+        },
+        "options": {
+            "return": "Yes",
+            "remain": "No, remain"
         }
     }
 }

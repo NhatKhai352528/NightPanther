@@ -99,6 +99,7 @@ class NPPrints:
     
     def _paymentToPrinting(self):
         self._printing = NPPrinting(master = self._master, commands = [None, lambda event = None: self._printingToSuccess()], fileName = self._fileName, filePages = self._filePages, userCopies = self._userCopies)
+        self._printing.initControlButton()
         self._printing.place()
         self._payment.place_forget()
         printUserFile = Thread(target = self._printUserFile)
