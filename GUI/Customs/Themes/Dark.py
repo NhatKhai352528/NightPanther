@@ -1,15 +1,16 @@
 from tkinter.font import Font
 from ..Colors.BasicRGB import BasicRGB
+from ..Colors.IBM import IBM
 from ..Fonts.BasicFont import BasicFont
 
 Dark = {
     "default": {
-        "color": BasicRGB["azure"]["4"],
+        "color": IBM["gray"]["default"]["10"],
         "size": 16,
     },
     "font": {
         "default": Font(family = BasicFont["verdana"], size = 16, weight = "normal", slant = "roman", underline = False, overstrike = False),
-        "title": Font(family = BasicFont["verdana"], size = 32, weight = "bold", slant = "roman", underline = False, overstrike = False),
+        "title": Font(family = BasicFont["verdana"], size = 28, weight = "bold", slant = "roman", underline = False, overstrike = False),
         "section": Font(family = BasicFont["verdana"], size = 24, weight = "bold", slant = "roman", underline = False, overstrike = False),
         "heading": Font(family = BasicFont["verdana"], size = 20, weight = "bold", slant = "roman", underline = False, overstrike = False),
         "strong": Font(family = BasicFont["verdana"], size = 16, weight = "bold", slant = "roman", underline = False, overstrike = False),
@@ -18,44 +19,45 @@ Dark = {
         "tiny": Font(family = BasicFont["verdana"], size = 8, weight = "normal", slant = "italic", underline = False, overstrike = False),
     },
     "foreground": {
-        "default": BasicRGB["white"]["0"],
-        "highlight": BasicRGB["azure"]["4"],
-        "inverse": BasicRGB["black"]["0"],
+        "default": IBM["gray"]["default"]["10"],
+        "highlight": IBM["blue"]["default"]["30"],
+        "inverse": BasicRGB["white"]["0"],
     },
     "background": {
-        "default": BasicRGB["black"]["3"],
-        "status": BasicRGB["black"]["1"],
-        "workspace": BasicRGB["black"]["3"],
-        "menu": BasicRGB["black"]["3"],
-        "data": BasicRGB["black"]["3"],
-        "control": BasicRGB["black"]["3"],
-        "interact": BasicRGB["black"]["2"],
+        "default": IBM["gray"]["default"]["100"],
+        "workspace": IBM["gray"]["default"]["80"], 
+        "menu": IBM["gray"]["default"]["90"],
+        "data": IBM["gray"]["default"]["100"],
+        "interact": IBM["gray"]["default"]["80"],
+        "control": IBM["gray"]["default"]["90"],
+        "status": IBM["gray"]["default"]["100"],
+        "confirm": IBM["gray"]["default"]["70"],
     },
     "entry": {
-        "default": BasicRGB["white"]["0"],
-        "select": BasicRGB["azure"]["4"],
-        "disabled": BasicRGB["white"]["0"],
+        "default": IBM["gray"]["default"]["100"],
+        "select": IBM["gray"]["default"]["100"],
+        "disabled": IBM["gray"]["default"]["100"],
     },
     "button": {
         "input": {
-            "default": BasicRGB["black"]["3"],
-            "active": BasicRGB["black"]["2"],
-            "disabled": BasicRGB["white"]["2"],
+            "default": IBM["gray"]["default"]["60"],
+            "active": IBM["gray"]["default"]["100"],
+            "disabled": IBM["gray"]["default"]["70"],
         },
         "action": {
-            "default": BasicRGB["azure"]["4"],
-            "active": BasicRGB["azure"]["3"],
-            "disabled": BasicRGB["azure"]["7"],
+            "default": IBM["blue"]["default"]["60"],
+            "active": IBM["blue"]["default"]["70"],
+            "disabled": IBM["gray"]["default"]["60"],
         },
         "select": {
-            "default": BasicRGB["black"]["4"],
-            "active": BasicRGB["azure"]["3"],
-            "disabled": BasicRGB["white"]["2"],
+            "default": IBM["blue"]["default"]["30"],
+            "active": IBM["blue"]["default"]["60"],
+            "disabled": IBM["gray"]["default"]["70"],
         }
     },
     "progressBar": {
-        "default": BasicRGB["azure"]["4"],
-        "filled": BasicRGB["green"]["4"],
-        "unfilled": BasicRGB["white"]["0"],
+        "default": IBM["gray"]["default"]["70"],
+        "filled": IBM["blue"]["default"]["60"],
+        "unfilled": IBM["gray"]["default"]["60"],
     }
 }

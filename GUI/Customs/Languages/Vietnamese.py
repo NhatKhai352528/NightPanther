@@ -89,7 +89,7 @@ Vietnamese = {
         "data": {
             "title": "Đang in",
             "text0": "Something here",
-            "text1": "Tên file:: ",
+            "text1": "Tên file: ",
         },
         "control": {
             "left": "Trở lại",
@@ -222,16 +222,16 @@ Vietnamese = {
         },
         "interact": {
             "text0": "Câu hỏi thường gặp",
-            "text1": "Làm sao tải tài liệu lên?",
-            "text2": "Làm sao chọn các lựa chọn in?",
-            "text3": "Làm sao để thanh toán?",
-            "text4": "Lỗi khi in tài liệu.",
+            "text1": "Tải tài liệu cần in",
+            "text2": "Lựa chọn thông số in ấn",
+            "text3": "Thanh toán đơn hàng",
+            "text4": "Lỗi khi in tài liệu",
         },
     },
     "helpUpload": {
         "data": {
             "title": "Trợ giúp",
-            "text0": "CÂU HỎI: Làm sao tải tài liệu lên?",
+            "text0": "Tải tài liệu cần in",
             "text1": "Nếu bạn không tìm thấy câu trả lời mong muốn, hãy liên hệ chúng tôi qua SĐT trong mục 'Trợ giúp' để nhận hỗ trợ."
         },
         "control": {
@@ -250,7 +250,7 @@ Vietnamese = {
     "helpPrint": {
         "data": {
             "title": "Trợ giúp",
-            "text0": "CÂU HỎI: Làm sao chọn các lựa chọn in?",
+            "text0": "Lựa chọn thông số in ấn",
             "text1": "Nếu bạn không tìm thấy câu trả lời mong muốn, hãy liên hệ chúng tôi qua SĐT trong mục 'Trợ giúp' để nhận hỗ trợ."
         },
         "control": {
@@ -267,7 +267,7 @@ Vietnamese = {
     "helpPay": {
         "data": {
             "title": "Trợ giúp",
-            "text0": "CÂU HỎI: Làm sao để thanh toán?",
+            "text0": "Thanh toán đơn hàng",
             "text1": "Nếu bạn không tìm thấy câu trả lời mong muốn, hãy liên hệ chúng tôi qua SĐT trong mục 'Trợ giúp' để nhận hỗ trợ."
         },
         "control": {
@@ -284,7 +284,7 @@ Vietnamese = {
     "helpError": {
         "data": {
             "title": "Trợ giúp",
-            "text0": "CÂU HỎI: Lỗi khi in tài liệu.",
+            "text0": "Lỗi khi in tài liệu",
             "text1": "Nếu bạn không tìm thấy câu trả lời mong muốn, hãy liên hệ chúng tôi qua SĐT trong mục 'Trợ giúp' để nhận hỗ trợ."
         },
         "control": {
@@ -304,7 +304,7 @@ Vietnamese = {
         },
         "control": {
             "left": "Trở lại",
-            "right": "Đăng xuất",
+            "right": "Tắt",
         },
         "interact":{
             "text0": "Nhập mật khẩu"

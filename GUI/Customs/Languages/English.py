@@ -228,16 +228,16 @@ English = {
         },
         "interact": {
             "text0": "Common topics",
-            "text1": "How to upload documents?",
-            "text2": "How to choose print options?",
-            "text3": "How to pay?",
-            "text4": "Error while printing.",
+            "text1": "Upload document to print",
+            "text2": "Choose print options",
+            "text3": "Order payment",
+            "text4": "Error while printing",
         },
     },
     "helpUpload": {
         "data": {
             "title": "Help Center",
-            "text0": "QUESTION: How to upload documents?",
+            "text0": "Upload document to print",
             "text1": "Can't find the answer you're looking for? Call us for help."
         },
         "control": {
@@ -256,7 +256,7 @@ English = {
     "helpPrint": {
         "data": {
             "title": "Help Center",
-            "text0": "QUESTION: How to choose print options?",
+            "text0": "Choose print options",
             "text1": "Can't find the answer you're looking for? Call us for help."
         },
         "control": {
@@ -273,7 +273,7 @@ English = {
     "helpPay": {
         "data": {
             "title": "Help Center",
-            "text0": "QUESTION: How to pay?",
+            "text0": "Order payment",
             "text1": "Can't find the answer you're looking for? Call us for help."
         },
         "control": {
@@ -290,7 +290,7 @@ English = {
     "helpError": {
         "data": {
             "title": "Help Center",
-            "text0": "QUESTION: Error while printing.",
+            "text0": "Error while printing",
             "text1": "Can't find the answer you're looking for? Call us for help."
         },
         "control": {
