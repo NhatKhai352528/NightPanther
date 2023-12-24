@@ -3,7 +3,7 @@ root = NPTk()
 root.bind(sequence = "<Return>", func = lambda event = None: root.destroy())
 
 from .Customs.NPTheme import NPTheme
-NPTheme.setTheme(theme = "Default")
+NPTheme.setTheme(theme = "Dark")
 currentTheme = NPTheme.getTheme()
 
 from .Customs.NPLanguage import NPLanguage

@@ -13,7 +13,7 @@ class NPUpload(NPPages):
         
         # Initialize items for data frame
         self._data.initText(mode = "title", text = currentLanguage["helpUpload"]["data"]["title"], wrap = True)
-        self._data.initText(mode = "Content", text = currentLanguage["helpUpload"]["data"]["text0"], wrap = True)
+        self._data.initText(mode = "content", text = currentLanguage["helpUpload"]["data"]["text0"], wrap = True)
         
         # Initialize items for control frame
         self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = currentLanguage["helpUpload"]["control"]["left"])
