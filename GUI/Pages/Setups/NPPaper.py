@@ -4,26 +4,26 @@ from ..NPPages import NPPages
 from ...Constants.NPPaper import Paper
 from ...Customs.NPLanguage import NPLanguage
 
-currentLanguage = NPLanguage.getLanguage()
-
 class NPPaper(NPPages):
     
     def __init__(self, master: Tk, commands: list[Any, Any] = None):
+
+        self._currentLanguage = NPLanguage.getLanguage()
         
         super().__init__(master = master, commands = commands)
         
         # Initialize items for data frame
-        self._data.initText(mode = "title", text = currentLanguage["paper"]["data"]["title"], wrap = True)
-        self._data.initText(mode = "Content", text = currentLanguage["paper"]["data"]["text0"], wrap = True)
+        self._data.initText(mode = "title", text = self._currentLanguage["paper"]["data"]["title"], wrap = True)
+        self._data.initText(mode = "Content", text = self._currentLanguage["paper"]["data"]["text0"], wrap = True)
         
         # Initialize items for control frame
-        self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = currentLanguage["paper"]["control"]["left"])
-        self._control.initButton(position = "right", command = lambda event = None: self._saveAvailablePaper(), state = "normal", text = currentLanguage["paper"]["control"]["right"])
+        self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = self._currentLanguage["paper"]["control"]["left"])
+        self._control.initButton(position = "right", command = lambda event = None: self._saveAvailablePaper(), state = "normal", text = self._currentLanguage["paper"]["control"]["right"])
         
         # Initialize items for interact frame
         self._interact.initText(mode = "content", text = "", justify = "center")
-        self._interact.initText(mode = "heading", text = currentLanguage["paper"]["interact"]["text0"], justify = "center")
-        self._interact.initText(mode = "content", text = currentLanguage["paper"]["interact"]["text1"], justify = "center")
+        self._interact.initText(mode = "heading", text = self._currentLanguage["paper"]["interact"]["text0"], justify = "center")
+        self._interact.initText(mode = "content", text = self._currentLanguage["paper"]["interact"]["text1"], justify = "center")
         
         availablePaper = [["active" if value else "default" for value in Paper.values()]]
         

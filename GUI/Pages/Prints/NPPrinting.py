@@ -26,11 +26,7 @@ class NPPrinting(NPPages):
         self._fileNameIndex = self._data.initText(mode = "content", text = self._fileName, wrap = False)
         
         # Initialize items for control frame
-<<<<<<< HEAD
         # self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = currentLanguage["printing"]["control"]["cancel"])
-=======
-        #self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = currentLanguage["printing"]["control"]["cancel"])
->>>>>>> f2f5d00 (feat: add pause mechanism)
         # self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = currentLanguage["printing"]["control"]["pause"])
         
         # Initialize items for interact frame

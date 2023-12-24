@@ -8,7 +8,7 @@ class NPPrimary(NPPages):
     
     def __init__(self, master: Tk, commands: list[Any] = None):
 
-        currentLanguage = NPLanguage.getLanguage()
+        self._currentLanguage = NPLanguage.getLanguage()
         
         super().__init__(master = master, commands = commands)
         
@@ -21,21 +21,21 @@ class NPPrimary(NPPages):
         themes[0][self._currentThemeIndex] = "active"
         
         # Initialize items for data frame
-        self._data.initText(mode = "title", text = currentLanguage["settingsInitial"]["data"]["title"], wrap = True)
+        self._data.initText(mode = "title", text = self._currentLanguage["settingsInitial"]["data"]["title"], wrap = True)
         
         # Initialize items for control frame
-        self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = currentLanguage["settingsInitial"]["control"]["left"])
-        self._control.initButton(position = "right", command = lambda event = None: self._saveSettings(), state = "normal", text = currentLanguage["settingsInitial"]["control"]["right"])
+        self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = self._currentLanguage["settingsInitial"]["control"]["left"])
+        self._control.initButton(position = "right", command = lambda event = None: self._saveSettings(), state = "normal", text = self._currentLanguage["settingsInitial"]["control"]["right"])
         
         # Initialize items for interact frame
         self._interact.initText(mode = "content", text = "", justify = "center")
-        self._interact.initText(mode = "heading", text = currentLanguage["settingsInitial"]["interact"]["text0"], justify = "center")
+        self._interact.initText(mode = "heading", text = self._currentLanguage["settingsInitial"]["interact"]["text0"], justify = "center")
         self._languagesIndex = self._interact.initButtonArray(mode = "single", rows = 1, columns = 2, defaults = languages, texts = [["EN", "VN"]])
         self._languagesButtonArray = self._interact.npget(attribute = "buttonArray", index = self._languagesIndex)
 
         self._interact.initText(mode = "content", text = "", justify = "center")
-        self._interact.initText(mode = "heading", text = currentLanguage["settingsInitial"]["interact"]["text1"], justify = "center")
-        self._themesIndex = self._interact.initButtonArray(mode = "single", rows = 1, columns = 2, defaults = themes, texts = [[currentLanguage["settingsInitial"]["interact"]["light"], currentLanguage["settingsInitial"]["interact"]["dark"]]])
+        self._interact.initText(mode = "heading", text = self._currentLanguage["settingsInitial"]["interact"]["text1"], justify = "center")
+        self._themesIndex = self._interact.initButtonArray(mode = "single", rows = 1, columns = 2, defaults = themes, texts = [[self._currentLanguage["settingsInitial"]["interact"]["light"], self._currentLanguage["settingsInitial"]["interact"]["dark"]]])
         self._themesButtonArray = self._interact.npget(attribute = "buttonArray", index = self._themesIndex)
     
     def _saveSettings(self):

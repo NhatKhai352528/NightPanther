@@ -3,14 +3,14 @@ from typing import Any
 from ..NPPages import NPPages
 from ...Customs.NPLanguage import NPLanguage
 
-currentLanguage = NPLanguage.getLanguage()
-
 def formatPrice(price: int):
     return "{:,.0f} VND".format(price, ",").replace(",", ".")
 
 class NPPayment(NPPages):
     
     def __init__(self, master: Tk, commands: list[Any, Any] = None, fileName: str = None, userCopies: int = None, userPrice: int = None, userQRFile: str = None):
+
+        self._currentLanguage = NPLanguage.getLanguage()
         
         super().__init__(master = master, commands = commands)
         
@@ -21,23 +21,23 @@ class NPPayment(NPPages):
         self._userQRFile = userQRFile if userQRFile != None else ""
         
         # Initialize items for data frame
-        self._data.initText(mode = "title", text = currentLanguage["payment"]["data"]["title"], wrap = True)
+        self._data.initText(mode = "title", text = self._currentLanguage["payment"]["data"]["title"], wrap = True)
         
-        self._data.initText(mode = "heading", text = currentLanguage["payment"]["data"]["text0"], wrap = False)
+        self._data.initText(mode = "heading", text = self._currentLanguage["payment"]["data"]["text0"], wrap = False)
         self._fileNameIndex = self._data.initText(mode = "content", text = self._fileName, wrap = False)
         
-        self._data.initText(mode = "heading", text = currentLanguage["payment"]["data"]["text1"], wrap = False)
+        self._data.initText(mode = "heading", text = self._currentLanguage["payment"]["data"]["text1"], wrap = False)
         self._userCopiesIndex = self._data.initText(mode = "content", text = self._userCopies, wrap = False)
         
-        self._data.initText(mode = "Heading", text = currentLanguage["payment"]["data"]["text2"], wrap = False)
+        self._data.initText(mode = "Heading", text = self._currentLanguage["payment"]["data"]["text2"], wrap = False)
         self._userPriceIndex = self._data.initText(mode = "Content", text = formatPrice(self._userPrice), wrap = True)
         
         # Initialize items for control frame
-        self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = currentLanguage["payment"]["control"]["left"])
-        self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = currentLanguage["payment"]["control"]["right"])
+        self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = self._currentLanguage["payment"]["control"]["left"])
+        self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = self._currentLanguage["payment"]["control"]["right"])
         
         # Initialize items for interact frame
-        self._interact.initText(mode = "heading", text = currentLanguage["payment"]["interact"]["text0"], justify = "center")
+        self._interact.initText(mode = "heading", text = self._currentLanguage["payment"]["interact"]["text0"], justify = "center")
         self._interact.initText(mode = "content", text = "", justify = "center")
         self._userQRIndex = self._interact.initImage(imageFile = self._userQRFile, imageWidth = 300, imageHeight = 300)
     
