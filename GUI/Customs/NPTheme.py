@@ -4,19 +4,21 @@ from .Themes.Dark import Dark
 class NPTheme:
     
     currentTheme = Default
-    availableThemes = {"Default": Default, "Dark": Dark}
+    availableThemes = [Default, Dark]
     
     @classmethod
-    def setTheme(cls, theme: str = "defaultTheme"):
-        if theme in cls.availableThemes:
-            cls.currentTheme = cls.availableThemes[theme]
-        else:
-            cls.currentTheme = Default
+    def setTheme(cls, themeCode: int = None):
+        try:
+            cls.currentTheme = cls.availableThemes[themeCode]
+        except:
+            cls.currentTheme = cls.availableThemes[0]
             
     @classmethod
     def getTheme(cls):
         return cls.currentTheme
     
     @classmethod
-    def getThemes(cls):
-        return list(cls.availableThemes.keys())
+    def getThemeIndex(cls):
+        for i in range(len(cls.availableThemes)):
+            if cls.currentTheme == cls.availableThemes[i]:
+                return i

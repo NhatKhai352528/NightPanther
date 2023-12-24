@@ -110,7 +110,7 @@ class NPPrints:
         self._printing.place_forget()
 
     def _getServerVariables(self):
-        self._serverLink = subprocess.check_output(['hostname','-I']).decode().strip().split()[0] + ':3000'
+        # self._serverLink = subprocess.check_output(['hostname','-I']).decode().strip().split()[0] + ':3000'
         self._upload.npset(attribute = "serverLink", value = self._serverLink)
         uploadQR = qrcode.make("http://" + self._serverLink)
         type(uploadQR)
