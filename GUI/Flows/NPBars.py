@@ -21,12 +21,12 @@ class NPBars:
         self._menu = NPMenu(master = self._master)
         self._status = NPStatus(master = self._master)
         
-        self._menu.initButton(index = 0, command = self._menuCommands[0], imageFile = None, state = "normal")
-        self._menu.initButton(index = 1, command = self._menuCommands[1], imageFile = None, state = "normal")
-        self._menu.initButton(index = 2, command = self._menuCommands[2], imageFile = None, state = "normal")
-        self._menu.initButton(index = 3, command = self._menuCommands[3], imageFile = None, state = "normal")
+        self._menu.initButton(index = 0, command = self._menuCommands[0], imageFile = "./GUI/Images/Refresh-modified.png", state = "normal")
+        self._menu.initButton(index = 1, command = self._menuCommands[1], imageFile = "./GUI/Images/Help-modified.png", state = "normal")
+        self._menu.initButton(index = 2, command = self._menuCommands[2], imageFile = "./GUI/Images/Construct-modified.png", state = "normal")
+        self._menu.initButton(index = 3, command = self._menuCommands[3], imageFile = "./GUI/Images/Account-modified.png", state = "normal")
         
-        self._status.initImage(anchor = "w", imageFile = None)
+        self._status.initImage(anchor = "w", imageFile = "../Images/Logo1.png")
         self._status.initImage(anchor = "e", imageFile = None)
         self._status.initText(width = 400, anchor = "w", text = "Student Smart Printing System")
         

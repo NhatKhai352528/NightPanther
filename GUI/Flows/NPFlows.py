@@ -37,7 +37,7 @@ class NPFlows:
         self._currentFlow: Optional[Union[self._mainFlow, self._subFlow]] = None
     
     def place(self):
-        self._bars = NPBars(master = self._master, menuCommands = [lambda event = None: self._currentToStarts(), lambda event = None: self._currentToHelps(), lambda event = None: self._currentToSettings(), lambda event = None: self._currentToAdmins()])
+        self._bars = NPBars(master = self._master, menuCommands = [lambda event = None: self._confirmToStart(), lambda event = None: self._currentToHelps(), lambda event = None: self._currentToSettings(), lambda event = None: self._currentToAdmins()])
         self._bars.place()
         self._currentToStarts()
         self.startConnection()
@@ -53,6 +53,11 @@ class NPFlows:
     
     #
     # Starts
+    
+    def _confirmToStart(self):
+        if self._currentFlow == "starts":
+            return
+        NPConfirmBox(master = self._master, messageText = "NguyenThiTam", buttonTexts = ["Cancel", "Reset"], buttonCommands = [None, lambda event = None: self._currentToStarts()])
     
     def _currentToStarts(self):
         
@@ -74,6 +79,8 @@ class NPFlows:
     # Helps
     
     def _currentToHelps(self):
+        if self._currentFlow == "helps":
+            return
         if self._currentFlow in self._subFlow.__args__:
             NPConfirmBox(master = self._master, messageText = currentLanguage["confirmBox"]["message"]["goToHelpFromAny"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
             return
@@ -93,6 +100,8 @@ class NPFlows:
     # Settings
     
     def _currentToSettings(self):
+        if self._currentFlow == "settings":
+            return
         if self._currentFlow in self._subFlow.__args__:
             NPConfirmBox(master = self._master, messageText = currentLanguage["confirmBox"]["message"]["goToSettingFromSubflow"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
             return
@@ -115,6 +124,8 @@ class NPFlows:
     # Admins
     
     def _currentToAdmins(self):
+        if self._currentFlow == "admins":
+            return
         if self._currentFlow in self._subFlow.__args__:
             NPConfirmBox(master = self._master, messageText = currentLanguage["confirmBox"]["message"]["goToAdminFromAny"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
             return

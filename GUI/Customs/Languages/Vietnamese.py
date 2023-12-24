@@ -92,8 +92,9 @@ Vietnamese = {
             "text1": "Tên file: ",
         },
         "control": {
-            "left": "Trở lại",
-            "right": "Tiếp",
+            "cancel": "Hủy đơn",
+            "pause": "Tạm dừng",
+            "continue": "Tiếp tục"
         },
         "interact": {
             "text0": "Đang xử lý...",
@@ -118,7 +119,7 @@ Vietnamese = {
     # Setups
     "origin": {
         "data": {
-            "title": "Cài đặt",
+            "title": "Quản lý",
             "text0": "Chỉnh sửa hệ thống",
             "text1": "- Đăng nhập bằng tài khoản admin để thực hiện chỉnh sửa.",
             "text2": "- Kiểm tra tính năng của máy in để cài đặt tương ứng."
@@ -137,7 +138,7 @@ Vietnamese = {
     },
     "paper": {
         "data": {
-            "title": "Cài đặt",
+            "title": "Quản lý",
             "text0": "Kích thước giấy",
         },
         "control": {
@@ -151,7 +152,7 @@ Vietnamese = {
     },
     "sides": {
         "data": {
-            "title": "Cài đặt",
+            "title": "Quản lý",
             "text0": "Số mặt in",
         },
         "control": {
@@ -165,7 +166,7 @@ Vietnamese = {
     },
     "a3Price": {
         "data": {
-            "title": "Cài đặt",
+            "title": "Quản lý",
             "text0": "Đơn giá: A3",
         },
         "control": {
@@ -180,7 +181,7 @@ Vietnamese = {
     },
     "a4Price": {
         "data": {
-            "title": "Cài đặt",
+            "title": "Quản lý",
             "text0": "Đơn giá: A4",
         },
         "control": {
@@ -195,7 +196,7 @@ Vietnamese = {
     },
     "a5Price": {
         "data": {
-            "title": "Cài đặt",
+            "title": "Quản lý",
             "text0": "Đơn giá: A5",
         },
         "control": {

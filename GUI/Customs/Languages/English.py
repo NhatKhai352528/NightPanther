@@ -97,8 +97,9 @@ English = {
             "text1": "File name: ",
         },
         "control": {
-            "left": "Back",
-            "right": "Next",
+            "cancel": "Cancel order",
+            "pause": "Pause",
+            "continue": "Continue"
         },
         "interact": {
             "text0": "Processing...",
@@ -124,7 +125,7 @@ English = {
     # Setups
     "origin": {
         "data": {
-            "title": "Setup",
+            "title": "Manage",
             "text0": "System setup",
             "text1": "- Login admin account to make changes.",
             "text2": "- Check the printer's features to setup accordingly."
@@ -143,7 +144,7 @@ English = {
     },
     "paper": {
         "data": {
-            "title": "Setup",
+            "title": "Manage",
             "text0": "Paper size",
         },
         "control": {
@@ -157,7 +158,7 @@ English = {
     },
     "sides": {
         "data": {
-            "title": "Setup",
+            "title": "Manage",
             "text0": "Number of sides",
         },
         "control": {
@@ -171,7 +172,7 @@ English = {
     },
     "a3Price": {
         "data": {
-            "title": "Setup",
+            "title": "Manage",
             "text0": "A3 Pricing",
         },
         "control": {
@@ -186,7 +187,7 @@ English = {
     },
     "a4Price": {
         "data": {
-            "title": "Setup",
+            "title": "Manage",
             "text0": "A4 Pricing",
         },
         "control": {
@@ -201,7 +202,7 @@ English = {
     },
     "a5Price": {
         "data": {
-            "title": "Setup",
+            "title": "Manage",
             "text0": "A5 Pricing",
         },
         "control": {

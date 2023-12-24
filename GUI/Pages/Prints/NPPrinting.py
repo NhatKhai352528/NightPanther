@@ -26,8 +26,8 @@ class NPPrinting(NPPages):
         self._fileNameIndex = self._data.initText(mode = "content", text = self._fileName, wrap = False)
         
         # Initialize items for control frame
-        # self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = currentLanguage["printing"]["control"]["left"])
-        self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = currentLanguage["printing"]["control"]["right"])
+        self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = currentLanguage["printing"]["control"]["cancel"])
+        self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = currentLanguage["printing"]["control"]["pause"])
         
         # Initialize items for interact frame
         self._interact.initText(mode = "content", text = "", justify = "center")
@@ -56,9 +56,11 @@ class NPPrinting(NPPages):
             self._interact.updateText(index = self._printerCopyIndex, text = currentLanguage["printing"]["interact"]["text2"] + str(self._printerCopy) + "/" + str(self._userCopies))
         elif attribute == "printerPage":
             self._printerPage = value
+            self._userProgressProgressBar.npset(attribute = "value", value = self._filePages * self._printerCopy + self._printerPage % self._filePages)
             self._interact.updateText(index = self._printerPageIndex, text = currentLanguage["printing"]["interact"]["text1"] + str(self._printerPage) + "/" + str(self._filePages))
         elif attribute == "printerCopy":
             self._printerCopy = value
+            self._userProgressProgressBar.npset(attribute = "value", value = self._filePages * self._printerCopy + self._printerPage % self._filePages)
             self._interact.updateText(index = self._printerCopyIndex, text = currentLanguage["printing"]["interact"]["text2"] + str(self._printerCopy) + "/" + str(self._userCopies))
         
     def npget(self, attribute: str):
