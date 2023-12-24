@@ -4,7 +4,7 @@ Vietnamese = {
         "delete": "Delete"
     },
     "spinBox": {
-        "confirm": "Check",
+        "confirm": "Confirm",
     },
     "welcome": {
         "data": {
@@ -32,7 +32,7 @@ Vietnamese = {
             "text4": "Lẹ lên coai",
         },
         "control": {
-            "left": "Bấm coi",
+            "left": "Trở lại",
             "right": "Tiếp",
         },
         "interact": {
@@ -174,7 +174,7 @@ Vietnamese = {
             "right": "A4",
         },
         "interact": {
-            "text0": "Đơn giá cho",
+            "text0": "Đơn giá giấy A3",
             "text1": "Mỗi tờ giấy:",
             "text2": "Mỗi mặt in:"
         },
@@ -189,7 +189,7 @@ Vietnamese = {
             "right": "A5",
         },
         "interact": {
-            "text0": "Đơn giá cho",
+            "text0": "Đơn giá giấy A4",
             "text1": "Mỗi tờ giấy:",
             "text2": "Mỗi mặt in:"
         },
@@ -204,7 +204,7 @@ Vietnamese = {
             "right": "Lưu hết",
         },
         "interact": {
-            "text0": "Đơn giá cho",
+            "text0": "Đơn giá giấy A5",
             "text1": "Mỗi tờ giấy:",
             "text2": "Mỗi mặt in:"
         },
@@ -331,7 +331,12 @@ Vietnamese = {
             "goToHelpFromAny": "Nhấn 'Trở lại' trước khi chuyển tới 'Trợ giúp'.",
             "goToSettingFromSubflow": "Nhấn 'Trở lại' trước khi chuyển tới 'Cài đặt'.",
             "goToAdminFromAny": "Nhấn 'Trở lại' trước khi chuyển tới 'Admin'.",
-            "goToSetupNotLoggedIn": "Vui lòng đăng nhập với tài khoản Admin."
+            "goToSetupNotLoggedIn": "Vui lòng đăng nhập với tài khoản Admin.",
+            "reset": "Tiến trình hiện tại sẽ mất. Bạn có chắc muốn quay về?"
+        },
+        "options": {
+            "return": "Có",
+            "remain": "Ở lại"
         }
     }
 }

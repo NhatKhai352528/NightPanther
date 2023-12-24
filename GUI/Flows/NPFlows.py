@@ -57,7 +57,7 @@ class NPFlows:
     def _confirmToStart(self):
         if self._currentFlow == "starts":
             return
-        NPConfirmBox(master = self._master, messageText = "NguyenThiTam", buttonTexts = ["Cancel", "Reset"], buttonCommands = [None, lambda event = None: self._currentToStarts()])
+        NPConfirmBox(master = self._master, messageText = currentLanguage["confirmBox"]["message"]["reset"], buttonTexts = [currentLanguage["confirmBox"]["options"]["remain"], currentLanguage["confirmBox"]["options"]["return"]], buttonCommands = [None, lambda event = None: self._currentToStarts()])
     
     def _currentToStarts(self):
         

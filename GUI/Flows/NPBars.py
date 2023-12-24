@@ -26,8 +26,8 @@ class NPBars:
         self._menu.initButton(index = 2, command = self._menuCommands[2], imageFile = "./GUI/Images/Construct-modified.png", state = "normal")
         self._menu.initButton(index = 3, command = self._menuCommands[3], imageFile = "./GUI/Images/Account-modified.png", state = "normal")
         
-        self._status.initImage(anchor = "w", imageFile = "../Images/Logo1.png")
-        self._status.initImage(anchor = "e", imageFile = None)
+        self._status.initImage(anchor = "w", imageFile = "./GUI/Images/Logo1.png")
+        # self._status.initImage(anchor = "e", imageFile = None)
         self._status.initText(width = 400, anchor = "w", text = "Student Smart Printing System")
         
         self._statusFrame = self._status.npget(attribute = "frame")
