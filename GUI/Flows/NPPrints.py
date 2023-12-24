@@ -1,5 +1,5 @@
 from tkinter import Tk
-from threading import Thread, Timer
+from threading import Thread, Timer, Event
 from typing import Any
 from ..Pages.Prints.NPFormat import NPFormat
 from ..Pages.Prints.NPOrder import NPOrder
@@ -13,6 +13,10 @@ import qrcode
 import random
 import globals
 from PyPDF2 import PdfReader, PdfWriter
+from ..Customs.NPLanguage import NPLanguage
+from ..Objects.NPConfirmBox import NPConfirmBox
+
+currentLanguage = NPLanguage.getLanguage()
 
 class NPPrints:
     def __init__(self, master: Tk, destroyCommand: Any):
@@ -98,7 +102,10 @@ class NPPrints:
         self._order.place_forget()
     
     def _paymentToPrinting(self):
-        self._printing = NPPrinting(master = self._master, commands = [None, lambda event = None: self._printingToSuccess()], fileName = self._fileName, filePages = self._filePages, userCopies = self._userCopies)
+        self._printing = NPPrinting(master = self._master, commands = [None, None], fileName = self._fileName, filePages = self._filePages, userCopies = self._userCopies)
+        self._printing.initControlButton(position = "left", command = lambda event = None: self._orderCancelAlert(), state = "normal", text = currentLanguage["printing"]["control"]["cancel"])
+        self._printing.initControlButton(position = 'right', command = lambda event = None: self._printToPause(), state = 'normal', text = currentLanguage["printing"]["control"]["pause"])
+        self.pauseEvent = Event() 
         self._printing.place()
         self._payment.place_forget()
         printUserFile = Thread(target = self._printUserFile)
@@ -109,6 +116,18 @@ class NPPrints:
         self._success.place()
         self._printing.place_forget()
 
+    def _orderCancelAlert(self):
+        self._printToPause()
+        NPConfirmBox(master = self._master, messageText = "NguyenThiTam", buttonTexts = ["cancel", "OK"], buttonCommands = [None, lambda event = None: self._printingToSuccess()])
+
+    def _printToPause(self):
+        self.pauseEvent.set()
+        self._printing.initControlButton(position = 'right', command = lambda event = None: self._pauseToPrint(), state = 'normal', text = currentLanguage["printing"]["control"]["continue"])
+    
+    def _pauseToPrint(self):
+        self.pauseEvent.clear()
+        self._printing.initControlButton(position = 'right', command = lambda event = None: self._printToPause(), state = 'normal', text = currentLanguage["printing"]["control"]["pause"])
+    
     def _getServerVariables(self):
         self._serverLink = subprocess.check_output(['hostname','-I']).decode().strip().split()[0] + ':3000'
         self._upload.npset(attribute = "serverLink", value = self._serverLink)
@@ -177,9 +196,6 @@ class NPPrints:
         # Printing
         for _ in range(0, self._userCopies):
             for page in range(0, self._filePages):
-                while True:
-                    # if pauseEvent.is_set() == False:
-                        break
                 writer = PdfWriter()
                 writer.add_page(reader.pages[page])
                 with open("../CO3091_BE/current_page.pdf", "wb") as fp:
@@ -221,10 +237,12 @@ class NPPrints:
                     self._printerPage = 1
                 if self._printerPage == self._filePages:
                     self._printerCopy = self._printerCopy + 1
-                # if self._printerCopy >= self._userCopies:
-                #     # self._updatePrinting("Finish")
+                if self._printerCopy >= self._userCopies:
+                    self._printingToSuccess()
                             
                 self._printing.npset(attribute = "printerPage", value = self._printerPage)
                 self._printing.npset(attribute = "printerCopy", value = self._printerCopy)
-       
+                
+                while (self._printerCopy < self._userCopies and self.pauseEvent.is_set()):
+                    pass
         
