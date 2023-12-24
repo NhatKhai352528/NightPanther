@@ -79,7 +79,7 @@ Vietnamese = {
         },
         "control": {
             "left": "Trở lại",
-            "right": "Tiếp",
+            "right": "Hủy đơn",
         },
         "interact": {
             "text0": "Quét mã QR để thanh toán",

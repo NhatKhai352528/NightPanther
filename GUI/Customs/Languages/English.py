@@ -84,7 +84,7 @@ English = {
         },
         "control": {
             "left": "Back",
-            "right": "Next",
+            "right": "Cancel order",
         },
         "interact": {
             "text0": "Scan QR code to pay",

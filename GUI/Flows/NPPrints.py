@@ -1,5 +1,5 @@
 from tkinter import Tk
-from threading import Thread, Timer
+from threading import Thread, Timer, Event
 from typing import Any
 from ..Pages.Prints.NPFormat import NPFormat
 from ..Pages.Prints.NPOrder import NPOrder
@@ -13,6 +13,15 @@ import qrcode
 import random
 import globals
 from PyPDF2 import PdfReader, PdfWriter
+
+import requests
+import urllib.request
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from time import sleep
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from ..Objects.NPConfirmBox import NPConfirmBox
 
 class NPPrints:
     def __init__(self, master: Tk, destroyCommand: Any):
@@ -91,9 +100,12 @@ class NPPrints:
     def _orderToPayment(self):
         self._userCopies = self._order.npget(attribute = "userCopies")
         self._userPrice = self._order.npget(attribute = "userPrice")
-        getUserVariables = Thread(target = None)
-        getUserVariables.start()
-        self._payment = NPPayment(master = self._master, commands = [None, lambda event = None: self._paymentToPrinting()], fileName = self._fileName, userCopies = self._userCopies, userPrice = self._userPrice, userQRFile = self._userQRFile)
+        self.paymentCancelEvent = Event()
+        generateQR = Thread(target = self._generateQR)
+        generateQR.start()
+        paymentCheck = Thread(target = self._paymentCheck)
+        paymentCheck.start()
+        self._payment = NPPayment(master = self._master, commands = [None, lambda event = None: self._paymentCancelAlert()], fileName = self._fileName, userCopies = self._userCopies, userPrice = self._userPrice, userQRFile = self._userQRFile)
         self._payment.place()
         self._order.place_forget()
     
@@ -108,6 +120,11 @@ class NPPrints:
         self._success = NPSuccess(master = self._master, commands = [None, self._destroyCommand])
         self._success.place()
         self._printing.place_forget()
+
+    def _paymentToSuccess(self):
+        self._success = NPSuccess(master = self._master, commands = [None, self._destroyCommand])
+        self._success.place()
+        self._payment.place_forget()
 
     def _getServerVariables(self):
         self._serverLink = subprocess.check_output(['hostname','-I']).decode().strip().split()[0] + ':3000'
@@ -130,6 +147,68 @@ class NPPrints:
             self._upload.npset(attribute = "fileName", value = self._fileName)
         listenWebServer = Thread(target = _listenWebServer)
         listenWebServer.start()
+    
+    def _paymentCancelAlert(self):
+        NPConfirmBox(master = self._master, messageText = "Bạn có chắc muốn hủy đơn", buttonTexts = ["Có", "Không"], buttonCommands = [lambda event = None: self._paymentCancel(), None])
+
+    def _paymentCancel(self):
+        subprocess.run(["pkill", "-9", "chromium-browse"])
+        self.paymentCancelEvent.set()
+        self._paymentToSuccess()
+
+    def _generateQR(self):
+        cost = str(self._userPrice)
+        head_url="https://img.vietqr.io/image/ocb-0004100037889007-HgRYJqu.png?amount="
+        tail_url="&addInfo=Thanh%20toan%20he%20thong%20in%20tu%20phuc%20vu&accountName=Pham%20Van%20Nhat%20Vu"
+        url=head_url+cost+tail_url
+        urllib.request.urlretrieve(url, "GUI/Images/PaymentQR.png")
+        self._payment.npset(attribute = "userQRFile", value = "GUI/Images/PaymentQR.png")
+    
+    def _paymentCheck(self):
+        googleUserInfo = "/home/pi/Desktop/NPPayCheck"
+        option = webdriver.ChromeOptions()
+        option.add_argument("user-data-dir=" + googleUserInfo)
+        driver = Service('/usr/lib/chromium-browser/chromedriver')
+        browser = webdriver.Chrome(service = driver, options = option)
+        browser.get("https://mightytext.net")
+        sleep(20)
+        
+        # Login to Mighty Text Web
+        login = browser.find_element(By.ID,'login')
+        login.click()
+        sleep(30)
+        
+        # Click to the message sent by OCB
+        click_ocb=browser.find_element(By.ID,'thread-78062')
+        click_ocb.click()
+        sleep(10) 
+        
+        # Wait for new message
+        file_time = open("pay_check_time.txt", "r")
+        old_time = file_time.read().strip()
+
+        while self.paymentCancelEvent.is_set() == False:
+            messageList = browser.find_elements(By.XPATH,'/html/body/div[1]/div/div/div[3]/div/div[2]/div[1]/div[2]/div[1]')
+            for message in messageList:
+                break
+            # Latest message
+            text = message.text
+            time = text[text.find("OCB")+4:text.find("TK")].strip()
+            if (time != old_time and time != ""):
+                file_time.close()
+                file_time = open("pay_check_time.txt", "w")
+                file_time.write(time)
+                file_time.close()
+                break
+        
+        paymentStr = text[text.find("(+)")+4:text.find("VND")]
+        payment = int(paymentStr.replace(',',''))
+        sleep(1)
+        browser.close()
+        if (payment >= self._userPrice):
+            self._paymentToPrinting()
+        else:
+            NPConfirmBox(master = self._master, messageText = "Bạn nộp thiếu tiền, vui lòng hủy đơn hoặc gửi lại phần còn thiếu", buttonTexts = ["Hủy đơn", "Nộp phần còn thiếu"], buttonCommands = [lambda event = None: self._paymentToSuccess(), None])
 
     def _printUserFile(self):        
         reader = PdfReader("../CO3091_BE/user_file.pdf")
@@ -227,4 +306,4 @@ class NPPrints:
                 self._printing.npset(attribute = "printerPage", value = self._printerPage)
                 self._printing.npset(attribute = "printerCopy", value = self._printerCopy)
        
-        
+    
