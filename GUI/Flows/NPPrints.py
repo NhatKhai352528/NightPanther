@@ -100,14 +100,13 @@ class NPPrints:
     def _orderToPayment(self):
         self._userCopies = self._order.npget(attribute = "userCopies")
         self._userPrice = self._order.npget(attribute = "userPrice")
-        self.paymentCancelEvent = Event()
+        self._payment = NPPayment(master = self._master, commands = [None, lambda event = None: self._paymentCancelAlert()], fileName = self._fileName, userCopies = self._userCopies, userPrice = self._userPrice, userQRFile = self._userQRFile)
+        self._payment.place()
+        self._order.place_forget()
         generateQR = Thread(target = self._generateQR)
         generateQR.start()
         paymentCheck = Thread(target = self._paymentCheck)
         paymentCheck.start()
-        self._payment = NPPayment(master = self._master, commands = [None, lambda event = None: self._paymentCancelAlert()], fileName = self._fileName, userCopies = self._userCopies, userPrice = self._userPrice, userQRFile = self._userQRFile)
-        self._payment.place()
-        self._order.place_forget()
     
     def _paymentToPrinting(self):
         self._printing = NPPrinting(master = self._master, commands = [None, lambda event = None: self._printingToSuccess()], fileName = self._fileName, filePages = self._filePages, userCopies = self._userCopies)
@@ -153,7 +152,6 @@ class NPPrints:
 
     def _paymentCancel(self):
         subprocess.run(["pkill", "-9", "chromium-browse"])
-        self.paymentCancelEvent.set()
         self._paymentToSuccess()
 
     def _generateQR(self):
@@ -164,7 +162,7 @@ class NPPrints:
         urllib.request.urlretrieve(url, "GUI/Images/PaymentQR.png")
         self._payment.npset(attribute = "userQRFile", value = "GUI/Images/PaymentQR.png")
     
-    def _paymentCheck(self):
+    def _paymentCheck(self): 
         googleUserInfo = "/home/pi/Desktop/NPPayCheck"
         option = webdriver.ChromeOptions()
         option.add_argument("user-data-dir=" + googleUserInfo)
@@ -181,20 +179,20 @@ class NPPrints:
         # Click to the message sent by OCB
         click_ocb=browser.find_element(By.ID,'thread-78062')
         click_ocb.click()
-        sleep(10) 
-        
+        sleep(10)
+
         # Wait for new message
         file_time = open("pay_check_time.txt", "r")
         old_time = file_time.read().strip()
-
-        while self.paymentCancelEvent.is_set() == False:
+         
+        while True:
             messageList = browser.find_elements(By.XPATH,'/html/body/div[1]/div/div/div[3]/div/div[2]/div[1]/div[2]/div[1]')
             for message in messageList:
                 break
             # Latest message
             text = message.text
             time = text[text.find("OCB")+4:text.find("TK")].strip()
-            if (time != old_time and time != ""):
+            if (time != old_time and time != "" and text.find("(-)") == -1):
                 file_time.close()
                 file_time = open("pay_check_time.txt", "w")
                 file_time.write(time)
@@ -203,12 +201,16 @@ class NPPrints:
         
         paymentStr = text[text.find("(+)")+4:text.find("VND")]
         payment = int(paymentStr.replace(',',''))
-        sleep(1)
         browser.close()
-        if (payment >= self._userPrice):
+        
+        if (payment == self._userPrice):
             self._paymentToPrinting()
         else:
-            NPConfirmBox(master = self._master, messageText = "Bạn nộp thiếu tiền, vui lòng hủy đơn hoặc gửi lại phần còn thiếu", buttonTexts = ["Hủy đơn", "Nộp phần còn thiếu"], buttonCommands = [lambda event = None: self._paymentToSuccess(), None])
+            self._paymentToSuccess()
+        # Stuck on confirm box
+        #else:
+        #    NPConfirmBox(master = self._master, messageText = "Bạn nộp thiếu tiền, vui lòng hủy đơn hoặc gửi lại phần còn thiếu", buttonTexts = ["Hủy đơn", "Nộp phần còn thiếu"], buttonCommands = [lambda event = None: self._paymentToSuccess(), None])
+
 
     def _printUserFile(self):        
         reader = PdfReader("../CO3091_BE/user_file.pdf")
@@ -252,13 +254,13 @@ class NPPrints:
         
         self._filePages = len(reader.pages)
         self._printing.npset(attribute = "userCopies", value = self._userCopies)
+        
+        self._filePages = len(reader.pages)
+        self._printing.npset(attribute = "userCopies", value = self._userCopies)
         self._printing.npset(attribute = "filePages", value = self._filePages)
         # Printing
         for _ in range(0, self._userCopies):
             for page in range(0, self._filePages):
-                while True:
-                    # if pauseEvent.is_set() == False:
-                        break
                 writer = PdfWriter()
                 writer.add_page(reader.pages[page])
                 with open("../CO3091_BE/current_page.pdf", "wb") as fp:
@@ -304,6 +306,3 @@ class NPPrints:
                 #     # self._updatePrinting("Finish")
                             
                 self._printing.npset(attribute = "printerPage", value = self._printerPage)
-                self._printing.npset(attribute = "printerCopy", value = self._printerCopy)
-       
-    
