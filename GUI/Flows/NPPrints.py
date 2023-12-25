@@ -105,7 +105,8 @@ class NPPrints:
         self._printing = NPPrinting(master = self._master, commands = [None, None], fileName = self._fileName, filePages = self._filePages, userCopies = self._userCopies)
         self._printing.initControlButton(position = "left", command = lambda event = None: self._orderCancelAlert(), state = "normal", text = currentLanguage["printing"]["control"]["cancel"])
         self._printing.initControlButton(position = 'right', command = lambda event = None: self._printToPause(), state = 'normal', text = currentLanguage["printing"]["control"]["pause"])
-        self.pauseEvent = Event() 
+        self.pauseEvent = Event()
+        self.stopEvent = Event()
         self._printing.place()
         self._payment.place_forget()
         printUserFile = Thread(target = self._printUserFile)
@@ -118,7 +119,11 @@ class NPPrints:
 
     def _orderCancelAlert(self):
         self._printToPause()
-        NPConfirmBox(master = self._master, messageText = "NguyenThiTam", buttonTexts = ["cancel", "OK"], buttonCommands = [None, lambda event = None: self._printingToSuccess()])
+        NPConfirmBox(master = self._master, messageText = "NguyenThiTam", buttonTexts = ["cancel", "OK"], buttonCommands = [None, lambda event = None: self._printCancelOrder()])
+
+    def _printCancelOrder(self):
+        self.stopEvent.set()
+        self._printingToSuccess()
 
     def _printToPause(self):
         self.pauseEvent.set()
@@ -179,9 +184,11 @@ class NPPrints:
             if (fileSize == "a5"):
                 return "A5"
         
-        # For test
         def handlePrintError(strError):
-            print(strError)
+            self.stopEvent.set()
+            self._printingToSuccess()
+            #Stuck on confirm box
+            #NPConfirmBox(master = self._master, messageText = strError, buttonTexts = [None, "OK"], buttonCommands = [None, lambda event = None: self._printingToSuccess()])
 
         def getSideOption():
             sideOption = self._format.npget(attribute = "fileSides")
@@ -196,6 +203,8 @@ class NPPrints:
         # Printing
         for _ in range(0, self._userCopies):
             for page in range(0, self._filePages):
+                if self.stopEvent.is_set():
+                    return
                 writer = PdfWriter()
                 writer.add_page(reader.pages[page])
                 with open("../CO3091_BE/current_page.pdf", "wb") as fp:
@@ -213,7 +222,7 @@ class NPPrints:
                 def printingTimeOut():
                     printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode().lower();
                     if (printer_status.find("idle") != -1):
-                        handlePrinterError(strError = "nono")
+                        handlePrintError(strError = "nono")
                     elif (printer_status.find("rendering completed") != -1):
                         handlePrintError(strError = "The printer is not working properly")
                     elif (printer_status.find("sending data to printer") != -1):
@@ -224,7 +233,7 @@ class NPPrints:
                 printTimeOut.start()
 
                 while True:
-                    printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode()
+                    printer_status = "1"#subprocess.check_output(["lpstat", "-p", printerName]).decode()
                     if (printer_status.find("idle") != -1):
                         break
                 # Print successfully, cancel the error time out
@@ -243,6 +252,6 @@ class NPPrints:
                 self._printing.npset(attribute = "printerPage", value = self._printerPage)
                 self._printing.npset(attribute = "printerCopy", value = self._printerCopy)
                 
-                while (self._printerCopy < self._userCopies and self.pauseEvent.is_set()):
+                while (self._printerCopy < self._userCopies and self.pauseEvent.is_set() and self.stopEvent.is_set() == False):
                     pass
         
