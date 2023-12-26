@@ -205,7 +205,7 @@ class NPPrints:
             sleep(20)
         
             # Login to Mighty Text Web
-            login = browser.find_element(By.ID,'logino')
+            login = browser.find_element(By.ID,'login')
             login.click()
             sleep(20)
         
@@ -261,9 +261,13 @@ class NPPrints:
                 self._paymentToPrinting()
             else:
                 self._master.after(100, NPConfirmBox, self._master, "Nop sai rui, lien he de gui lai", [None, "OK"], [None, lambda event = None: self._paymentToSuccess(), None])
-        except Exception:
-            self._master.after(100, NPConfirmBox, self._master, "He thong kiem tra thanh toan xay ra loi", [None, "OK"], [None, lambda event = None: self._paymentToSuccess(), None])
-
+        except Exception as e:
+            print(str(e))
+            try:
+                if self.paymentCancelEvent.is_set() == False:
+                    self._master.after(100, NPConfirmBox, self._master, "He thong kiem tra thanh toan xay ra loi", [None, "OK"], [None, lambda event = None: self._paymentToSuccess(), None])
+            except Exception:
+                return
     def _printUserFile(self):        
         reader = PdfReader("../CO3091_BE/user_file.pdf")
         
