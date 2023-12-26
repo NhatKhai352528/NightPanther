@@ -76,6 +76,9 @@ class NPPrints:
         self.__dict__.clear()
     
     def _uploadToFormat(self):
+        # Reset web server to waiting for new order
+        resetMessage = "reset"
+        globals.webServerSocket.send(resetMessage.encode())
         availablePaper = [list(value.values()) for value in Price.values()]
         availableSides = [[availablePaper[j][i] for j in range(len(availablePaper))] for i in range(len(availablePaper[0]))]
         availablePaper = [False if row == [None, None] else True for row in availablePaper]
