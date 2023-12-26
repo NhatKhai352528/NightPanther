@@ -1,9 +1,5 @@
 from tkinter import Tk
-<<<<<<< HEAD
 from threading import Thread, Event
-=======
-from threading import Thread, Timer, Event
->>>>>>> Settings
 from typing import Any
 from ..Pages.Prints.NPFormat import NPFormat
 from ..Pages.Prints.NPOrder import NPOrder
@@ -20,8 +16,6 @@ from PyPDF2 import PdfReader, PdfWriter
 from ..Customs.NPLanguage import NPLanguage
 from ..Objects.NPConfirmBox import NPConfirmBox
 
-currentLanguage = NPLanguage.getLanguage()
-
 import requests
 import urllib.request
 from selenium import webdriver
@@ -32,10 +26,12 @@ from selenium.webdriver.common.by import By
 from ..Objects.NPConfirmBox import NPConfirmBox
 from selenium.common.exceptions import NoSuchElementException
 from ..Customs.NPLanguage import NPLanguage
-currentLanguage = NPLanguage.getLanguage()
 
 class NPPrints:
+    
     def __init__(self, master: Tk, destroyCommand: Any):
+
+        self._currentLanguage = NPLanguage.getLanguage()
         
         self._master = master
         self._destroyCommand = destroyCommand
@@ -95,7 +91,7 @@ class NPPrints:
     def _formatToOrder(self):
         self._filePaper = self._format.npget(attribute = "filePaper")
         self._fileSides = self._format.npget(attribute = "fileSides")
-        reader = PdfReader("../CO3091_BE/user_file.pdf")
+        reader = PdfReader("./CO3091_BE/user_file.pdf")
         self._filePrice = Price[self._filePaper][self._fileSides] * len(reader.pages)
         if self._order == None:
             self._order = NPOrder(master = self._master, commands = [lambda event = None: self._orderToFormat(), lambda event = None: self._orderToPayment()], fileName = self._fileName, filePrice = self._filePrice)
@@ -122,14 +118,10 @@ class NPPrints:
     
     def _paymentToPrinting(self):
         self._printing = NPPrinting(master = self._master, commands = [None, None], fileName = self._fileName, filePages = self._filePages, userCopies = self._userCopies)
-        self._printing.initControlButton(position = "left", command = lambda event = None: self._orderCancelAlert(), state = "normal", text = currentLanguage["printing"]["control"]["cancel"])
-        self._printing.initControlButton(position = 'right', command = lambda event = None: self._printToPause(), state = 'normal', text = currentLanguage["printing"]["control"]["pause"])
-<<<<<<< HEAD
+        self._printing.initControlButton(position = "left", command = lambda event = None: self._orderCancelAlert(), state = "normal", text = self._currentLanguage["printing"]["control"]["cancel"])
+        self._printing.initControlButton(position = 'right', command = lambda event = None: self._printToPause(), state = 'normal', text = self._currentLanguage["printing"]["control"]["pause"])
         self.pauseEvent = Event()
         self.stopEvent = Event()
-=======
-        self.pauseEvent = Event() 
->>>>>>> Settings
         self._printing.place()
         self._payment.place_forget()
         printUserFile = Thread(target = self._printUserFile)
@@ -150,7 +142,7 @@ class NPPrints:
 
     def _printToPause(self):
         self.pauseEvent.set()
-        self._printing.initControlButton(position = 'right', command = lambda event = None: self._pauseToPrint(), state = 'normal', text = currentLanguage["printing"]["control"]["continue"])
+        self._printing.initControlButton(position = 'right', command = lambda event = None: self._pauseToPrint(), state = 'normal', text = self._currentLanguage["printing"]["control"]["continue"])
     
     def _adminPauseToPrint(self):
         if self._master.npget(attribute = "mode") == "admin":
@@ -158,7 +150,7 @@ class NPPrints:
 
     def _pauseToPrint(self):
         self.pauseEvent.clear()
-        self._printing.initControlButton(position = 'right', command = lambda event = None: self._printToPause(), state = 'normal', text = currentLanguage["printing"]["control"]["pause"])
+        self._printing.initControlButton(position = 'right', command = lambda event = None: self._printToPause(), state = 'normal', text = self._currentLanguage["printing"]["control"]["pause"])
     
     def _paymentToSuccess(self):
         self._success = NPSuccess(master = self._master, commands = [None, self._destroyCommand])
@@ -281,7 +273,7 @@ class NPPrints:
             except Exception:
                 return
     def _printUserFile(self):        
-        reader = PdfReader("../CO3091_BE/user_file.pdf")
+        reader = PdfReader("./CO3091_BE/user_file.pdf")
         
         def isPageLandscape(pageIndex):
             page = reader.pages[pageIndex]
@@ -311,7 +303,7 @@ class NPPrints:
         
         def handlePrintError(strError):
             self.pauseEvent.set()
-            self._printing.initControlButton(position = 'right', command = lambda event = None: self._adminPauseToPrint(), state = 'normal', text = currentLanguage["printing"]["control"]["continue"])
+            self._printing.initControlButton(position = 'right', command = lambda event = None: self._adminPauseToPrint(), state = 'normal', text = self._currentLanguage["printing"]["control"]["continue"])
             NPConfirmBox(master = self._master, messageText = strError, buttonTexts = [None, "OK"], buttonCommands = [None, None])
 
         def getSideOption():
@@ -334,7 +326,7 @@ class NPPrints:
                     return
                 writer = PdfWriter()
                 writer.add_page(reader.pages[page])
-                with open("../CO3091_BE/current_page.pdf", "wb") as fp:
+                with open("./CO3091_BE/current_page.pdf", "wb") as fp:
                     writer.write(fp)
                 
                 printerFile = open("printer.txt")
@@ -342,7 +334,7 @@ class NPPrints:
                 printCommand = ["lp", "-d", printerName, "-o","media=" + getFileSize(), "-n", "1", "-o", "sides=" + getSideOption(), "-o", "fit-to-page"]
                 if isPageLandscape(page):
                     printCommand.extend(["-o", "landscape]"])
-                printCommand.append("../CO3091_BE/current_page.pdf")
+                printCommand.append("./CO3091_BE/current_page.pdf")
                 
                 try:
                     subprocess.run(printCommand, check = True)

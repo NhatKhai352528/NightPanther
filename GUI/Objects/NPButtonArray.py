@@ -5,11 +5,11 @@ from .NPObjects import NPObjects
 from ..Customs.NPTheme import NPTheme
 from ..Widgets.NPTextButton import NPTextButton
 
-currentTheme = NPTheme.getTheme()
+defaultTheme = NPTheme.getTheme()
 
 class NPButtonArray(NPObjects):
     
-    def __init__(self, master: Frame, mode: Literal["single", "multiple"], x: int, y: int, distance: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str, rows: int, columns: int, widthSize: int, heightSize: int, font: Font = currentTheme["font"]["default"], defaults: list[list[Literal["default", "active", "disabled"]]] = None, texts: list[list[str]] = None):
+    def __init__(self, master: Frame, mode: Literal["single", "multiple"], x: int, y: int, distance: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str, rows: int, columns: int, widthSize: int, heightSize: int, font: Font = defaultTheme["font"]["default"], defaults: list[list[Literal["default", "active", "disabled"]]] = None, texts: list[list[str]] = None):
         
         # Mode variables
         self._mode = mode

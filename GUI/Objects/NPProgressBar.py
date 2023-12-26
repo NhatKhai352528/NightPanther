@@ -4,11 +4,11 @@ from .NPObjects import NPObjects
 from ..Customs.NPTheme import NPTheme
 from ..Widgets.NPFrame import NPFrame
 
-currentTheme = NPTheme.getTheme()
-
 class NPProgressBar(NPObjects):
     
     def __init__(self, master: Frame, x: int, y: int, distance: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str, size: int, default: float, maximum: float):
+
+        self._currentTheme = NPTheme.getTheme()
         
         # Size variables
         self._size = int(size)
@@ -26,13 +26,13 @@ class NPProgressBar(NPObjects):
         self._value = DoubleVar(master = self._frame, value = self._default)
         
         # ProgressBar's bars
-        self._groundBar = NPFrame(master = self._frame, x = self._distance, y = self._distance, width = self._barSize, height = self._size, anchor = "nw", background = currentTheme["progressBar"]["default"])
+        self._groundBar = NPFrame(master = self._frame, x = self._distance, y = self._distance, width = self._barSize, height = self._size, anchor = "nw", background = self._currentTheme["progressBar"]["default"])
         self._groundBar.place()
         
-        self._unfilledBar = NPFrame(master = self._frame, x = self._distance + self._barDistance, y = self._distance + self._barDistance, width = self._barSize - 2 * self._barDistance, height = self._size - 2 * self._barDistance, anchor = "nw", background = currentTheme["progressBar"]["unfilled"])
+        self._unfilledBar = NPFrame(master = self._frame, x = self._distance + self._barDistance, y = self._distance + self._barDistance, width = self._barSize - 2 * self._barDistance, height = self._size - 2 * self._barDistance, anchor = "nw", background = self._currentTheme["progressBar"]["unfilled"])
         self._unfilledBar.place()
         
-        self._filledBar = NPFrame(master = self._frame, x = self._distance + self._barDistance, y = self._distance + self._barDistance, width = 0, height = self._size - 2 * self._barDistance, anchor = "nw", background = currentTheme["progressBar"]["filled"])
+        self._filledBar = NPFrame(master = self._frame, x = self._distance + self._barDistance, y = self._distance + self._barDistance, width = 0, height = self._size - 2 * self._barDistance, anchor = "nw", background = self._currentTheme["progressBar"]["filled"])
         self._fill()
     
     def _fill(self):

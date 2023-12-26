@@ -3,11 +3,13 @@ from typing import Any, Literal
 from .NPImage import NPImage
 from ..Customs.NPTheme import NPTheme
 
-currentTheme = NPTheme.getTheme()
+defaultTheme = NPTheme.getTheme()
 
 class NPImageLabel(Label):
     
-    def __init__(self, master: Frame, x: int, y: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str = currentTheme["background"]["default"], imageFile: str = None, imageWidth: int = None, imageHeight: int = None):
+    def __init__(self, master: Frame, x: int, y: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str = defaultTheme["background"]["default"], imageFile: str = None, imageWidth: int = None, imageHeight: int = None):
+
+        self._currentTheme = NPTheme.getTheme()
         
         # Location variables
         self._master = master
@@ -19,8 +21,8 @@ class NPImageLabel(Label):
         
         # Image variables
         self._imageFile = imageFile
-        self._imageWidth = int(imageWidth) if imageWidth != None else currentTheme["default"]["size"]
-        self._imageHeight = int (imageHeight) if imageHeight != None else currentTheme["default"]["size"]
+        self._imageWidth = int(imageWidth) if imageWidth != None else self._currentTheme["default"]["size"]
+        self._imageHeight = int (imageHeight) if imageHeight != None else self._currentTheme["default"]["size"]
         self._image = NPImage(file = self._imageFile, width = self._imageWidth, height = self._imageHeight)
         
         self._width = int(self._imageWidth)

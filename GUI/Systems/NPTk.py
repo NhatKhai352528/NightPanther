@@ -13,12 +13,22 @@ class NPTk(Tk):
         super().overrideredirect(boolean = True)
         
         self._mode: Literal["user", "admin"] = "user"
+        self._flows = None
     
     def mainloop(self):
         super().mainloop()
     
     def destroy(self):
         super().destroy()
+    
+    def resetFlows(self):
+        try:
+            self._flows.destroy()
+        except:
+            pass
+        from ..Flows.NPFlows import NPFlows
+        self._flows = NPFlows(master = self)
+        self._flows.place()
     
     def signIn(self, password: str = None):
         if self._mode == "admin":

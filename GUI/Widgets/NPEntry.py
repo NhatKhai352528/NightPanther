@@ -3,11 +3,13 @@ from tkinter.font import Font
 from typing import Any, Literal
 from ..Customs.NPTheme import NPTheme
 
-currentTheme = NPTheme.getTheme()
+defaultTheme = NPTheme.getTheme()
 
 class NPEntry(Entry):
     
-    def __init__(self, master: Frame, x: int, y: int, width: int, height: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], font: Font = currentTheme["font"]["default"], invalidcommand: Any = None, show: str = "", state: Literal["normal", "disabled", "readonly"] = "normal", validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = "none", validatecommand: Any = None, textvariable: Variable = None):
+    def __init__(self, master: Frame, x: int, y: int, width: int, height: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], font: Font = defaultTheme["font"]["default"], invalidcommand: Any = None, show: str = "", state: Literal["normal", "disabled", "readonly"] = "normal", validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = "none", validatecommand: Any = None, textvariable: Variable = None):
+
+        self._currentTheme = NPTheme.getTheme()
         
         # Location variables
         self._master = master
@@ -24,10 +26,10 @@ class NPEntry(Entry):
         
         # Theme variables
         self._font = font
-        self._foreground = currentTheme["foreground"]["default"]
-        self._background = currentTheme["entry"]["default"]
-        self._selectbackground = currentTheme["entry"]["select"]
-        self._disabledbackground = currentTheme["entry"]["disabled"]
+        self._foreground = self._currentTheme["foreground"]["default"]
+        self._background = self._currentTheme["entry"]["default"]
+        self._selectbackground = self._currentTheme["entry"]["select"]
+        self._disabledbackground = self._currentTheme["entry"]["disabled"]
         
         # Unused variables
         self._invalidcommand = invalidcommand

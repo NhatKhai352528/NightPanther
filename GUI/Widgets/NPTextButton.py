@@ -3,13 +3,13 @@ from tkinter.font import Font
 from typing import Any, Literal
 from ..Customs.NPTheme import NPTheme
 
-currentTheme = NPTheme.getTheme()
-
-currentTheme = NPTheme.getTheme()
+defaultTheme = NPTheme.getTheme()
         
 class NPTextButton(Button):
     
-    def __init__(self, master: Frame, mode: Literal["input", "action", "select"], x: int, y: int, width: int, height: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], command: Any = None, font: Font = currentTheme["font"]["default"], repeat: bool = False, state: Literal["normal", "disabled"] = "normal", text: str = None):
+    def __init__(self, master: Frame, mode: Literal["input", "action", "select"], x: int, y: int, width: int, height: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], command: Any = None, font: Font = defaultTheme["font"]["default"], repeat: bool = False, state: Literal["normal", "disabled"] = "normal", text: str = None):
+
+        self._currentTheme = NPTheme.getTheme()
         
         # Mode variables
         self._mode = mode
@@ -28,10 +28,10 @@ class NPTextButton(Button):
         self._state = state
         
         # Theme variables
-        self._foreground = currentTheme["foreground"]["inverse"]
-        self._background = currentTheme["button"][self._mode]["default"]
-        self._activebackground = currentTheme["button"][self._mode]["active"]
-        self._disabledbackground = currentTheme["button"][self._mode]["disabled"]
+        self._foreground = self._currentTheme["foreground"]["inverse"]
+        self._background = self._currentTheme["button"][self._mode]["default"]
+        self._activebackground = self._currentTheme["button"][self._mode]["active"]
+        self._disabledbackground = self._currentTheme["button"][self._mode]["disabled"]
         
         # Text variables
         self._font = font

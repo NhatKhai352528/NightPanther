@@ -6,13 +6,13 @@ from ..Customs.NPTheme import NPTheme
 from ..Widgets.NPImageLabel import NPImageLabel
 from ..Widgets.NPTextLabel import NPTextLabel
 
-currentTheme = NPTheme.getTheme()
-
 class NPStatus(NPFrames):
     
     def __init__(self, master: Tk):
+
+        self._currentTheme = NPTheme.getTheme()
         
-        super().__init__(master = master, x = Status["x"], y = Status["y"], width = Status["width"], height = Status["height"], distance = Status["distance"], anchor = "nw", background = currentTheme["background"]["status"])
+        super().__init__(master = master, x = Status["x"], y = Status["y"], width = Status["width"], height = Status["height"], distance = Status["distance"], anchor = "nw", background = self._currentTheme["background"]["status"])
         
         self._currentLeft = self._distance
         self._currentRight = self._width - self._distance
@@ -60,8 +60,8 @@ class NPStatus(NPFrames):
         currentIndex = len(self._items)
         
         # Get current font and foreground
-        currentFont = currentTheme["font"]["strong"]
-        currentForeground = currentTheme["foreground"]["inverse"]
+        currentFont = self._currentTheme["font"]["strong"]
+        currentForeground = self._currentTheme["foreground"]["inverse"]
         
         # Define a new text label, place it onto the frame, and update position for the next item
         self._items.append(NPTextLabel(master = self._frame, x = self._currentLeft if anchor == "w" else self._currentRight, y = 0.5 * self._height, width = width, anchor = anchor, background = self.npget(attribute = "background"), font = currentFont, foreground = currentForeground, justify = "left" if anchor == "w" else "right", text = text, textAnchor = anchor, underline = -1, wraplength = 0))

@@ -5,13 +5,13 @@ from ..Constants.NPWorkspace import Menu
 from ..Customs.NPTheme import NPTheme
 from ..Widgets.NPImageButton import NPImageButton
 
-currentTheme = NPTheme.getTheme()
-
 class NPMenu(NPFrames):
     
     def __init__(self, master: Tk):
+
+        self._currentTheme = NPTheme.getTheme()
         
-        super().__init__(master = master, x = Menu["x"], y = Menu["y"], width = Menu["width"], height = Menu["height"], distance = Menu["distance"], anchor = "nw", background = currentTheme["background"]["menu"])
+        super().__init__(master = master, x = Menu["x"], y = Menu["y"], width = Menu["width"], height = Menu["height"], distance = Menu["distance"], anchor = "nw", background = self._currentTheme["background"]["menu"])
         
         # In order to get a good visual, the self._widthSize must be approximate to the self._heightSize
         self._widthSize = int((self._width - 5 * self._distance) / 4)

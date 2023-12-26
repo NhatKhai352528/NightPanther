@@ -2,11 +2,11 @@ from tkinter import Frame, Tk
 from typing import Any, Literal, Union
 from ..Customs.NPTheme import NPTheme
 
-currentTheme = NPTheme.getTheme()
+defaultTheme = NPTheme.getTheme()
 
 class NPFrame(Frame):
     
-    def __init__(self, master: Union[Frame, Tk], x: int, y: int, width: int, height: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str = currentTheme["background"]["default"]):
+    def __init__(self, master: Union[Frame, Tk], x: int, y: int, width: int, height: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str = defaultTheme["background"]["default"]):
         
         # Location variables
         self._master = master

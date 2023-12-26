@@ -8,13 +8,11 @@ NPTheme.setTheme(themeCode = 1)
 from .Customs.NPLanguage import NPLanguage
 NPLanguage.setLanguage(languageCode = 1)
 
-from .Flows.NPFlows import NPFlows
-flow = NPFlows(master = root)
-flow.place()
+root.resetFlows()
 
 def tester():
     try:
-        print(flow._currentFlow)
+        print(root._flows._currentFlow)
     except:
         print("Fail")
     root.after(1000, tester)

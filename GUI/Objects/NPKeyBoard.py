@@ -3,16 +3,14 @@ from tkinter.font import Font
 from typing import Any, Literal
 from .NPObjects import NPObjects
 from ..Customs.NPLanguage import NPLanguage
-from ..Customs.NPTheme import NPTheme
 from ..Widgets.NPEntry import NPEntry
 from ..Widgets.NPTextButton import NPTextButton
 
-currentTheme = NPTheme.getTheme()
-currentLanguage = NPLanguage.getLanguage()
-
 class NPKeyBoard(NPObjects):
     
-    def __init__(self, master: Frame, x: int, y: int, distance: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str, size: int, default: str, maximum: int, show: str, entryFont: Font = currentTheme["font"]["default"], inputFont: Font = currentTheme["font"]["default"], actionFont: Font = currentTheme["font"]["default"], inputTexts: list[str] = None, actionTexts: list[str] = None, actionCommands: list[Any] = None):
+    def __init__(self, master: Frame, x: int, y: int, distance: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str, size: int, default: str, maximum: int, show: str, entryFont: Font = None, inputFont: Font = None, actionFont: Font = None, inputTexts: list[str] = None, actionTexts: list[str] = None, actionCommands: list[Any] = None):
+
+        self._currentLanguage = NPLanguage.getLanguage()
         
         # Size variables
         self._rows = 4
@@ -53,7 +51,7 @@ class NPKeyBoard(NPObjects):
                 self._inputCommands[i][j] = lambda event = None, i = i, j = j: self._insert(self._inputTexts[i][j])
         
         # Action variables
-        self._actionTexts = [currentLanguage["keyBoard"]["clear"], currentLanguage["keyBoard"]["delete"], None, None]
+        self._actionTexts = [self._currentLanguage["keyBoard"]["clear"], self._currentLanguage["keyBoard"]["delete"], None, None]
         try:
             self._actionTexts[2] = actionTexts[0]
         except:

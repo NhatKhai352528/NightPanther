@@ -3,6 +3,7 @@ from typing import Any
 from ..NPPages import NPPages
 from ...Customs.NPLanguage import NPLanguage
 from ...Customs.NPTheme import NPTheme
+from ...Objects.NPConfirmBox import NPConfirmBox
 
 class NPPrimary(NPPages):
     
@@ -25,7 +26,8 @@ class NPPrimary(NPPages):
         
         # Initialize items for control frame
         self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = self._currentLanguage["settingsInitial"]["control"]["left"])
-        self._control.initButton(position = "right", command = lambda event = None: self._saveSettings(), state = "normal", text = self._currentLanguage["settingsInitial"]["control"]["right"])
+        # self._control.initButton(position = "right", command = lambda event = None: self._saveSettings(), state = "normal", text = self._currentLanguage["settingsInitial"]["control"]["right"])
+        self._control.initButton(position = "right", command = lambda event = None: NPConfirmBox(master = self._master, messageText = "NguyenThiTam", buttonTexts = ["Cancel", "OK"], buttonCommands = [None, lambda event = None: self._saveSettings()]), state = "normal", text = self._currentLanguage["settingsInitial"]["control"]["right"])
         
         # Initialize items for interact frame
         self._interact.initText(mode = "content", text = "", justify = "center")
@@ -48,9 +50,8 @@ class NPPrimary(NPPages):
                 newLanguageIndex = i
                 break
         if newLanguageIndex != None:
-            if newLanguageIndex != self._currentLanguageIndex:
-                self._currentLanguageIndex = newLanguageIndex
-                NPLanguage.setLanguage(languageCode = self._currentLanguageIndex)
+            self._currentLanguageIndex = newLanguageIndex
+            NPLanguage.setLanguage(languageCode = self._currentLanguageIndex)
         
         newThemes = self._themesButtonArray.npget(attribute = "active")
         newThemeIndex = None
@@ -60,6 +61,7 @@ class NPPrimary(NPPages):
                 newThemeIndex = i
                 break
         if newThemeIndex != None:
-            if newThemeIndex != self._currentThemeIndex:
-                self._currentThemeIndex = newThemeIndex
-                NPTheme.setTheme(themeCode = self._currentThemeIndex)
+            self._currentThemeIndex = newThemeIndex
+            NPTheme.setTheme(themeCode = self._currentThemeIndex)
+        
+        self._master.resetFlows()

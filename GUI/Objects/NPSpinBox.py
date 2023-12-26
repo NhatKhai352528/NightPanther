@@ -3,12 +3,8 @@ from tkinter.font import Font
 from typing import Any, Literal
 from .NPObjects import NPObjects
 from ..Customs.NPLanguage import NPLanguage
-from ..Customs.NPTheme import NPTheme
 from ..Widgets.NPEntry import NPEntry
 from ..Widgets.NPTextButton import NPTextButton
-
-currentLanguage = NPLanguage.getLanguage()
-currentTheme = NPTheme.getTheme()
 
 def maxDecimal(nums: list[float]):
     maxDecimal = 0
@@ -26,7 +22,9 @@ def roundFloat(num: float, decimal: int):
 
 class NPSpinBox(NPObjects):
     
-    def __init__(self, master: Frame, x: int, y: int, distance: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str, size: int, default: float, minimum: float, maximum: float, step: float, wrap: bool, entryFont: Font = currentTheme["font"]["default"], inputFont: Font = currentTheme["font"]["default"], actionFont: Font = currentTheme["font"]["default"], actionCommand: Any = None):
+    def __init__(self, master: Frame, x: int, y: int, distance: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str, size: int, default: float, minimum: float, maximum: float, step: float, wrap: bool, entryFont: Font = None, inputFont: Font = None, actionFont: Font = None, actionCommand: Any = None):
+
+        self._currentLanguage = NPLanguage.getLanguage()
         
         # Size variables
         self._size = int(size)
@@ -69,7 +67,7 @@ class NPSpinBox(NPObjects):
         self._increaseButton.place()
         
         # SpinBox's action button
-        self._actionButton = NPTextButton(master = self._frame, mode = "action", x = self._width - self._distance, y = self._distance, width = self._actionSize, height = self._size, anchor = "ne", command = self._actionCommand, font = self._actionFont, repeat = False, state = "normal" if self._actionCommand != None else "disabled", text = currentLanguage["spinBox"]["confirm"])
+        self._actionButton = NPTextButton(master = self._frame, mode = "action", x = self._width - self._distance, y = self._distance, width = self._actionSize, height = self._size, anchor = "ne", command = self._actionCommand, font = self._actionFont, repeat = False, state = "normal" if self._actionCommand != None else "disabled", text = self._currentLanguage["spinBox"]["confirm"])
         self._actionButton.place()
         
     def _decrease(self):

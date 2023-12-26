@@ -11,13 +11,13 @@ from ...Widgets.NPImageLabel import NPImageLabel
 from ...Widgets.NPTextButton import NPTextButton
 from ...Widgets.NPTextLabel import NPTextLabel
 
-currentTheme = NPTheme.getTheme()
-
 class NPInteract(NPFrames):
     
     def __init__(self, master: Tk):
+
+        self._currentTheme = NPTheme.getTheme()
         
-        super().__init__(master = master, x = Interact["x"], y = Interact["y"], width = Interact["width"], height = Interact["height"], distance = Interact["distance"], anchor = "nw", background = currentTheme["background"]["interact"])
+        super().__init__(master = master, x = Interact["x"], y = Interact["y"], width = Interact["width"], height = Interact["height"], distance = Interact["distance"], anchor = "nw", background = self._currentTheme["background"]["interact"])
         
         self._currentY = self._distance
     
@@ -61,7 +61,7 @@ class NPInteract(NPFrames):
     
     def initButton(self, command: Any, text: str):
         
-        currentFont = currentTheme["font"]["strong"]
+        currentFont = self._currentTheme["font"]["strong"]
         
         self._items.append(NPTextButton(master = self._frame, mode = "action", x = 0.5 * self._width, y = self._currentY, width = 400, height = 50, anchor = "n", command = command, font = currentFont, repeat = False, state = "normal", text = text))
         
@@ -74,14 +74,14 @@ class NPInteract(NPFrames):
         
         # Get current font and foreground
         if mode == "section":
-            currentFont = currentTheme["font"]["section"]
-            currentForeground = currentTheme["foreground"]["default"]
+            currentFont = self._currentTheme["font"]["section"]
+            currentForeground = self._currentTheme["foreground"]["default"]
         elif mode == "heading":
-            currentFont = currentTheme["font"]["heading"]
-            currentForeground = currentTheme["foreground"]["default"]
+            currentFont = self._currentTheme["font"]["heading"]
+            currentForeground = self._currentTheme["foreground"]["default"]
         elif mode == "content":
-            currentFont = currentTheme["font"]["normal"]
-            currentForeground = currentTheme["foreground"]["default"]
+            currentFont = self._currentTheme["font"]["normal"]
+            currentForeground = self._currentTheme["foreground"]["default"]
         
         # Define a new text label, place it onto the frame, and update position for the next item
         self._items.append(NPTextLabel(master = self._frame, x = self._distance, y = self._currentY, width = self._width - 2 * self._distance, anchor = "nw", background = self.npget(attribute = "background"), font = currentFont, foreground = currentForeground, justify = justify, text = text, textAnchor = "nw" if justify == "left" else "n" if justify == "center" else "ne", underline = -1, wraplength = self._width - 2 * self._distance))
@@ -101,7 +101,7 @@ class NPInteract(NPFrames):
     
     def initButtonArray(self, mode: Literal["single", "multiple"], rows: int, columns: int, defaults: list[list[Literal["default", "active", "disabled"]]] = None, texts: list[list[str]] = None):
         
-        currentFont = currentTheme["font"]["strong"]
+        currentFont = self._currentTheme["font"]["strong"]
         
         self._items.append(NPButtonArray(master = self._frame, mode = mode, x = 0.5 * self._width, y = self._currentY, distance = self._distance, anchor = "n", background = self.npget(attribute = "background"), rows = rows, columns = columns, widthSize = 100, heightSize = 50, font = currentFont, defaults = defaults, texts = texts))
         
@@ -113,9 +113,9 @@ class NPInteract(NPFrames):
     def initKeyBoard(self, default: str = "", maximum: int = 10, show: str = "", inputTexts: list[str] = [None, None], actionTexts: list[str] = None, actionCommands: list[Any] = None):
         
         # Set KeyBoard's font
-        entryFont = currentTheme["font"]["section"]
-        inputFont = currentTheme["font"]["heading"]
-        actionFont = currentTheme["font"]["small"]
+        entryFont = self._currentTheme["font"]["section"]
+        inputFont = self._currentTheme["font"]["heading"]
+        actionFont = self._currentTheme["font"]["small"]
         
         self._items.append(NPKeyBoard(master = self._frame, x = 0.5 * self._width, y = self._currentY, distance = self._distance, anchor = "n", background = self.npget(attribute = "background"), size = 50, default = default, maximum = maximum, show = show, entryFont = entryFont, inputFont = inputFont, actionFont = actionFont, inputTexts = inputTexts, actionTexts = actionTexts, actionCommands = actionCommands))
         
@@ -136,9 +136,9 @@ class NPInteract(NPFrames):
     def initSpinBox(self, default: float = 0, minimum: float = 0, maximum: float = 0, step: float = 0, wrap: bool = False, actionCommand: Any = None):
         
         # Set SpinBox's font
-        entryFont = currentTheme["font"]["section"]
-        inputFont = currentTheme["font"]["heading"]
-        actionFont = currentTheme["font"]["small"]
+        entryFont = self._currentTheme["font"]["section"]
+        inputFont = self._currentTheme["font"]["heading"]
+        actionFont = self._currentTheme["font"]["small"]
         
         self._items.append(NPSpinBox(master = self._frame, x = 0.5 * self._width, y = self._currentY, distance = self._distance, anchor = "n", background = self.npget(attribute = "background"), size = 50, default = default, minimum = minimum, maximum = maximum, step = step, wrap = wrap, entryFont = entryFont, inputFont = inputFont, actionFont = actionFont, actionCommand = actionCommand))
         

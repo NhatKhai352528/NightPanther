@@ -33,13 +33,8 @@ class NPPayment(NPPages):
         self._userPriceIndex = self._data.initText(mode = "Content", text = formatPrice(self._userPrice), wrap = True)
         
         # Initialize items for control frame
-<<<<<<< HEAD
         # self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = currentLanguage["payment"]["control"]["left"])
-        self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = currentLanguage["payment"]["control"]["right"])
-=======
-        self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = self._currentLanguage["payment"]["control"]["left"])
         self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = self._currentLanguage["payment"]["control"]["right"])
->>>>>>> Settings
         
         # Initialize items for interact frame
         self._interact.initText(mode = "heading", text = self._currentLanguage["payment"]["interact"]["text0"], justify = "center")

@@ -3,11 +3,11 @@ from tkinter.font import Font
 from typing import Any, Literal
 from ..Customs.NPTheme import NPTheme
 
-currentTheme = NPTheme.getTheme()
+defaultTheme = NPTheme.getTheme()
 
 class NPTextLabel(Label):
     
-    def __init__(self, master: Frame, x: int, y: int, width: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str = currentTheme["background"]["default"], font: Font = currentTheme["font"]["default"], foreground: str = currentTheme["foreground"]["default"], justify: Literal["left", "center", "right"] = "left", text: str = None, textAnchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = "nw", underline: int = -1, wraplength: int = 0):
+    def __init__(self, master: Frame, x: int, y: int, width: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str = defaultTheme["background"]["default"], font: Font = defaultTheme["font"]["default"], foreground: str = defaultTheme["foreground"]["default"], justify: Literal["left", "center", "right"] = "left", text: str = None, textAnchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"] = "nw", underline: int = -1, wraplength: int = 0):
         
         # Location variables
         self._master = master

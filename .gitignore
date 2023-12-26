@@ -1,1 +1,3 @@
+.gitignore
+/CO3091_BE
 **/__pycache__/

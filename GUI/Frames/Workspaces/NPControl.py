@@ -5,13 +5,13 @@ from ...Constants.NPWorkspace import Control
 from ...Customs.NPTheme import NPTheme
 from ...Widgets.NPTextButton import NPTextButton
 
-currentTheme = NPTheme.getTheme()
-
 class NPControl(NPFrames):
     
     def __init__(self, master: Tk):
+
+        self._currentTheme = NPTheme.getTheme()
         
-        super().__init__(master = master, x = Control["x"], y = Control["y"], width = Control["width"], height = Control["height"], distance = Control["distance"], anchor = "nw", background = currentTheme["background"]["control"])
+        super().__init__(master = master, x = Control["x"], y = Control["y"], width = Control["width"], height = Control["height"], distance = Control["distance"], anchor = "nw", background = self._currentTheme["background"]["control"])
         
         self._widthSize = int((self._width - 3 * self._distance) / 2)
         self._heightSize = int(self._height - 2 * self._distance)
@@ -33,7 +33,7 @@ class NPControl(NPFrames):
             self._currentItems[1] = currentIndex
         
         # Define a new button and place it onto the frame
-        self._items.append(NPTextButton(master = self._frame, mode = "action", x = self._distance if position == "left" else self._width - self._distance, y = self._distance, width = self._widthSize, height = self._heightSize, anchor = "nw" if position == "left" else "ne", command = command, font = currentTheme["font"]["strong"], repeat = False, state = state, text = text))
+        self._items.append(NPTextButton(master = self._frame, mode = "action", x = self._distance if position == "left" else self._width - self._distance, y = self._distance, width = self._widthSize, height = self._heightSize, anchor = "nw" if position == "left" else "ne", command = command, font = self._currentTheme["font"]["strong"], repeat = False, state = state, text = text))
         self._items[currentIndex].place()
         
         return currentIndex

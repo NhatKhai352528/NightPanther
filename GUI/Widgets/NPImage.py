@@ -1,12 +1,12 @@
 from PIL import Image
 from PIL.ImageTk import PhotoImage
 from ..Customs.NPTheme import NPTheme
-
-currentTheme = NPTheme.getTheme()
         
 class NPImage(PhotoImage):
     
     def __init__(self, file: str, width: int, height: int):
+
+        self._currentTheme = NPTheme.getTheme()
         
         # File path
         self._file = file
@@ -19,6 +19,6 @@ class NPImage(PhotoImage):
             self._image = Image.open(fp = self._file, mode = "r")
             self._image = self._image.resize(size = (self._width, self._height))
         except:
-            self._image = Image.new(mode = "RGB", size = (self._width, self._height), color = currentTheme["default"]["color"])
+            self._image = Image.new(mode = "RGB", size = (self._width, self._height), color = self._currentTheme["default"]["color"])
         
         super().__init__(image = self._image)

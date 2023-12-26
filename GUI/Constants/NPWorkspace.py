@@ -1,4 +1,5 @@
 from .NPScreen import Viewport, Menu
+from math import ceil
 
 Data = {
     "x": 0,
@@ -12,7 +13,7 @@ Control = {
     "x": 0,
     "y": int(Data["y"] + Data["height"]),
     "width": int(0.4 * Viewport["width"]),
-    "height": int(0.2 * Viewport["height"]),
+    "height": ceil(0.2 * Viewport["height"]),
     "distance": int(Viewport["distance"])
 }
 
