@@ -4,19 +4,21 @@ from .Languages.Vietnamese import Vietnamese
 class NPLanguage:
     
     currentLanguage = English
-    availableLanguages = {"English": English, "Vietnamese": Vietnamese}
-    
+    availableLanguages = [English, Vietnamese]
+            
     @classmethod
-    def setLanguage(cls, language: str = "English"):
-        if language in cls.availableLanguages:
-            cls.currentLanguage = cls.availableLanguages[language]
-        else:
-            cls.currentLanguage = English
+    def setLanguage(cls, languageCode: int = None):
+        try:
+            cls.currentLanguage = cls.availableLanguages[languageCode]
+        except:
+            cls.currentLanguage = cls.availableLanguages[0]
             
     @classmethod
     def getLanguage(cls):
         return cls.currentLanguage
     
     @classmethod
-    def getLanguages(cls):
-        return list(cls.availableLanguages.keys())
+    def getLanguageIndex(cls):
+        for i in range(len(cls.availableLanguages)):
+            if cls.currentLanguage == cls.availableLanguages[i]:
+                return i

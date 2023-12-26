@@ -40,7 +40,7 @@ class NPFlows:
         self._bars = NPBars(master = self._master, menuCommands = [lambda event = None: self._confirmToStart(), lambda event = None: self._currentToHelps(), lambda event = None: self._currentToSettings(), lambda event = None: self._currentToAdmins()])
         self._bars.place()
         self._currentToStarts()
-        self.startConnection()
+        # self.startConnection()
     
     def destroy(self):
         attributes = ["_bars", "_starts", "_setups", "_prints", "_helps", "_settings", "_admins"]

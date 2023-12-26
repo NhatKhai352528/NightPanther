@@ -1,5 +1,9 @@
 from tkinter import Tk
+<<<<<<< HEAD
 from threading import Thread, Event
+=======
+from threading import Thread, Timer, Event
+>>>>>>> Settings
 from typing import Any
 from ..Pages.Prints.NPFormat import NPFormat
 from ..Pages.Prints.NPOrder import NPOrder
@@ -13,6 +17,10 @@ import qrcode
 import random
 import globals
 from PyPDF2 import PdfReader, PdfWriter
+from ..Customs.NPLanguage import NPLanguage
+from ..Objects.NPConfirmBox import NPConfirmBox
+
+currentLanguage = NPLanguage.getLanguage()
 
 import requests
 import urllib.request
@@ -116,8 +124,12 @@ class NPPrints:
         self._printing = NPPrinting(master = self._master, commands = [None, None], fileName = self._fileName, filePages = self._filePages, userCopies = self._userCopies)
         self._printing.initControlButton(position = "left", command = lambda event = None: self._orderCancelAlert(), state = "normal", text = currentLanguage["printing"]["control"]["cancel"])
         self._printing.initControlButton(position = 'right', command = lambda event = None: self._printToPause(), state = 'normal', text = currentLanguage["printing"]["control"]["pause"])
+<<<<<<< HEAD
         self.pauseEvent = Event()
         self.stopEvent = Event()
+=======
+        self.pauseEvent = Event() 
+>>>>>>> Settings
         self._printing.place()
         self._payment.place_forget()
         printUserFile = Thread(target = self._printUserFile)
@@ -154,7 +166,7 @@ class NPPrints:
         self._payment.place_forget()
 
     def _getServerVariables(self):
-        self._serverLink = subprocess.check_output(['hostname','-I']).decode().strip().split()[0] + ':3000'
+        # self._serverLink = subprocess.check_output(['hostname','-I']).decode().strip().split()[0] + ':3000'
         self._upload.npset(attribute = "serverLink", value = self._serverLink)
         uploadQR = qrcode.make("http://" + self._serverLink)
         type(uploadQR)

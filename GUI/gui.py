@@ -3,12 +3,10 @@ root = NPTk()
 root.bind(sequence = "<Return>", func = lambda event = None: root.destroy())
 
 from .Customs.NPTheme import NPTheme
-NPTheme.setTheme(theme = "Default")
-currentTheme = NPTheme.getTheme()
+NPTheme.setTheme(themeCode = 1)
 
 from .Customs.NPLanguage import NPLanguage
-NPLanguage.setLanguage(language = "Vietnamese")
-currentLanguage = NPLanguage.getLanguage()
+NPLanguage.setLanguage(languageCode = 1)
 
 from .Flows.NPFlows import NPFlows
 flow = NPFlows(master = root)
