@@ -4,6 +4,7 @@ from ..NPFrames import NPFrames
 from ...Constants.NPWorkspace import Interact
 from ...Customs.NPTheme import NPTheme
 from ...Objects.NPButtonArray import NPButtonArray
+from ...Objects.NPButtonSet import NPButtonSet
 from ...Objects.NPKeyBoard import NPKeyBoard
 from ...Objects.NPProgressBar import NPProgressBar
 from ...Objects.NPSpinBox import NPSpinBox
@@ -70,7 +71,7 @@ class NPInteract(NPFrames):
     #
     # NPTextLabel
     
-    def initText(self, mode: Literal["section", "heading", "content"], text: str, justify: Literal["left", "center", "right"]):
+    def initText(self, mode: Literal["section", "heading", "content", "footnote"], text: str, justify: Literal["left", "center", "right"]):
         
         # Get current font and foreground
         if mode == "section":
@@ -81,6 +82,9 @@ class NPInteract(NPFrames):
             currentForeground = self._currentTheme["foreground"]["default"]
         elif mode == "content":
             currentFont = self._currentTheme["font"]["normal"]
+            currentForeground = self._currentTheme["foreground"]["default"]
+        elif mode == "footnote":
+            currentFont = self._currentTheme["font"]["tiny"]
             currentForeground = self._currentTheme["foreground"]["default"]
         
         # Define a new text label, place it onto the frame, and update position for the next item
@@ -104,6 +108,15 @@ class NPInteract(NPFrames):
         currentFont = self._currentTheme["font"]["strong"]
         
         self._items.append(NPButtonArray(master = self._frame, mode = mode, x = 0.5 * self._width, y = self._currentY, distance = self._distance, anchor = "n", background = self.npget(attribute = "background"), rows = rows, columns = columns, widthSize = 100, heightSize = 50, font = currentFont, defaults = defaults, texts = texts))
+        
+        return self._recheck()
+    
+    #
+    # NPButtonSet
+    
+    def initButtonSet(self, mode: Literal["single", "multiple"], rows: int, columns: int, defaults: list[list[Literal["default", "active", "disabled"]]] = None, imageFiles: list[list[str]] = None):
+        
+        self._items.append(NPButtonSet(master = self._frame, mode = mode, x = 0.5 * self._width, y = self._currentY, distance = 2 * self._distance, anchor = "n", background = self.npget(attribute = "background"), rows = rows, columns = columns, widthSize = 200, heightSize = 200, defaults = defaults, imageFiles = imageFiles))
         
         return self._recheck()
     
@@ -151,6 +164,12 @@ class NPInteract(NPFrames):
             if index >= len(self._items):
                 return
             if not isinstance(self._items[index], NPButtonArray):
+                return
+            return self._items[index]
+        elif attribute == "buttonSet":
+            if index >= len(self._items):
+                return
+            if not isinstance(self._items[index], NPButtonSet):
                 return
             return self._items[index]
         elif attribute == "keyBoard":

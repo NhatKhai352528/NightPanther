@@ -44,7 +44,7 @@ class NPButtonSet(NPObjects):
         self._buttons = [[Any for _ in range(self._columns)] for _ in range(self._rows)]
         for i in range(self._rows):
             for j in range(self._columns):
-                self._buttons[i][j] = NPImageButton(master = self._frame, mode = "select", x = j * self._widthSize + (j + 1) * self._distance, y = i * self._heightSize + (i + 1) * self._distance, width = self._widthSize, height = self._heightSize, anchor = self._anchor, command = None, imageFile = self._imageFiles[i][j], repeat = False, state = "normal")
+                self._buttons[i][j] = NPImageButton(master = self._frame, mode = "select", x = j * self._widthSize + (j + 1) * self._distance, y = i * self._heightSize + (i + 1) * self._distance, width = self._widthSize, height = self._heightSize, anchor = "nw", command = None, imageFile = self._imageFiles[i][j], repeat = False, state = "normal")
                 self._setStatus(row = i, column = j, status = self._defaults[i][j])
                 if self._mode == "single":
                     self._buttons[i][j].npset(attribute = "command", value = lambda event = None, i = i, j = j: self._single(row = i, column = j))

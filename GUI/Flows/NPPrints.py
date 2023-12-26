@@ -98,6 +98,7 @@ class NPPrints:
     def _formatToOrder(self):
         self._filePaper = self._format.npget(attribute = "filePaper")
         self._fileSides = self._format.npget(attribute = "fileSides")
+        # reader = PdfReader("../CO3091_BE/user_file.pdf")
         reader = PdfReader("./CO3091_BE/user_file.pdf")
         self._filePrice = Price[self._filePaper][self._fileSides] * len(reader.pages)
         if self._order == None:
@@ -114,14 +115,14 @@ class NPPrints:
     def _orderToPayment(self):
         self._userCopies = self._order.npget(attribute = "userCopies")
         self._userPrice = self._order.npget(attribute = "userPrice")
-        self._payment = NPPayment(master = self._master, commands = [None, lambda event = None: self._paymentCancelAlert()], fileName = self._fileName, userCopies = self._userCopies, userPrice = self._userPrice, userQRFile = self._userQRFile)
+        self._payment = NPPayment(master = self._master, commands = [None, lambda event = None: self._paymentCancelAlert()], serverKey = self._serverKey, fileName = self._fileName, userCopies = self._userCopies, userPrice = self._userPrice, userQRFile = self._userQRFile)
         self._payment.place()
         self._order.place_forget()
         self.paymentCancelEvent = Event()
         generateQR = Thread(target = self._generateQR)
         generateQR.start()
-        paymentCheck = Thread(target = self._paymentCheck)
-        paymentCheck.start()
+        # paymentCheck = Thread(target = self._paymentCheck)
+        # paymentCheck.start()
     
     def _paymentToPrinting(self):
         self._printing = NPPrinting(master = self._master, commands = [None, None], fileName = self._fileName, filePages = self._filePages, userCopies = self._userCopies)
@@ -287,7 +288,8 @@ class NPPrints:
     def _logError(self, strError):
         self._master.markErrorOccured(error = strError)
 
-    def _printUserFile(self):        
+    def _printUserFile(self):
+        # reader = PdfReader("../CO3091_BE/user_file.pdf")
         reader = PdfReader("./CO3091_BE/user_file.pdf")
         
         def isPageLandscape(pageIndex):
@@ -346,6 +348,7 @@ class NPPrints:
                     return
                 writer = PdfWriter()
                 writer.add_page(reader.pages[page])
+                # with open("../CO3091_BE/current_page.pdf", "wb") as fp:
                 with open("./CO3091_BE/current_page.pdf", "wb") as fp:
                     writer.write(fp)
                 
@@ -354,6 +357,7 @@ class NPPrints:
                 printCommand = ["lp", "-d", printerName, "-o","media=" + getFileSize(), "-n", "1", "-o", "sides=" + getSideOption(), "-o", "fit-to-page"]
                 if isPageLandscape(page):
                     printCommand.extend(["-o", "landscape]"])
+                # printCommand.append("../CO3091_BE/current_page.pdf")
                 printCommand.append("./CO3091_BE/current_page.pdf")
                 
                 try:
