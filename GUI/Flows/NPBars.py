@@ -1,12 +1,15 @@
 from tkinter import Tk
 from time import strftime
 from typing import Any
+from ..Customs.NPTheme import NPTheme
 from ..Frames.NPMenu import NPMenu
 from ..Frames.NPStatus import NPStatus
 
 class NPBars:
     
     def __init__(self, master: Tk, menuCommands: list[Any] = None):
+        
+        self._currentTheme = NPTheme.getTheme()
         
         self._master = master
         
@@ -21,13 +24,12 @@ class NPBars:
         self._menu = NPMenu(master = self._master)
         self._status = NPStatus(master = self._master)
         
-        self._menu.initButton(index = 0, command = self._menuCommands[0], imageFile = "./GUI/Images/Refresh-modified.png", state = "normal")
-        self._menu.initButton(index = 1, command = self._menuCommands[1], imageFile = "./GUI/Images/Help-modified.png", state = "normal")
-        self._menu.initButton(index = 2, command = self._menuCommands[2], imageFile = "./GUI/Images/Construct-modified.png", state = "normal")
-        self._menu.initButton(index = 3, command = self._menuCommands[3], imageFile = "./GUI/Images/Account-modified.png", state = "normal")
+        self._menu.initButton(index = 0, command = self._menuCommands[0], imageFile = self._currentTheme["menuBar"]["reset"], state = "normal")
+        self._menu.initButton(index = 1, command = self._menuCommands[1], imageFile = self._currentTheme["menuBar"]["help"], state = "normal")
+        self._menu.initButton(index = 2, command = self._menuCommands[2], imageFile = self._currentTheme["menuBar"]["setting"], state = "normal")
+        self._menu.initButton(index = 3, command = self._menuCommands[3], imageFile = self._currentTheme["menuBar"]["admin"], state = "normal")
         
         self._status.initImage(anchor = "w", imageFile = "./GUI/Images/Logo1.png")
-        # self._status.initImage(anchor = "e", imageFile = None)
         self._status.initText(width = 400, anchor = "w", text = "Student Smart Printing System")
         
         self._statusFrame = self._status.npget(attribute = "frame")
