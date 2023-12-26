@@ -1,1 +1,0 @@
-Paper = {'a3': True, 'a4': True, 'a5': False}

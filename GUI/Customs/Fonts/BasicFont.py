@@ -1,3 +1,0 @@
-BasicFont = {
-    "verdana": "Verdana"
-}

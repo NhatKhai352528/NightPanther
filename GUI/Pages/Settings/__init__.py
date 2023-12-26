@@ -1,1 +1,0 @@
-from .NPPrimary import NPPrimary
