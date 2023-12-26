@@ -81,9 +81,9 @@ class NPPrints:
     
     def _uploadToFormat(self):
         # User not upload file
-        if self._fileName == self._waitingText:
-            NPConfirmBox(master = self._master, messageText = "Ban phai up  file truoc", buttonTexts = [None, "OK"], buttonCommands = [None, None])
-            return
+        # if self._fileName == self._waitingText:
+        #     NPConfirmBox(master = self._master, messageText = "Ban phai up  file truoc", buttonTexts = [None, "OK"], buttonCommands = [None, None])
+        #     return
         # Reset web server to waiting for new order
         resetMessage = "reset"
         # globals.webServerSocket.send(resetMessage.encode())
@@ -98,7 +98,7 @@ class NPPrints:
     def _formatToOrder(self):
         self._filePaper = self._format.npget(attribute = "filePaper")
         self._fileSides = self._format.npget(attribute = "fileSides")
-        reader = PdfReader("../CO3091_BE/user_file.pdf")
+        reader = PdfReader("./CO3091_BE/user_file.pdf")
         self._filePrice = Price[self._filePaper][self._fileSides] * len(reader.pages)
         if self._order == None:
             self._order = NPOrder(master = self._master, commands = [lambda event = None: self._orderToFormat(), lambda event = None: self._orderToPayment()], fileName = self._fileName, filePrice = self._filePrice)
@@ -288,7 +288,7 @@ class NPPrints:
         self._master.markErrorOccured(error = strError)
 
     def _printUserFile(self):        
-        reader = PdfReader("../CO3091_BE/user_file.pdf")
+        reader = PdfReader("./CO3091_BE/user_file.pdf")
         
         def isPageLandscape(pageIndex):
             page = reader.pages[pageIndex]
@@ -346,7 +346,7 @@ class NPPrints:
                     return
                 writer = PdfWriter()
                 writer.add_page(reader.pages[page])
-                with open("../CO3091_BE/current_page.pdf", "wb") as fp:
+                with open("./CO3091_BE/current_page.pdf", "wb") as fp:
                     writer.write(fp)
                 
                 printerFile = open("printer.txt")
@@ -354,7 +354,7 @@ class NPPrints:
                 printCommand = ["lp", "-d", printerName, "-o","media=" + getFileSize(), "-n", "1", "-o", "sides=" + getSideOption(), "-o", "fit-to-page"]
                 if isPageLandscape(page):
                     printCommand.extend(["-o", "landscape]"])
-                printCommand.append("../CO3091_BE/current_page.pdf")
+                printCommand.append("./CO3091_BE/current_page.pdf")
                 
                 try:
                     subprocess.run(printCommand, check = True)

@@ -1,15 +1,11 @@
 from tkinter import Frame
-from tkinter.font import Font
 from typing import Any, Literal
 from .NPObjects import NPObjects
-from ..Customs.NPTheme import NPTheme
-from ..Widgets.NPTextButton import NPTextButton
+from ..Widgets.NPImageButton import NPImageButton
 
-defaultTheme = NPTheme.getTheme()
-
-class NPButtonArray(NPObjects):
+class NPButtonSet(NPObjects):
     
-    def __init__(self, master: Frame, mode: Literal["single", "multiple"], x: int, y: int, distance: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str, rows: int, columns: int, widthSize: int, heightSize: int, font: Font = defaultTheme["font"]["default"], defaults: list[list[Literal["default", "active", "disabled"]]] = None, texts: list[list[str]] = None):
+    def __init__(self, master: Frame, mode: Literal["single", "multiple"], x: int, y: int, distance: int, anchor: Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"], background: str, rows: int, columns: int, widthSize: int, heightSize: int, defaults: list[list[Literal["default", "active", "disabled"]]] = None, imageFiles: list[list[str]] = None):
         
         # Mode variables
         self._mode = mode
@@ -25,9 +21,6 @@ class NPButtonArray(NPObjects):
         height = self._rows * self._heightSize + (self._rows + 1) * distance
         super().__init__(master = master, x = x, y = y, width = width, height = height, distance = distance, anchor = anchor, background = background)
         
-        # Font variables
-        self._font = font
-        
         # Status variables
         self._defaults = [[Literal["default", "active", "disabled"] for _ in range(self._columns)] for _ in range(self._rows)]
         self._status = [[Literal["default", "active", "disabled"] for _ in range(self._columns)] for _ in range(self._rows)]
@@ -39,19 +32,19 @@ class NPButtonArray(NPObjects):
                     self._defaults[i][j] = "default"
         
         # Text variables
-        self._texts = [[str for _ in range(self._columns)] for _ in range(self._rows)]
+        self._imageFiles = [[str for _ in range(self._columns)] for _ in range(self._rows)]
         for i in range(self._rows):
             for j in range(self._columns):
                 try:
-                    self._texts[i][j] = texts[i][j]
+                    self._imageFiles[i][j] = imageFiles[i][j]
                 except:
-                    self._texts[i][j] = None
+                    self._imageFiles[i][j] = None
         
-        # ButtonArray's buttons
+        # ButtonSet's buttons
         self._buttons = [[Any for _ in range(self._columns)] for _ in range(self._rows)]
         for i in range(self._rows):
             for j in range(self._columns):
-                self._buttons[i][j] = NPTextButton(master = self._frame, mode = "select", x = j * self._widthSize + (j + 1) * self._distance, y = i * self._heightSize + (i + 1) * self._distance, width = self._widthSize, height = self._heightSize, anchor = "nw", command = None, font = self._font, repeat = False, state = "normal", text = self._texts[i][j])
+                self._buttons[i][j] = NPImageButton(master = self._frame, mode = "select", x = j * self._widthSize + (j + 1) * self._distance, y = i * self._heightSize + (i + 1) * self._distance, width = self._widthSize, height = self._heightSize, anchor = self._anchor, command = None, imageFile = self._imageFiles[i][j], repeat = False, state = "normal")
                 self._setStatus(row = i, column = j, status = self._defaults[i][j])
                 if self._mode == "single":
                     self._buttons[i][j].npset(attribute = "command", value = lambda event = None, i = i, j = j: self._single(row = i, column = j))
