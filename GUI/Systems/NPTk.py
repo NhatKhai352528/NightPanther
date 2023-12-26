@@ -1,6 +1,9 @@
 from tkinter import Tk
 from typing import Literal
 from ..Constants.NPScreen import Screen
+import hmac
+import hashlib
+import base64
 
 class NPTk(Tk):
     
@@ -34,10 +37,14 @@ class NPTk(Tk):
         self._flows = NPFlows(master = self)
         self._flows.place()
     
+    def _nphash(self, password):
+        dig = hmac.new(b'NightPanther', msg = password.encode(), digestmod = hashlib.sha256).digest()
+        return base64.b64encode(dig).decode()
+
     def signIn(self, password: str = None):
         if self._mode == "admin":
             return
-        if password == "1611":
+        if self._nphash(password = password) == 'p2R1aJDLVZ7T/YkgGjVFTqg6M0uciXsGkzmRO8gKpuk=':
             self._mode = "admin"
     
     def signOut(self):
