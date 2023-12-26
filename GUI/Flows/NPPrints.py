@@ -1,5 +1,5 @@
 from tkinter import Tk
-from threading import Thread, Timer, Event
+from threading import Thread, Event
 from typing import Any
 from ..Pages.Prints.NPFormat import NPFormat
 from ..Pages.Prints.NPOrder import NPOrder
@@ -105,7 +105,8 @@ class NPPrints:
         self._printing = NPPrinting(master = self._master, commands = [None, None], fileName = self._fileName, filePages = self._filePages, userCopies = self._userCopies)
         self._printing.initControlButton(position = "left", command = lambda event = None: self._orderCancelAlert(), state = "normal", text = currentLanguage["printing"]["control"]["cancel"])
         self._printing.initControlButton(position = 'right', command = lambda event = None: self._printToPause(), state = 'normal', text = currentLanguage["printing"]["control"]["pause"])
-        self.pauseEvent = Event() 
+        self.pauseEvent = Event()
+        self.stopEvent = Event()
         self._printing.place()
         self._payment.place_forget()
         printUserFile = Thread(target = self._printUserFile)
@@ -118,12 +119,20 @@ class NPPrints:
 
     def _orderCancelAlert(self):
         self._printToPause()
-        NPConfirmBox(master = self._master, messageText = "NguyenThiTam", buttonTexts = ["cancel", "OK"], buttonCommands = [None, lambda event = None: self._printingToSuccess()])
+        NPConfirmBox(master = self._master, messageText = "NguyenThiTam", buttonTexts = ["cancel", "OK"], buttonCommands = [None, lambda event = None: self._printCancelOrder()])
+
+    def _printCancelOrder(self):
+        self.stopEvent.set()
+        self._printingToSuccess()
 
     def _printToPause(self):
         self.pauseEvent.set()
         self._printing.initControlButton(position = 'right', command = lambda event = None: self._pauseToPrint(), state = 'normal', text = currentLanguage["printing"]["control"]["continue"])
     
+    def _adminPauseToPrint(self):
+        if self._master.npget(attribute = "mode") == "admin":
+            self._pauseToPrint()
+
     def _pauseToPrint(self):
         self.pauseEvent.clear()
         self._printing.initControlButton(position = 'right', command = lambda event = None: self._printToPause(), state = 'normal', text = currentLanguage["printing"]["control"]["pause"])
@@ -179,9 +188,10 @@ class NPPrints:
             if (fileSize == "a5"):
                 return "A5"
         
-        # For test
         def handlePrintError(strError):
-            print(strError)
+            self.pauseEvent.set()
+            self._printing.initControlButton(position = 'right', command = lambda event = None: self._adminPauseToPrint(), state = 'normal', text = currentLanguage["printing"]["control"]["continue"])
+            NPConfirmBox(master = self._master, messageText = strError, buttonTexts = [None, "OK"], buttonCommands = [None, None])
 
         def getSideOption():
             sideOption = self._format.npget(attribute = "fileSides")
@@ -196,6 +206,8 @@ class NPPrints:
         # Printing
         for _ in range(0, self._userCopies):
             for page in range(0, self._filePages):
+                if self.stopEvent.is_set():
+                    return
                 writer = PdfWriter()
                 writer.add_page(reader.pages[page])
                 with open("../CO3091_BE/current_page.pdf", "wb") as fp:
@@ -207,28 +219,38 @@ class NPPrints:
                 if isPageLandscape(page):
                     printCommand.extend(["-o", "landscape]"])
                 printCommand.append("../CO3091_BE/current_page.pdf")
-                subprocess.run(printCommand)
                 
+                try:
+                    subprocess.run(printCommand, check = True)
+                except subprocess.CalledProcessError as e:
+                    self._master.after(100, handlePrintError, "There's an error in printing command")
+                    return
+
                 # Time out for error
                 def printingTimeOut():
                     printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode().lower();
                     if (printer_status.find("idle") != -1):
-                        handlePrinterError(strError = "nono")
+                        pass
                     elif (printer_status.find("rendering completed") != -1):
                         handlePrintError(strError = "The printer is not working properly")
                     elif (printer_status.find("sending data to printer") != -1):
                         handlePrintError(strError = "There's an error in our system")
                     else:
                         handlePrintError(strError = "Unknown error")
-                printTimeOut = Timer(2.0, printingTimeOut)
-                printTimeOut.start()
-
+                timeOutId = self._master.after(1000, printingTimeOut)
+                isCommandError = False
                 while True:
-                    printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode()
+                    try:
+                        printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode()
+                    except subprocess.CalledProcessError as e:
+                        self._master.after(100, handlePrintError, "There's an error in printing command")
+                        isCommandError = True
                     if (printer_status.find("idle") != -1):
                         break
+                if isCommandError:
+                    return
                 # Print successfully, cancel the error time out
-                printTimeOut.cancel()
+                self._master.after_cancel(timeOutId)
 
                 # Update GUI
                 if self._printerCopy < self._userCopies:
@@ -243,6 +265,6 @@ class NPPrints:
                 self._printing.npset(attribute = "printerPage", value = self._printerPage)
                 self._printing.npset(attribute = "printerCopy", value = self._printerCopy)
                 
-                while (self._printerCopy < self._userCopies and self.pauseEvent.is_set()):
+                while (self._printerCopy < self._userCopies and self.pauseEvent.is_set() and self.stopEvent.is_set() == False):
                     pass
         
