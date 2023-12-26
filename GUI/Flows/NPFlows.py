@@ -145,6 +145,9 @@ class NPFlows:
     
     def _startsToPrints(self):
         if self._currentFlow == "starts":
+            if self._master.npget(attribute = "state") == "error" and self._master.npget(attribute = "mode") != "admin":
+                NPConfirmBox(master = self._master, messageText = "đang lỗi, chỉ admin được đặt", buttonTexts = [None, "OK"], buttonCommands = [None, None])
+                return
             self._currentFlow = "prints"
             self._prints = NPPrints(master = self._master, destroyCommand = lambda event = None: self._currentToStarts())
             self._prints.place()
