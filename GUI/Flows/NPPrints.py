@@ -129,6 +129,10 @@ class NPPrints:
         self.pauseEvent.set()
         self._printing.initControlButton(position = 'right', command = lambda event = None: self._pauseToPrint(), state = 'normal', text = currentLanguage["printing"]["control"]["continue"])
     
+    def _adminPauseToPrint(self):
+        if self._master.npget(attribute = "mode") == "admin":
+            self._pauseToPrint()
+
     def _pauseToPrint(self):
         self.pauseEvent.clear()
         self._printing.initControlButton(position = 'right', command = lambda event = None: self._printToPause(), state = 'normal', text = currentLanguage["printing"]["control"]["pause"])
@@ -185,8 +189,9 @@ class NPPrints:
                 return "A5"
         
         def handlePrintError(strError):
-            self.stopEvent.set()
-            NPConfirmBox(master = self._master, messageText = strError, buttonTexts = [None, "OK"], buttonCommands = [None, lambda event = None: self._printingToSuccess()])
+            self.pauseEvent.set()
+            self._printing.initControlButton(position = 'right', command = lambda event = None: self._adminPauseToPrint(), state = 'normal', text = currentLanguage["printing"]["control"]["continue"])
+            NPConfirmBox(master = self._master, messageText = strError, buttonTexts = [None, "OK"], buttonCommands = [None, None])
 
         def getSideOption():
             sideOption = self._format.npget(attribute = "fileSides")
