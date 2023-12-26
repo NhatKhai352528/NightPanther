@@ -22,6 +22,7 @@ from time import sleep
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from ..Objects.NPConfirmBox import NPConfirmBox
+from selenium.common.exceptions import NoSuchElementException
 
 class NPPrints:
     def __init__(self, master: Tk, destroyCommand: Any):
@@ -103,6 +104,7 @@ class NPPrints:
         self._payment = NPPayment(master = self._master, commands = [None, lambda event = None: self._paymentCancelAlert()], fileName = self._fileName, userCopies = self._userCopies, userPrice = self._userPrice, userQRFile = self._userQRFile)
         self._payment.place()
         self._order.place_forget()
+        self.paymentCancelEvent = Event()
         generateQR = Thread(target = self._generateQR)
         generateQR.start()
         paymentCheck = Thread(target = self._paymentCheck)
@@ -151,66 +153,90 @@ class NPPrints:
         NPConfirmBox(master = self._master, messageText = "Bạn có chắc muốn hủy đơn", buttonTexts = ["Có", "Không"], buttonCommands = [lambda event = None: self._paymentCancel(), None])
 
     def _paymentCancel(self):
+        self.paymentCancelEvent.set()
         subprocess.run(["pkill", "-9", "chromium-browse"])
         self._paymentToSuccess()
 
     def _generateQR(self):
         cost = str(self._userPrice)
         head_url="https://img.vietqr.io/image/ocb-0004100037889007-HgRYJqu.png?amount="
-        tail_url="&addInfo=Thanh%20toan%20he%20thong%20in%20tu%20phuc%20vu&accountName=Pham%20Van%20Nhat%20Vu"
+        tail_url="&addInfo=SSPS%20" + str(self._serverKey) + "&accountName=Pham%20Van%20Nhat%20Vu"
         url=head_url+cost+tail_url
-        urllib.request.urlretrieve(url, "GUI/Images/PaymentQR.png")
-        self._payment.npset(attribute = "userQRFile", value = "GUI/Images/PaymentQR.png")
+        try:
+            urllib.request.urlretrieve(url, "GUI/Images/PaymentQR.png")
+            self._payment.npset(attribute = "userQRFile", value = "GUI/Images/PaymentQR.png")
+        except urllib.error.URLError:
+            self._master.after(100, NPConfirmBox, self._master, "Mat ket noi mang, vui long lien he", [None, "OK"], [None, lambda event = None: self._paymentCancel()])
     
     def _paymentCheck(self): 
-        googleUserInfo = "/home/pi/Desktop/NPPayCheck"
-        option = webdriver.ChromeOptions()
-        option.add_argument("user-data-dir=" + googleUserInfo)
-        driver = Service('/usr/lib/chromium-browser/chromedriver')
-        browser = webdriver.Chrome(service = driver, options = option)
-        browser.get("https://mightytext.net")
-        sleep(20)
+        try:
+            googleUserInfo = "/home/pi/Desktop/NPPayCheck"
+            option = webdriver.ChromeOptions()
+            option.add_argument("user-data-dir=" + googleUserInfo)
+            driver = Service('/usr/lib/chromium-browser/chromedriver')
+            browser = webdriver.Chrome(service = driver, options = option)
+            browser.get("https://mightytext.net")
+            sleep(20)
         
-        # Login to Mighty Text Web
-        login = browser.find_element(By.ID,'login')
-        login.click()
-        sleep(30)
+            # Login to Mighty Text Web
+            login = browser.find_element(By.ID,'logino')
+            login.click()
+            sleep(20)
         
-        # Click to the message sent by OCB
-        click_ocb=browser.find_element(By.ID,'thread-78062')
-        click_ocb.click()
-        sleep(10)
+            # Check for web notification and close
+            while True:
+                try:
+                    noti_list = browser.find_element(By.CLASS_NAME, 'intercom-post-close')
+                except NoSuchElementException:
+                    break
+                for close_button in noti_list:
+                    close_button.click()
+            sleep(10)
 
-        # Wait for new message
-        file_time = open("pay_check_time.txt", "r")
-        old_time = file_time.read().strip()
+            # Click to the message sent by OCB
+            click_ocb = browser.find_element(By.ID,'thread-78062')
+            click_ocb.click()
+            sleep(10)
+
+            # Wait for new message
          
-        while True:
-            messageList = browser.find_elements(By.XPATH,'/html/body/div[1]/div/div/div[3]/div/div[2]/div[1]/div[2]/div[1]')
-            for message in messageList:
-                break
-            # Latest message
-            text = message.text
-            time = text[text.find("OCB")+4:text.find("TK")].strip()
-            if (time != old_time and time != "" and text.find("(-)") == -1):
-                file_time.close()
-                file_time = open("pay_check_time.txt", "w")
-                file_time.write(time)
-                file_time.close()
-                break
-        
-        paymentStr = text[text.find("(+)")+4:text.find("VND")]
-        payment = int(paymentStr.replace(',',''))
-        browser.close()
-        
-        if (payment == self._userPrice):
-            self._paymentToPrinting()
-        else:
-            self._paymentToSuccess()
-        # Stuck on confirm box
-        #else:
-        #    NPConfirmBox(master = self._master, messageText = "Bạn nộp thiếu tiền, vui lòng hủy đơn hoặc gửi lại phần còn thiếu", buttonTexts = ["Hủy đơn", "Nộp phần còn thiếu"], buttonCommands = [lambda event = None: self._paymentToSuccess(), None])
+            while True:
+                if self.paymentCancelEvent.is_set():
+                    return
+                messageIndex = 0
+                notFoundNewMessage = True
+                while True:
+                    messageIndex = messageIndex + 1
+                    try:
+                        messageList = browser.find_elements(By.XPATH,'/html/body/div[1]/div/div/div[3]/div/div[2]/div[1]/div[2]/div[1]')
+                    except NoSuchElementException:
+                        break
 
+                    for message in messageList:
+                        break
+                
+                    # Latest message with SSPS format
+                    text = message.text
+                    if text.find("SSPS") != -1:
+                        notFoundNewMessage = False
+                        break
+                if notFoundNewMessage:
+                    continue
+
+                code = text[text.find("SSPS") + 5:text.find("SSPS") + 12].strip()
+                if (int(code) == int(self._serverKey)):
+                    break
+        
+            paymentStr = text[text.find("(+)")+4:text.find("VND")]
+            payment = int(paymentStr.replace(',',''))
+            browser.close()
+        
+            if (payment == self._userPrice):
+                self._paymentToPrinting()
+            else:
+                self._master.after(100, NPConfirmBox, self._master, "Nop sai rui, lien he de gui lai", [None, "OK"], [None, lambda event = None: self._paymentToSuccess(), None])
+        except Exception:
+            self._master.after(100, NPConfirmBox, self._master, "He thong kiem tra thanh toan xay ra loi", [None, "OK"], [None, lambda event = None: self._paymentToSuccess(), None])
 
     def _printUserFile(self):        
         reader = PdfReader("../CO3091_BE/user_file.pdf")
