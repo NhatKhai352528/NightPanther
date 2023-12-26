@@ -82,7 +82,7 @@ class NPPrints:
     def _uploadToFormat(self):
         # Reset web server to waiting for new order
         resetMessage = "reset"
-        globals.webServerSocket.send(resetMessage.encode())
+        # globals.webServerSocket.send(resetMessage.encode())
         availablePaper = [list(value.values()) for value in Price.values()]
         availableSides = [[availablePaper[j][i] for j in range(len(availablePaper))] for i in range(len(availablePaper[0]))]
         availablePaper = [False if row == [None, None] else True for row in availablePaper]
@@ -172,19 +172,19 @@ class NPPrints:
         self._fileName = "Waiting for user to upload file ..."
         self._upload.npset(attribute = "fileName", value = self._fileName)
         
-        def _listenWebServer():
-            globals.webServerSocket.send(str(self.printingCode).encode())
-            self._fileName = globals.webServerSocket.recv(1024).decode()
-            self._upload.npset(attribute = "fileName", value = self._fileName)
-        listenWebServer = Thread(target = _listenWebServer)
-        listenWebServer.start()
+        # def _listenWebServer():
+        #     globals.webServerSocket.send(str(self.printingCode).encode())
+        #     self._fileName = globals.webServerSocket.recv(1024).decode()
+        #     self._upload.npset(attribute = "fileName", value = self._fileName)
+        # listenWebServer = Thread(target = _listenWebServer)
+        # listenWebServer.start()
     
     def _paymentCancelAlert(self):
         NPConfirmBox(master = self._master, messageText = "Bạn có chắc muốn hủy đơn", buttonTexts = ["Có", "Không"], buttonCommands = [lambda event = None: self._paymentCancel(error = ""), None])
 
     def _paymentCancel(self, error = ""):
         self.paymentCancelEvent.set()
-        subprocess.run(["pkill", "-9", "chromium-browse"])
+        # subprocess.run(["pkill", "-9", "chromium-browse"])
         if error != "":
             self._logError(strError = error)
         else:

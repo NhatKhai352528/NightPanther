@@ -22,12 +22,9 @@ class NPVerify(NPPages):
         
         # Initialize items for interact frame
         self._interact.initText(mode = "heading", text = self._currentLanguage["admin"]["interact"]["text0"], justify = "center")
-        
-        self._keyBoardTexts = ["Log Out", "Log In"]
-        self._keyBoardCommands = [lambda event = None: (self._master.signOut(), self.npset(attribute = "mode", value = None)), lambda event = None: (self._master.signIn(password = self._passwordKeyBoard.npget(attribute = "value")), self.npset(attribute = "mode", value = None))]
-        self._passwordIndex = self._interact.initKeyBoard(default = "", maximum = 8, show = "*", inputTexts = None, actionTexts = self._keyBoardTexts, actionCommands = self._keyBoardCommands)
+        self._passwordIndex = self._interact.initKeyBoard(default = "", maximum = 8, show = "*", inputTexts = None, actionTexts = None, actionCommands = None)
         self._passwordKeyBoard = self._interact.npget(attribute = "keyBoard", index = self._passwordIndex)
     
-    def npset(self, attribute: str, value: Any = None):
-        if attribute == "mode":
-            self._data.updateText(index = self._modeIndex, text = self._currentLanguage["admin"]["data"]["loggedOut"] if self._master.npget(attribute = "mode") == "user" else self._currentLanguage["admin"]["data"]["loggedIn"])
+    def npget(self, attribute: str):
+        if attribute == "password":
+            return self._passwordKeyBoard.npget(attribute = "value")
