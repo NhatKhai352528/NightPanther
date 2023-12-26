@@ -1,5 +1,5 @@
 from tkinter import Tk
-from threading import Thread, Timer, Event
+from threading import Thread, Event
 from typing import Any
 from ..Pages.Prints.NPFormat import NPFormat
 from ..Pages.Prints.NPOrder import NPOrder
@@ -186,9 +186,7 @@ class NPPrints:
         
         def handlePrintError(strError):
             self.stopEvent.set()
-            self._printingToSuccess()
-            #Stuck on confirm box
-            #NPConfirmBox(master = self._master, messageText = strError, buttonTexts = [None, "OK"], buttonCommands = [None, lambda event = None: self._printingToSuccess()])
+            NPConfirmBox(master = self._master, messageText = strError, buttonTexts = [None, "OK"], buttonCommands = [None, lambda event = None: self._printingToSuccess()])
 
         def getSideOption():
             sideOption = self._format.npget(attribute = "fileSides")
@@ -216,28 +214,38 @@ class NPPrints:
                 if isPageLandscape(page):
                     printCommand.extend(["-o", "landscape]"])
                 printCommand.append("../CO3091_BE/current_page.pdf")
-                subprocess.run(printCommand)
                 
+                try:
+                    subprocess.run(printCommand, check = True)
+                except subprocess.CalledProcessError as e:
+                    self._master.after(100, handlePrintError, "There's an error in printing command")
+                    return
+
                 # Time out for error
                 def printingTimeOut():
                     printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode().lower();
                     if (printer_status.find("idle") != -1):
-                        handlePrintError(strError = "nono")
+                        pass
                     elif (printer_status.find("rendering completed") != -1):
                         handlePrintError(strError = "The printer is not working properly")
                     elif (printer_status.find("sending data to printer") != -1):
                         handlePrintError(strError = "There's an error in our system")
                     else:
                         handlePrintError(strError = "Unknown error")
-                printTimeOut = Timer(2.0, printingTimeOut)
-                printTimeOut.start()
-
+                timeOutId = self._master.after(1000, printingTimeOut)
+                isCommandError = False
                 while True:
-                    printer_status = "1"#subprocess.check_output(["lpstat", "-p", printerName]).decode()
+                    try:
+                        printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode()
+                    except subprocess.CalledProcessError as e:
+                        self._master.after(100, handlePrintError, "There's an error in printing command")
+                        isCommandError = True
                     if (printer_status.find("idle") != -1):
                         break
+                if isCommandError:
+                    return
                 # Print successfully, cancel the error time out
-                printTimeOut.cancel()
+                self._master.after_cancel(timeOutId)
 
                 # Update GUI
                 if self._printerCopy < self._userCopies:
