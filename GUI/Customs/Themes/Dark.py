@@ -59,5 +59,11 @@ Dark = {
         "default": IBM["gray"]["default"]["70"],
         "filled": IBM["blue"]["default"]["60"],
         "unfilled": IBM["gray"]["default"]["60"],
+    },
+    "menuBar": {
+        "reset": "./GUI/Images/Home-modified.png",
+        "help": "./GUI/Images/Help-modified.png",
+        "setting": "./GUI/Images/Construct-modified.png",
+        "admin": "./GUI/Images/Account-modified.png",
     }
 }

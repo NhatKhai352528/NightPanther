@@ -58,5 +58,11 @@ Default = {
         "default": BasicRGB["azure"]["4"],
         "filled": BasicRGB["green"]["4"],
         "unfilled": BasicRGB["white"]["0"],
+    },
+    "menuBar": {
+        "reset": "./GUI/Images/Home.png",
+        "help": "./GUI/Images/Help.png",
+        "setting": "./GUI/Images/Construct.png",
+        "admin": "./GUI/Images/Account.png",
     }
 }
