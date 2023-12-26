@@ -143,16 +143,13 @@ class NPPrints:
     def _adminPauseToPrint(self):
         if self._master.npget(attribute = "mode") == "admin":
             self._pauseToPrint()
+        else:
+            NPConfirmBox(master = self._master, messageText = "dang loi, chi admin duoc tiep tuc", buttonTexts = [None, "OK"], buttonCommands = [None, None])
 
     def _pauseToPrint(self):
         self.pauseEvent.clear()
         self._printing.initControlButton(position = 'right', command = lambda event = None: self._printToPause(), state = 'normal', text = currentLanguage["printing"]["control"]["pause"])
     
-    def _paymentToSuccess(self):
-        self._success = NPSuccess(master = self._master, commands = [None, self._destroyCommand])
-        self._success.place()
-        self._payment.place_forget()
-
     def _getServerVariables(self):
         self._serverLink = subprocess.check_output(['hostname','-I']).decode().strip().split()[0] + ':3000'
         self._upload.npset(attribute = "serverLink", value = self._serverLink)
@@ -176,12 +173,17 @@ class NPPrints:
         listenWebServer.start()
     
     def _paymentCancelAlert(self):
-        NPConfirmBox(master = self._master, messageText = "Bạn có chắc muốn hủy đơn", buttonTexts = ["Có", "Không"], buttonCommands = [lambda event = None: self._paymentCancel(), None])
+        NPConfirmBox(master = self._master, messageText = "Bạn có chắc muốn hủy đơn", buttonTexts = ["Có", "Không"], buttonCommands = [lambda event = None: self._paymentCancel(error = ""), None])
 
-    def _paymentCancel(self):
+    def _paymentCancel(self, error = ""):
         self.paymentCancelEvent.set()
         subprocess.run(["pkill", "-9", "chromium-browse"])
-        self._paymentToSuccess()
+        if error != "":
+            self._logError(strError = error)
+        else:
+            self._success = NPSuccess(master = self._master, commands = [None, self._destroyCommand])
+            self._success.place()
+            self._payment.place_forget()
 
     def _generateQR(self):
         cost = str(self._userPrice)
@@ -192,7 +194,7 @@ class NPPrints:
             urllib.request.urlretrieve(url, "GUI/Images/PaymentQR.png")
             self._payment.npset(attribute = "userQRFile", value = "GUI/Images/PaymentQR.png")
         except urllib.error.URLError:
-            self._master.after(100, NPConfirmBox, self._master, "Mat ket noi mang, vui long lien he", [None, "OK"], [None, lambda event = None: self._paymentCancel()])
+            self._master.after(100, NPConfirmBox, self._master, "Mat ket noi mang, vui long lien he", [None, "OK"], [None, lambda event = None: self._paymentCancel(error = "Mat ket noi mang, vui long lien he")])
     
     def _paymentCheck(self): 
         try:
@@ -260,14 +262,19 @@ class NPPrints:
             if (payment == self._userPrice):
                 self._paymentToPrinting()
             else:
-                self._master.after(100, NPConfirmBox, self._master, "Nop sai rui, lien he de gui lai", [None, "OK"], [None, lambda event = None: self._paymentToSuccess(), None])
+                self._master.after(100, NPConfirmBox, self._master, "Nop sai rui, lien he de gui lai", [None, "OK"], [None, lambda event = None: self._paymentCancel(error = "Nop sai rui, lien he de gui lai"), None])
         except Exception as e:
             print(str(e))
             try:
                 if self.paymentCancelEvent.is_set() == False:
-                    self._master.after(100, NPConfirmBox, self._master, "He thong kiem tra thanh toan xay ra loi", [None, "OK"], [None, lambda event = None: self._paymentToSuccess(), None])
+                    self._master.after(100, NPConfirmBox, self._master, "He thong kiem tra thanh toan xay ra loi", [None, "OK"], [None, lambda event = None: self._paymentCancel("He thong kiem tra thanh toan xay ra loi"), None])
             except Exception:
                 return
+    
+    
+    def _logError(self, strError):
+        self._master.markErrorOccured(error = strError)
+
     def _printUserFile(self):        
         reader = PdfReader("../CO3091_BE/user_file.pdf")
         
@@ -296,10 +303,14 @@ class NPPrints:
                 return "A4"
             if (fileSize == "a5"):
                 return "A5"
-        
+
         def handlePrintError(strError):
+            # Pause printing
             self.pauseEvent.set()
             self._printing.initControlButton(position = 'right', command = lambda event = None: self._adminPauseToPrint(), state = 'normal', text = currentLanguage["printing"]["control"]["continue"])
+            
+            # System to error state
+            self._logError(strError = strError)
             NPConfirmBox(master = self._master, messageText = strError, buttonTexts = [None, "OK"], buttonCommands = [None, None])
 
         def getSideOption():

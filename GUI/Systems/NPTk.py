@@ -13,6 +13,10 @@ class NPTk(Tk):
         super().overrideredirect(boolean = True)
         
         self._mode: Literal["user", "admin"] = "user"
+        
+        self._state: Literal["normal", "error"] = "normal"
+    
+        self._error = ""
     
     def mainloop(self):
         super().mainloop()
@@ -34,3 +38,12 @@ class NPTk(Tk):
     def npget(self, attribute: str):
         if attribute == "mode":
             return self._mode
+        if attribute == "state":
+            return self._state
+
+    def markErrorFixed(self):
+        self._state = "normal"
+
+    def markErrorOccured(self, error):
+        self._state = "error"
+        self._error = error
