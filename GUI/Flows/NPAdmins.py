@@ -4,6 +4,7 @@ from ..Pages.Admins.NPAdmin import NPAdmin
 from ..Pages.Admins.NPVerify import NPVerify
 from ..Objects.NPConfirmBox import NPConfirmBox
 from time import sleep
+import subprocess
 
 class NPAdmins:
     
@@ -59,8 +60,25 @@ class NPAdmins:
                     pass
                 setattr(self, attribute, None)
     
+    def _displayLog(self):
+        subprocess.run(["clear"])
+        subprocess.run(["cat", "error_log.txt"])
+        self._master.destroy()
+
+    def _markErrorFixed(self):
+        # TODO: F5 
+        empty_file = open("error_log.txt", "w")
+        empty_file.close()
+        self._master.markErrorFixed()
+    
+    def _displaySystemState(self):
+        if self._master.npget(attribute = "state") == "error":
+            NPConfirmBox(master = self._master, messageText = "He thong dang loi", buttonTexts = ["Xem file log", "OK"], buttonCommands = [self._displayLog, None])
+        else:
+            NPConfirmBox(master = self._master, messageText = "He thong dang hoat dong binh thuong", buttonTexts = [None, "OK"], buttonCommands = [None, None])
+
     def _initAdmin(self):
-        self._admin = NPAdmin(master = self._master, commands = [self._destroyCommand, lambda event = None: self._adminToVerify()], switchCommands = [None, None, None, lambda event = None: NPConfirmBox(master = self._master, messageText = "NguyenThiTam", buttonTexts = ["Cancel", "OK"], buttonCommands = [None, lambda event = None: self._master.destroy()])])
+        self._admin = NPAdmin(master = self._master, commands = [self._destroyCommand, lambda event = None: self._adminToVerify()], switchCommands = [lambda event = None: self._displaySystemState(), lambda event = None: NPConfirmBox(master = self._master, messageText = "Chac chua", buttonTexts = [None, "Roi"], buttonCommands = [None, self._markErrorFixed]), lambda event = None: NPConfirmBox(master = self._master, messageText = "Tat thiet ha?", buttonTexts = ["Huy", "Dung roi"], buttonCommands = [None, lambda event = None: self._master.destroy()])])
         self._admin.place()
     
     def _initVerify(self):

@@ -27,6 +27,8 @@ from ..Objects.NPConfirmBox import NPConfirmBox
 from selenium.common.exceptions import NoSuchElementException
 from ..Customs.NPLanguage import NPLanguage
 
+from datetime import datetime
+
 class NPPrints:
     
     def __init__(self, master: Tk, destroyCommand: Any):
@@ -81,12 +83,12 @@ class NPPrints:
     
     def _uploadToFormat(self):
         # User not upload file
-        # if self._fileName == self._waitingText:
-        #     NPConfirmBox(master = self._master, messageText = "Ban phai up  file truoc", buttonTexts = [None, "OK"], buttonCommands = [None, None])
-        #     return
+        if self._fileName == self._waitingText:
+            NPConfirmBox(master = self._master, messageText = "Ban phai up  file truoc", buttonTexts = [None, "OK"], buttonCommands = [None, None])
+            return
         # Reset web server to waiting for new order
         resetMessage = "reset"
-        # globals.webServerSocket.send(resetMessage.encode())
+        globals.webServerSocket.send(resetMessage.encode())
         availablePaper = [list(value.values()) for value in Price.values()]
         availableSides = [[availablePaper[j][i] for j in range(len(availablePaper))] for i in range(len(availablePaper[0]))]
         availablePaper = [False if row == [None, None] else True for row in availablePaper]
@@ -98,8 +100,7 @@ class NPPrints:
     def _formatToOrder(self):
         self._filePaper = self._format.npget(attribute = "filePaper")
         self._fileSides = self._format.npget(attribute = "fileSides")
-        # reader = PdfReader("../CO3091_BE/user_file.pdf")
-        reader = PdfReader("./CO3091_BE/user_file.pdf")
+        reader = PdfReader("../CO3091_BE/user_file.pdf")
         self._filePrice = Price[self._filePaper][self._fileSides] * len(reader.pages)
         if self._order == None:
             self._order = NPOrder(master = self._master, commands = [lambda event = None: self._orderToFormat(), lambda event = None: self._orderToPayment()], fileName = self._fileName, filePrice = self._filePrice)
@@ -121,8 +122,8 @@ class NPPrints:
         self.paymentCancelEvent = Event()
         generateQR = Thread(target = self._generateQR)
         generateQR.start()
-        # paymentCheck = Thread(target = self._paymentCheck)
-        # paymentCheck.start()
+        paymentCheck = Thread(target = self._paymentCheck)
+        paymentCheck.start()
     
     def _paymentToPrinting(self):
         self._printing = NPPrinting(master = self._master, commands = [None, None], fileName = self._fileName, filePages = self._filePages, userCopies = self._userCopies)
@@ -163,7 +164,7 @@ class NPPrints:
         self._printing.initControlButton(position = 'right', command = lambda event = None: self._printToPause(), state = 'normal', text = self._currentLanguage["printing"]["control"]["pause"])
     
     def _getServerVariables(self):
-        # self._serverLink = subprocess.check_output(['hostname','-I']).decode().strip().split()[0] + ':3000'
+        self._serverLink = subprocess.check_output(['hostname','-I']).decode().strip().split()[0] + ':3000'
         self._upload.npset(attribute = "serverLink", value = self._serverLink)
         uploadQR = qrcode.make("http://" + self._serverLink)
         type(uploadQR)
@@ -178,19 +179,19 @@ class NPPrints:
         self._fileName = self._waitingText
         self._upload.npset(attribute = "fileName", value = self._fileName)
         
-        # def _listenWebServer():
-        #     # globals.webServerSocket.send(str(self.printingCode).encode())
-        #     # self._fileName = globals.webServerSocket.recv(1024).decode()
-        #     self._upload.npset(attribute = "fileName", value = self._fileName)
-        # listenWebServer = Thread(target = _listenWebServer)
-        # listenWebServer.start()
+        def _listenWebServer():
+            globals.webServerSocket.send(str(self.printingCode).encode())
+            self._fileName = globals.webServerSocket.recv(1024).decode()
+            self._upload.npset(attribute = "fileName", value = self._fileName)
+        listenWebServer = Thread(target = _listenWebServer)
+        listenWebServer.start()
     
     def _paymentCancelAlert(self):
         NPConfirmBox(master = self._master, messageText = "Bạn có chắc muốn hủy đơn", buttonTexts = ["Có", "Không"], buttonCommands = [lambda event = None: self._paymentCancel(error = ""), None])
 
     def _paymentCancel(self, error = ""):
         self.paymentCancelEvent.set()
-        # subprocess.run(["pkill", "-9", "chromium-browse"])
+        subprocess.run(["pkill", "-9", "chromium-browse"])
         if error != "":
             self._logError(strError = error)
         else:
@@ -277,7 +278,6 @@ class NPPrints:
             else:
                 self._master.after(100, NPConfirmBox, self._master, "Nop sai rui, lien he de gui lai", [None, "OK"], [None, lambda event = None: self._paymentCancel(error = "Nop sai rui, lien he de gui lai"), None])
         except Exception as e:
-            print(str(e))
             try:
                 if self.paymentCancelEvent.is_set() == False:
                     self._master.after(100, NPConfirmBox, self._master, "He thong kiem tra thanh toan xay ra loi", [None, "OK"], [None, lambda event = None: self._paymentCancel("He thong kiem tra thanh toan xay ra loi"), None])
@@ -286,11 +286,13 @@ class NPPrints:
     
     
     def _logError(self, strError):
-        self._master.markErrorOccured(error = strError)
+        logFile = open("error_log.txt", "a")
+        logFile.write(str(datetime.now()) + " : " + strError + "\n")
+        logFile.close()
+        self._master.markErrorOccured()
 
     def _printUserFile(self):
-        # reader = PdfReader("../CO3091_BE/user_file.pdf")
-        reader = PdfReader("./CO3091_BE/user_file.pdf")
+        reader = PdfReader("../CO3091_BE/user_file.pdf")
         
         def isPageLandscape(pageIndex):
             page = reader.pages[pageIndex]
@@ -348,8 +350,7 @@ class NPPrints:
                     return
                 writer = PdfWriter()
                 writer.add_page(reader.pages[page])
-                # with open("../CO3091_BE/current_page.pdf", "wb") as fp:
-                with open("./CO3091_BE/current_page.pdf", "wb") as fp:
+                with open("../CO3091_BE/current_page.pdf", "wb") as fp:
                     writer.write(fp)
                 
                 printerFile = open("printer.txt")
@@ -357,8 +358,7 @@ class NPPrints:
                 printCommand = ["lp", "-d", printerName, "-o","media=" + getFileSize(), "-n", "1", "-o", "sides=" + getSideOption(), "-o", "fit-to-page"]
                 if isPageLandscape(page):
                     printCommand.extend(["-o", "landscape]"])
-                # printCommand.append("../CO3091_BE/current_page.pdf")
-                printCommand.append("./CO3091_BE/current_page.pdf")
+                printCommand.append("../CO3091_BE/current_page.pdf")
                 
                 try:
                     subprocess.run(printCommand, check = True)
@@ -368,7 +368,7 @@ class NPPrints:
 
                 # Time out for error
                 def printingTimeOut():
-                    # printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode().lower()
+                    printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode().lower()
                     if (printer_status.find("idle") != -1):
                         pass
                     elif (printer_status.find("rendering completed") != -1):
