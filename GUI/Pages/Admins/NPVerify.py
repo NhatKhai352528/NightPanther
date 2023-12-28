@@ -22,6 +22,7 @@ class NPVerify(NPPages):
         
         # Initialize items for interact frame
         self._interact.initText(mode = "heading", text = self._currentLanguage["adminVerify"]["interact"]["text0"], justify = "center")
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
         self._passwordIndex = self._interact.initKeyBoard(default = "", maximum = 8, show = "*", inputTexts = None, actionTexts = None, actionCommands = None)
         self._passwordKeyBoard = self._interact.npget(attribute = "keyBoard", index = self._passwordIndex)
     

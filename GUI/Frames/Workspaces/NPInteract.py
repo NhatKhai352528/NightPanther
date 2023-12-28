@@ -71,7 +71,7 @@ class NPInteract(NPFrames):
     #
     # NPTextLabel
     
-    def initText(self, mode: Literal["section", "heading", "content", "footnote"], text: str, justify: Literal["left", "center", "right"]):
+    def initText(self, mode: Literal["section", "heading", "content", "small", "footnote"], text: str, justify: Literal["left", "center", "right"]):
         
         # Get current font and foreground
         if mode == "section":
@@ -82,6 +82,9 @@ class NPInteract(NPFrames):
             currentForeground = self._currentTheme["foreground"]["default"]
         elif mode == "content":
             currentFont = self._currentTheme["font"]["normal"]
+            currentForeground = self._currentTheme["foreground"]["default"]
+        elif mode == "small":
+            currentFont = self._currentTheme["font"]["small"]
             currentForeground = self._currentTheme["foreground"]["default"]
         elif mode == "footnote":
             currentFont = self._currentTheme["font"]["tiny"]

@@ -199,7 +199,7 @@ Vietnamese = {
         },
         "control": {
             "left": "A4",
-            "right": "Lưu hết",
+            "right": "Hoàn tất",
         },
         "interact": {
             "text0": "Đơn giá giấy A5",
