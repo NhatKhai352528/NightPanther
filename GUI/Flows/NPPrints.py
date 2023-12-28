@@ -327,7 +327,10 @@ class NPPrints:
     
     
     def _logError(self, strError):
-        self._master.markErrorOccured(error = strError)
+        file_log = open("error_log.txt", "a")
+        file_log.write(str(datetime.now()) + ":" + strError + "\n")
+        file_log.close()
+        self._master.markErrorOccured()
     
     def _isPageLandscape(self, pageIndex, reader):
         page = reader.pages[pageIndex]
