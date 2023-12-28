@@ -39,7 +39,7 @@ class NPFlows:
         self._bars = NPBars(master = self._master, menuCommands = [lambda event = None: self._confirmToStart(), lambda event = None: self._currentToHelps(), lambda event = None: self._currentToSettings(), lambda event = None: self._currentToAdmins()])
         self._bars.place()
         self._currentToStarts()
-        self.startConnection()
+        # self.startConnection()
     
     def destroy(self):
         attributes = ["_bars", "_starts", "_setups", "_prints", "_helps", "_settings", "_admins"]
@@ -56,7 +56,7 @@ class NPFlows:
     def _confirmToStart(self):
         if self._currentFlow == "starts":
             return
-        NPConfirmBox(master = self._master, messageText = self._currentLanguage["confirmBox"]["message"]["reset"], buttonTexts = [self._currentLanguage["confirmBox"]["options"]["remain"], self._currentLanguage["confirmBox"]["options"]["return"]], buttonCommands = [None, lambda event = None: self._currentToStarts()])
+        NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["confirm"]["reset"], buttonTexts = [self._currentLanguage["popup"]["options"]["remain"], self._currentLanguage["popup"]["options"]["return"]], buttonCommands = [None, lambda event = None: self._currentToStarts()])
     
     def _currentToStarts(self):
         
@@ -81,7 +81,7 @@ class NPFlows:
         if self._currentFlow == "helps":
             return
         if self._currentFlow in self._subFlow.__args__:
-            NPConfirmBox(master = self._master, messageText = self._currentLanguage["confirmBox"]["message"]["goToHelpFromAny"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
+            NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["guide"]["goToHelpFromAny"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
             return
         if self._currentFlow != "helps":
             self._previousFlow = self._currentFlow
@@ -102,7 +102,7 @@ class NPFlows:
         if self._currentFlow == "settings":
             return
         if self._currentFlow in self._subFlow.__args__:
-            NPConfirmBox(master = self._master, messageText = self._currentLanguage["confirmBox"]["message"]["goToSettingFromSubflow"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
+            NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["guide"]["goToSettingFromSubflow"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
             return
         # if self._master.npget(attribute = "mode") != "admin":
         #     NPConfirmBox(master = self._master, messageText = "Hehe kitchen", buttonTexts = [None, "OK"], buttonCommands = [None, None])
@@ -126,7 +126,7 @@ class NPFlows:
         if self._currentFlow == "admins":
             return
         if self._currentFlow in self._subFlow.__args__:
-            NPConfirmBox(master = self._master, messageText = self._currentLanguage["confirmBox"]["message"]["goToAdminFromAny"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
+            NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["guide"]["goToAdminFromAny"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
             return
         if self._currentFlow != "admins":
             self._previousFlow = self._currentFlow
@@ -146,7 +146,7 @@ class NPFlows:
     def _startsToPrints(self):
         if self._currentFlow == "starts":
             if self._master.npget(attribute = "state") == "error" and self._master.npget(attribute = "mode") != "admin":
-                NPConfirmBox(master = self._master, messageText = "đang lỗi, chỉ admin được đặt", buttonTexts = [None, "OK"], buttonCommands = [None, None])
+                NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["error"]["systemError"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
                 return
             self._currentFlow = "prints"
             self._prints = NPPrints(master = self._master, destroyCommand = lambda event = None: self._currentToStarts())
@@ -159,7 +159,7 @@ class NPFlows:
     
     def _startsToSetups(self):
         if self._master.npget(attribute = "mode") != "admin":
-            NPConfirmBox(master = self._master, messageText = self._currentLanguage["confirmBox"]["message"]["goToSetupNotLoggedIn"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
+            NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["guide"]["goToSetupNotLoggedIn"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
             return
         if self._currentFlow == "starts":
             self._currentFlow = "setups"

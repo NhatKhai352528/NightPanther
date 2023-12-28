@@ -13,7 +13,6 @@ class NPSuccess(NPPages):
         
         # Initialize items for data frame
         self._data.initText(mode = "title", text = self._currentLanguage["success"]["data"]["title"], wrap = True)
-        # self._data.initText(mode = "Content", text = self._currentLanguage["success"]["data"]["text0"], wrap = True)
         
         # Initialize items for control frame
         # self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = self._currentLanguage["success"]["control"]["left"])

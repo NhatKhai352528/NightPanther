@@ -34,9 +34,6 @@ class NPAdmin(NPPages):
         self._interact.initText(mode = "content", text = "", justify = "center")
         self._firstSwitchIndex = self._interact.initButton(command = self._switchCommands[0], text = self._currentLanguage["adminInitial"]["interact"]["text1"])
         
-        # self._interact.initText(mode = "content", text = "", justify = "center")
-        # self._secondSwitchIndex = self._interact.initButton(command = self._switchCommands[1], text = "Da sua xong loi")# self._currentLanguage["helpInitial"]["interact"]["text2"])
-
         self._interact.initText(mode = "content", text = "", justify = "center")
         self._secondSwitchIndex = self._interact.initButton(command = self._switchCommands[1], text = self._currentLanguage["adminInitial"]["interact"]["text2"])
         

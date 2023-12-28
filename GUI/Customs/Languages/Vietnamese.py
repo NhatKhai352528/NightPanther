@@ -6,6 +6,8 @@ Vietnamese = {
     "spinBox": {
         "confirm": "Confirm",
     },
+
+    # Starts
     "welcome": {
         "data": {
             "title": "Xin chào",
@@ -18,7 +20,7 @@ Vietnamese = {
         "interact": {
             "text0": "Yêu cầu để in",
             "text1": "- Kết nối thiết bị cá nhân (laptop/mobile) với wifi 'HCMUT2'.",
-            "text2": "- Định dạng và xuất bản tài liệu sang PDF (sử dụng chức năng 'Print to PDF').",
+            "text2": "- Định dạng và xuất bản tài liệu sang PDF (Print to PDF).",
             "text3": "- Hệ thống sử dụng thanh toán không tiền mặt, bạn sẽ cần quét mã QR để thanh toán.",
         },
     },
@@ -29,7 +31,6 @@ Vietnamese = {
             "text1": "Link: ",
             "text2": "Key: ",
             "text3": "Tên file: ",
-            "text4": "Lẹ lên coai",
         },
         "control": {
             "left": "Trở lại",
@@ -67,7 +68,6 @@ Vietnamese = {
         },
         "interact": {
             "text0": "Số bản sao:",
-            "text1": "Chắc chưa",
         },
     },
     "payment": {
@@ -88,7 +88,6 @@ Vietnamese = {
     "printing": {
         "data": {
             "title": "Đang in",
-            "text0": "Something here",
             "text1": "Tên file: ",
         },
         "control": {
@@ -105,7 +104,6 @@ Vietnamese = {
     "success": {
         "data": {
             "title": "Hoàn tất",
-            "text0": "Something here",
         },
         "control": {
             "left": "Skip",
@@ -233,7 +231,7 @@ Vietnamese = {
         "data": {
             "title": "Trợ giúp",
             "text0": "Tải tài liệu cần in",
-            "text1": "Nếu bạn không tìm thấy câu trả lời mong muốn, hãy liên hệ chúng tôi qua SĐT trong mục 'Trợ giúp' để nhận hỗ trợ."
+            "text1": "Nếu bạn không tìm thấy câu trả lời mong muốn, hãy liên hệ chúng tôi."
         },
         "control": {
             "left": "Trở lại",
@@ -261,8 +259,6 @@ Vietnamese = {
         "interact": {
             "text0": "Tại sao một số lựa chọn không chọn được?",
             "text1": "Một số máy in không hỗ trợ chức năng bạn muốn, vui lòng chọn các lựa chọn khác.",
-            "text2": "Số mặt in là gì?",
-            "text3": "Bạn có thể in trên một mặt hoặc cả hai mặt (với lựa chọn: long edge/short edge)."
         },
     },
     "helpPay": {
@@ -330,13 +326,26 @@ Vietnamese = {
             "text4": "Tắt chương trình",
         },
     },
+    "adminError": {
+        "data": {
+            "title": "Admin",
+            "text0": "Vui lòng sửa các lỗi được hiển thị và chọn 'Tắt lỗi' để chạy thử lại hệ thống."
+        },
+        "control": {
+            "back": "Trở lại",
+            "deleteError": "Tắt lỗi"
+        },
+        "interact": {
+            "text0": "Kiểm tra lỗi hệ thống"
+        }
+    },
     "settingsInitial":{
         "data": {
             "title": "Cài đặt",
         },
         "control": {
             "left": "Trở lại",
-            "right": "Liên hệ",
+            "right": "Lưu",
         },
         "interact":{
             "text0": "Ngôn ngữ",
@@ -345,24 +354,35 @@ Vietnamese = {
             "dark": "Tối"
         }
     },
-    "confirmBox":{
-        "message":{
+    "popup":{
+        "guide":{
             "goToHelpFromAny": "Nhấn 'Trở lại' trước khi chuyển tới 'Trợ giúp'.",
             "goToSettingFromSubflow": "Nhấn 'Trở lại' trước khi chuyển tới 'Cài đặt'.",
             "goToAdminFromAny": "Nhấn 'Trở lại' trước khi chuyển tới 'Admin'.",
             "goToSetupNotLoggedIn": "Vui lòng đăng nhập với tài khoản Admin.",
+            "uploadBeforeFormat": "Vui lòng tải tài liệu lên hệ thống.",
+            "callUs": "Số điện thoại: (+84) 358 386 8964",
+            "noError": "Hệ thống hoạt động bình thường.",
+        },
+        "confirm": {
+            "saveSettings": "Hệ thống sẽ tải lại nếu lưu cài đặt. Bạn có muốn lưu thay đổi?",
             "reset": "Tiến trình hiện tại sẽ mất. Bạn có chắc muốn quay về?",
-            "wrongPassword": "Sai mật khẩu. Vui lòng thử lại.",
-            "systemError": "Hệ thống đang lỗi. Vui lòng truy cập mục 'Trợ giúp' để liên hệ Admin.",
             "cancelOrder": "Đơn bị hủy sẽ không được hoàn tiền. Bạn có chắc muốn hủy đơn?",
+            "completeDebug": "Bạn đã hoàn tất sửa lỗi chưa?",
+            "turnOffProgram": "Tất cả tiến trình sẽ mất. Bạn có chắc muốn tắt toàn bộ chương trình?",
+        },
+        "error": {
+            "systemError": "Hệ thống đang lỗi. Vui lòng truy cập mục 'Trợ giúp' để liên hệ Admin.",
+            "incorrectPassword": "Sai mật khẩu. Vui lòng thử lại.",
             "lostConnection": "Mất kết nối mạng. Vui lòng truy cập mục 'Trợ giúp' để liên hệ Admin.",
             "wrongTransferAmount": "Chuyển sai số tiền. Vui lòng truy cập mục 'Trợ giúp' để liên hệ Admin.",
-            "turnOffProgram": "Tất cả tiến trình sẽ mất. Bạn có chắc muốn tắt toàn bộ chương trình?",
-            "callUs": "Số điện thoại: +84 358 386 8964",
+
         },
         "options": {
             "return": "Có",
-            "remain": "Ở lại"
+            "remain": "Ở lại",
+            "yes": "Rồi",
+            "no": "Chưa"
         }
     },
     "errorLog": {
@@ -371,7 +391,7 @@ Vietnamese = {
             "errorTransferAmount_1": "Chuyển khoản sai số tiền. Đơn hàng #",
             "errorTransferAmount_2": "đã gửi: ",
             "errorPaymentCheck": "Lỗi hệ thống kiểm tra thanh toán.",
-
+            "errorCritical": "Vui lòng liên hệ đơn vị bảo trì hệ thống."
         }
     }
 }

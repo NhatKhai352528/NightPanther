@@ -88,7 +88,7 @@ class NPPrints:
     def _uploadToFormat(self):
         # User not upload file
         if self._fileName == self._waitingText:
-            NPConfirmBox(master = self._master, messageText = "Ban phai up  file truoc", buttonTexts = [None, "OK"], buttonCommands = [None, None])
+            NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["guide"]["uploadBeforeFormat"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
             return
         # Reset web server to waiting for new order
         resetMessage = "reset"
@@ -126,7 +126,7 @@ class NPPrints:
             self._order = NPOrder(master = self._master, commands = [lambda event = None: self._orderToFormat(), lambda event = None: self._orderToPayment()], fileName = self._fileName, filePrice = self._filePrice)
         else:
             self._order.npset(attribute = "filePrice", value = self._filePrice)
-            self._order.initControlButton(position = "left", command = lambda event = None: self._orderToFormat(), state = "normal", text = "NguyenThiTam")
+            self._order.initControlButton(position = "left", command = lambda event = None: self._orderToFormat(), state = "normal", text = self._currentLanguage["order"]["control"]["left"])
         self._order.place()
         self._format.place_forget()
 
@@ -139,7 +139,7 @@ class NPPrints:
             self._order = NPOrder(master = self._master, commands = [lambda event = None: self._orderToFlip(), lambda event = None: self._orderToPayment()], fileName = self._fileName, filePrice = self._filePrice)
         else:
             self._order.npset(attribute = "filePrice", value = self._filePrice)
-            self._order.initControlButton(position = "left", command = lambda event = None: self._orderToFlip(), state = "normal", text = "NguyenThiTam")
+            self._order.initControlButton(position = "left", command = lambda event = None: self._orderToFlip(), state = "normal", text = self._currentLanguage["order"]["control"]["left"])
         self._order.place()
         self._flip.place_forget()
     
@@ -181,7 +181,7 @@ class NPPrints:
 
     def _orderCancelAlert(self):
         self._printToPause()
-        NPConfirmBox(master = self._master, messageText = self._currentLanguage["confirmBox"]["message"]["reset"], buttonTexts = [self._currentLanguage["confirmBox"]["options"]["remain"], self._currentLanguage["confirmBox"]["options"]["return"]], buttonCommands = [None, lambda event = None: self._printCancelOrder()])
+        NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["guide"]["reset"], buttonTexts = [self._currentLanguage["popup"]["options"]["remain"], self._currentLanguage["popup"]["options"]["return"]], buttonCommands = [None, lambda event = None: self._printCancelOrder()])
 
     def _printCancelOrder(self):
         self.stopEvent.set()
@@ -195,7 +195,7 @@ class NPPrints:
         if self._master.npget(attribute = "mode") == "admin":
             self._pauseToPrint()
         else:
-            NPConfirmBox(master = self._master, messageText = self._currentLanguage["confirmBox"]["message"]["systemError"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
+            NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["error"]["systemError"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
 
     def _pauseToPrint(self):
         self.pauseEvent.clear()
@@ -225,7 +225,7 @@ class NPPrints:
         listenWebServer.start()
     
     def _paymentCancelAlert(self):
-        NPConfirmBox(master = self._master, messageText = self._currentLanguage["confirmBox"]["message"]["cancelOrder"], buttonTexts = [self._currentLanguage["confirmBox"]["options"]["remain"], self._currentLanguage["confirmBox"]["options"]["return"]], buttonCommands = [lambda event = None: self._paymentCancel(error = ""), None])
+        NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["confirm"]["cancelOrder"], buttonTexts = [self._currentLanguage["popup"]["options"]["remain"], self._currentLanguage["popup"]["options"]["return"]], buttonCommands = [lambda event = None: self._paymentCancel(error = ""), None])
 
     def _paymentCancel(self, error = ""):
         self.paymentCancelEvent.set()
@@ -248,7 +248,7 @@ class NPPrints:
             urllib.request.urlretrieve(url, "GUI/Images/PaymentQR.png")
             self._payment.npset(attribute = "userQRFile", value = "GUI/Images/PaymentQR.png")
         except urllib.error.URLError:
-            self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["confirmBox"]["message"]["lostConnection"], [None, "OK"], [None, lambda event = None: self._paymentCancel(error = self._currentLanguage["errorLog"]["message"]["errorLostConnection"])])
+            self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["popup"]["error"]["lostConnection"], [None, "OK"], [None, lambda event = None: self._paymentCancel(error = self._currentLanguage["errorLog"]["message"]["errorLostConnection"])])
     
     def _paymentCheck(self): 
         try:
@@ -321,7 +321,7 @@ class NPPrints:
         except Exception as e:
             try:
                 if self.paymentCancelEvent.is_set() == False:
-                    self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["confirmBox"]["message"]["systemError"], [None, "OK"], [None, lambda event = None: self._paymentCancel(self._currentLanguage["errorLog"]["message"]["errorPaymentCheck"]), None])
+                    self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["popup"]["error"]["systemError"], [None, "OK"], [None, lambda event = None: self._paymentCancel(self._currentLanguage["errorLog"]["message"]["errorPaymentCheck"]), None])
             except Exception:
                 return
     
@@ -359,7 +359,7 @@ class NPPrints:
             if (fileSize == "a5"):
                 return "A5"
 
-        def handlePrintError(strError):
+        def handlePrintError(strError, cfrmError):
             # Pause printing
             self.pauseEvent.set()
             self._printing.initControlButton(position = 'right', command = lambda event = None: self._adminPauseToPrint(), state = 'normal', text = self._currentLanguage["printing"]["control"]["continue"])
@@ -405,7 +405,7 @@ class NPPrints:
                 try:
                     subprocess.run(printCommand, check = True)
                 except subprocess.CalledProcessError as e:
-                    self._master.after(100, handlePrintError, "There's an error in printing command")
+                    self._master.after(100, handlePrintError, self._currentLanguage["error"]["message"]["errorCritical"], self._currentLanguage["popup"]["error"]["systemError"])
                     return
 
                 # Time out for error
@@ -415,18 +415,18 @@ class NPPrints:
                     if (printer_status.find("idle") != -1):
                         pass
                     elif (printer_status.find("rendering completed") != -1):
-                        handlePrintError(strError = "The printer is not working properly")
+                        handlePrintError(strError = self._currentLanguage["error"]["message"]["errorCritical"], cfrmError = self._currentLanguage["popup"]["error"]["systemError"])
                     elif (printer_status.find("sending data to printer") != -1):
-                        handlePrintError(strError = "There's an error in our system")
+                        handlePrintError(strError = self._currentLanguage["error"]["message"]["errorCritical"], cfrmError = self._currentLanguage["popup"]["error"]["systemError"])
                     else:
-                        handlePrintError(strError = "Unknown error")
+                        handlePrintError(strError = self._currentLanguage["error"]["message"]["errorCritical"], cfrmError = self._currentLanguage["popup"]["error"]["systemError"])
                 timeOutId = self._master.after(10000, printingTimeOut)
                 isCommandError = False
                 while True:
                     try:
                         printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode()
                     except subprocess.CalledProcessError as e:
-                        self._master.after(100, handlePrintError, "There's an error in printing command")
+                        self._master.after(100, handlePrintError, self._currentLanguage["error"]["message"]["errorCritical"], self._currentLanguage["popup"]["error"]["systemError"])
                         isCommandError = True
                     if (printer_status.find("idle") != -1):
                         break

@@ -35,7 +35,6 @@ English = {
             "text1": "Link: ",
             "text2": "Key: ",
             "text3": "File name: ",
-            "text4": "Wating for you",
         },
         "control": {
             "left": "Back",
@@ -93,8 +92,6 @@ English = {
     "printing": {
         "data": {
             "title": "Printing",
-            "text0": "Something here",
-            "text1": "File name: ",
         },
         "control": {
             "cancel": "Cancel order",
@@ -110,7 +107,6 @@ English = {
     "success": {
         "data": {
             "title": "Completed",
-            "text0": "Something here",
         },
         "control": {
             "left": "Skip",
@@ -267,8 +263,6 @@ English = {
         "interact": {
             "text0": "Why I can't choose some options?",
             "text1": "Some printers doesn't provide the option you want. Please try with other options.",
-            "text2": "What is page sides?",
-            "text3": "You can print on a single side or both side. With both side, you have the option to print on long edge/short edge."
         },
     },
     "helpPay": {
@@ -315,7 +309,6 @@ English = {
         "control": {
             "back": "Back",
             "logIn": "Log in",
-            "logOut": "Log out"
         },
         "interact":{
             "text0": "Enter password"
@@ -333,10 +326,23 @@ English = {
         "interact": {
             "text0": "Admin Dashboard",
             "text1": "Admin Guideline",
-            "text2": "System error log",
+            "text2": "View system errors",
             "text3": "Future feature",
             "text4": "Turn off program",
         },
+    },
+    "adminError": {
+        "data": {
+            "title": "Admin",
+            "text0": "Please fix the displayed error and choose 'Done fixing'."
+        },
+        "control": {
+            "back": "Back",
+            "deleteError": "Done fixing"
+        },
+        "interact": {
+            "text0": "View system errors"
+        }
     },
     "settingsInitial":{
         "data": {
@@ -344,7 +350,7 @@ English = {
         },
         "control": {
             "left": "Back",
-            "right": "Call us",
+            "right": "Save",
         },
         "interact":{
             "text0": "Language",
@@ -353,23 +359,36 @@ English = {
             "dark": "Dark"
         }
     },
-    "confirmBox":{
-        "message":{
+        "popup":{
+        "guide":{
             "goToHelpFromAny": "Click 'Back' before going to 'Help Center'.",
             "goToSettingFromSubflow": "Click 'Back' before going 'Settings'.",
             "goToAdminFromAny": "Click 'Back' before going to 'Admin'.",
             "goToSetupNotLoggedIn": "Log in as admin first.",
             "reset": "Current progress will be lost. Are you sure you want to go back?",
-            "wrongPassword": "Wrong password. Please try again.",
+            "uploadBeforeFormat": "Please upload file to print.",
+            "callUs": "Phone number: (+84) 358 386 8964",
+            "noError": "The system is functioning normally.",
+        },
+        "confirm": {
+            "saveSettings": "The system will reset. Are you sure you want to save changes?",
+            "reset": "Current progress will be lost. Are you sure you want to reset?",
+            "cancelOrder": "Cancelled order won't be refunded. Are you sure you want to cancel order?",
+            "completeDebug": "Have you completed debugging?",
+            "turnOffProgram": "The system wil reset. Are you sure you want to turn off the program?",
+        },
+        "error": {
             "systemError": "System error. Please go to 'Help Center' to contact Admin.",
-            "cancelOrder": "Canceled order won't be refunded. Are you sure you want to cancel?",
+            "incorrectPassword": "Wrong password. Please try again.",
             "lostConnection": "Lost connection. Please go to 'Help Center' to contact Admin.",
             "wrongTransferAmount": "Transferred wrong amount. Please go to 'Help Center' to contact Admin.",
-            "callUs": "Phone number: +84 358 386 8964"
+
         },
         "options": {
             "return": "Yes",
-            "remain": "No, remain"
+            "remain": "Remain",
+            "yes": "Yes",
+            "no": "No"
         }
     },
     "errorLog": {
@@ -378,6 +397,7 @@ English = {
             "errorTransferAmount_1": "Transfer wrong amount. Order #",
             "errorTransferAmount_2": "transferred: ",
             "errorPaymentCheck": "Payment checking system failed.",
+            "errorCritical": "Please contact system maintain"
         }
     }
 }
