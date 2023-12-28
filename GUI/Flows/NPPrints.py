@@ -225,7 +225,7 @@ class NPPrints:
         listenWebServer.start()
     
     def _paymentCancelAlert(self):
-        NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["confirm"]["cancelOrder"], buttonTexts = [self._currentLanguage["popup"]["options"]["remain"], self._currentLanguage["popup"]["options"]["return"]], buttonCommands = [lambda event = None: self._paymentCancel(error = ""), None])
+        NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["confirm"]["cancelOrder"], buttonTexts = [self._currentLanguage["popup"]["options"]["remain"], self._currentLanguage["popup"]["options"]["return"]], buttonCommands = [None, lambda event = None: self._paymentCancel(error = "")])
 
     def _paymentCancel(self, error = ""):
         self.paymentCancelEvent.set()
