@@ -74,7 +74,7 @@ class NPPrints:
         self._upload = NPUpload(master = self._master, commands = [None, lambda event = None: self._uploadToFormat()], serverLink = self._serverLink, serverKey = self._serverKey, fileName = self._fileName)
         self._upload.place()
         getServerVariables = Thread(target = self._getServerVariables)
-        getServerVariables.start()
+        # getServerVariables.start()
     
     def destroy(self):
         attributes = ["_upload", "_format", "_flip", "_order", "_payment", "_printing", "_success"]
@@ -108,9 +108,11 @@ class NPPrints:
             self._formatToOrder()
             return
         if self._flip == None:
-            self._flip = NPFlip(master = self._master, commands = [lambda event = None: self._flipToFormat(), lambda event = None: self._flipToOrder()], fileLayout = "landscape" if self._isPageLandscape(0, PdfReader("../CO3091_BE/user_file.pdf")) else "portrait") 
+            self._flip = NPFlip(master = self._master, commands = [lambda event = None: self._flipToFormat(), lambda event = None: self._flipToOrder()], fileLayout = "landscape" if self._isPageLandscape(0, PdfReader("../CO3091_BE/user_file.pdf")) else "portrait")
+            # self._flip = NPFlip(master = self._master, commands = [lambda event = None: self._flipToFormat(), lambda event = None: self._flipToOrder()], fileLayout = "landscape" if self._isPageLandscape(0, PdfReader("./CO3091_BE/user_file.pdf")) else "portrait")
         else:
             self._flip.npset(attribute = "fileLayout", value = "landscape" if self._isPageLandscape(0, PdfReader("../CO3091_BE/user_file.pdf")) else "portrait")
+            # self._flip.npset(attribute = "fileLayout", value = "landscape" if self._isPageLandscape(0, PdfReader("./CO3091_BE/user_file.pdf")) else "portrait")
         self._flip.place()
         self._format.place_forget()
     
@@ -402,8 +404,8 @@ class NPPrints:
                 if self._isPageLandscape(page, reader):
                     printCommand.extend(["-o", "landscape]"])
                 printCommand.append("../CO3091_BE/current_page.pdf")
-                print(printCommand)
                 # printCommand.append("./CO3091_BE/current_page.pdf")
+                print(printCommand)
                 
                 try:
                     subprocess.run(printCommand, check = True)
