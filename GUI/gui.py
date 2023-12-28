@@ -16,6 +16,6 @@ def tester():
     except:
         print("Fail")
     root.after(1000, tester)
-root.after(1000, tester)
+#root.after(1000, tester)
 
 root.mainloop()

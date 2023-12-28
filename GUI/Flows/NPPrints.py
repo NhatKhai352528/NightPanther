@@ -29,6 +29,8 @@ from ..Objects.NPConfirmBox import NPConfirmBox
 from selenium.common.exceptions import NoSuchElementException
 from ..Customs.NPLanguage import NPLanguage
 
+from datetime import datetime
+
 class NPPrints:
     
     def __init__(self, master: Tk, destroyCommand: Any):
@@ -227,7 +229,7 @@ class NPPrints:
 
     def _paymentCancel(self, error = ""):
         self.paymentCancelEvent.set()
-        # subprocess.run(["pkill", "-9", "chromium-browse"])
+        subprocess.run(["pkill", "-9", "chromium-browse"])
         if error != "":
             self._logError(strError = error)
         else:
@@ -317,7 +319,6 @@ class NPPrints:
                 messageStr = str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_1"]) + str(self._serverKey) + ": " + str(self._userPrice) + str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_2"]) + paymentStr + ")."
                 self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["confirm"]["message"]["wrongTransferAmount"], [None, "OK"], [None, lambda event = None: self._paymentCancel(error = messageStr), None])
         except Exception as e:
-            print(str(e))
             try:
                 if self.paymentCancelEvent.is_set() == False:
                     self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["confirmBox"]["message"]["systemError"], [None, "OK"], [None, lambda event = None: self._paymentCancel(self._currentLanguage["errorLog"]["message"]["errorPaymentCheck"]), None])

@@ -4,6 +4,9 @@ from ..Constants.NPScreen import Screen
 import hmac
 import hashlib
 import base64
+import os
+import globals
+import socket
 
 class NPTk(Tk):
     
@@ -19,13 +22,15 @@ class NPTk(Tk):
         self._flows = None
         
         self._state: Literal["normal", "error"] = "normal"
-    
-        self._error = ""
-    
+        if os.stat("error_log.txt").st_size > 0:
+            self._state = "error"
+
     def mainloop(self):
         super().mainloop()
     
     def destroy(self):
+        globals.webServerSocket.shutdown(socket.SHUT_RDWR)
+        globals.webServerSocket.close()
         super().destroy()
     
     def resetFlows(self):
@@ -61,6 +66,5 @@ class NPTk(Tk):
     def markErrorFixed(self):
         self._state = "normal"
 
-    def markErrorOccured(self, error):
+    def markErrorOccured(self):
         self._state = "error"
-        self._error = error
