@@ -2,6 +2,7 @@ from tkinter import Tk
 from typing import Any
 from ..Pages.Admins.NPAdmin import NPAdmin
 from ..Pages.Admins.NPVerify import NPVerify
+from ..Pages.Admins.NPError import NPError
 from ..Objects.NPConfirmBox import NPConfirmBox
 from time import sleep
 import subprocess
@@ -59,6 +60,19 @@ class NPAdmins:
                 except:
                     pass
                 setattr(self, attribute, None)
+
+    def _adminToError(self):
+        self._initError()
+
+    def _errorToAdmin(self):
+        self._initAdmin()
+        attributes = ["_error"]
+        for attribute in attributes:
+            try:
+                getattr(self, attribute).destroy()
+            except:
+                pass
+            setattr(self, attribute, None)
     
     def _displayLog(self):
         subprocess.run(["clear"])
@@ -66,10 +80,10 @@ class NPAdmins:
         self._master.destroy()
 
     def _markErrorFixed(self):
-        # TODO: F5 
         empty_file = open("error_log.txt", "w")
         empty_file.close()
         self._master.markErrorFixed()
+        self._errorToAdmin()
     
     def _displaySystemState(self):
         if self._master.npget(attribute = "state") == "error":
@@ -78,10 +92,19 @@ class NPAdmins:
             NPConfirmBox(master = self._master, messageText = "He thong dang hoat dong binh thuong", buttonTexts = [None, "OK"], buttonCommands = [None, None])
 
     def _initAdmin(self):
-        self._admin = NPAdmin(master = self._master, commands = [self._destroyCommand, lambda event = None: self._adminToVerify()], switchCommands = [lambda event = None: self._displaySystemState(), lambda event = None: NPConfirmBox(master = self._master, messageText = "Chac chua", buttonTexts = [None, "Roi"], buttonCommands = [None, self._markErrorFixed]), lambda event = None: NPConfirmBox(master = self._master, messageText = "Tat thiet ha?", buttonTexts = ["Huy", "Dung roi"], buttonCommands = [None, lambda event = None: self._master.destroy()])])
+        self._admin = NPAdmin(master = self._master, commands = [self._destroyCommand, lambda event = None: self._adminToVerify()], switchCommands = [lambda event = None: self._adminToError(), lambda event = None: NPConfirmBox(master = self._master, messageText = "Tat thiet ha?", buttonTexts = ["Huy", "Dung roi"], buttonCommands = [None, lambda event = None: self._master.destroy()])])
         self._admin.place()
     
     def _initVerify(self):
         self._verify = NPVerify(master = self._master, commands = [self._destroyCommand, lambda event = None: self._verifyToAdmin()])
         self._verify.place()
+
+    def _initError(self):
+        if (self._master.npget(attribute = "state") == "error"):
+            error_file = open("error_log.txt", "r")
+            self._error = NPError(master = self._master, commands = [lambda event = None: self._errorToAdmin(), lambda event = None: NPConfirmBox(master = self._master, messageText = "Chac la het loi chua?", buttonTexts = ["Huy", "Het roi"], buttonCommands = [None, lambda event = None: self._markErrorFixed()])], errorList = error_file.read().split('\n'))
+            error_file.close()
+            self._error.place()
+        else:
+            NPConfirmBox(master = self._master, messageText = "He thong binh thuong", buttonTexts = [None, "OK"], buttonCommands = [None, None])
         
