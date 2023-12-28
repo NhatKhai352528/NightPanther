@@ -1,3 +1,4 @@
+from .NPFlip import NPFlip
 from .NPFormat import NPFormat
 from .NPOrder import NPOrder
 from .NPPayment import NPPayment

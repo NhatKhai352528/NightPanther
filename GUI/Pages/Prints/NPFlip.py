@@ -33,11 +33,11 @@ class NPFlip(NPPages):
         if attribute == "fileLayout":
             self._fileLayout = value
             if self._fileLayout == "portrait":
-                self._fileLayoutButtonSet.npset(attribute = "imageFile", value = [0, 0, "./GUI/Images/Home.png"])
-                self._fileLayoutButtonSet.npset(attribute = "imageFile", value = [0, 1, "./GUI/Images/Help.png"])
+                self._fileLayoutButtonSet.npset(attribute = "imageFile", value = [0, 0, "./GUI/Images/Portrait-Short.png"])
+                self._fileLayoutButtonSet.npset(attribute = "imageFile", value = [0, 1, "./GUI/Images/Portrait-Long.png"])
             elif self._fileLayout == "landscape":
-                self._fileLayoutButtonSet.npset(attribute = "imageFile", value = [0, 0, "./GUI/Images/Help.png"])
-                self._fileLayoutButtonSet.npset(attribute = "imageFile", value = [0, 1, "./GUI/Images/Home.png"])
+                self._fileLayoutButtonSet.npset(attribute = "imageFile", value = [0, 0, "./GUI/Images/Landscape-Short.png"])
+                self._fileLayoutButtonSet.npset(attribute = "imageFile", value = [0, 1, "./GUI/Images/Landscape-Long.png"])
     
     def npget(self, attribute: str):
         if attribute == "fileLayout":
