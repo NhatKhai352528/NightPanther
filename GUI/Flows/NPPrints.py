@@ -23,8 +23,11 @@ import urllib.request
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from time import sleep
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+
 from ..Objects.NPConfirmBox import NPConfirmBox
 from selenium.common.exceptions import NoSuchElementException
 from ..Customs.NPLanguage import NPLanguage
@@ -257,14 +260,32 @@ class NPPrints:
             option.add_argument("user-data-dir=" + googleUserInfo)
             driver = Service('/usr/lib/chromium-browser/chromedriver')
             browser = webdriver.Chrome(service = driver, options = option)
-            browser.get("https://mightytext.net")
-            sleep(20)
-        
+            browser.get("https://mightytext.net/install")
+            wait = WebDriverWait(browser, 100)
+
             # Login to Mighty Text Web
-            login = browser.find_element(By.ID,'login')
-            login.click()
-            sleep(20)
+            for tries in range(0, 5):
+                try:
+                    wait.until(EC.element_to_be_clickable((By.ID, 'launch-webapp')))
+                    login = browser.find_element(By.ID,'launch-webapp')
+                    login.click()
+                    break
+                except:
+                    pass
+
+            for tries in range(0, 5):
+                try:
+                    original_window = browser.current_window_handle
+                    wait.until(EC.number_of_windows_to_be(2))
+                    for window_handle in browser.window_handles:
+                        if window_handle != original_window:
+                            browser.switch_to.window(window_handle)
+                            break
+                    break
         
+                except:
+                    pass
+
             # Check for web notification and close
             while True:
                 try:
@@ -273,15 +294,20 @@ class NPPrints:
                     break
                 for close_button in noti_list:
                     close_button.click()
-            sleep(10)
-
+            
             # Click to the message sent by OCB
-            click_ocb = browser.find_element(By.ID,'thread-78062')
-            click_ocb.click()
-            sleep(10)
+            for tries in range(0, 5):
+                try:
+                    wait.until(EC.presence_of_element_located((By.ID, 'thread-78062')))
+                    wait.until(EC.element_to_be_clickable((By.ID, 'thread-78062')))
+                    click_ocb = browser.find_element(By.ID,'thread-78062')
+                    click_ocb.click()
+                    break
+                except:
+                    pass
 
             # Wait for new message
-         
+            sleep(10) 
             while True:
                 if self.paymentCancelEvent.is_set():
                     return
@@ -321,6 +347,7 @@ class NPPrints:
         except Exception as e:
             try:
                 if self.paymentCancelEvent.is_set() == False:
+                    print(str(e))
                     self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["popup"]["error"]["systemError"], [None, "OK"], [None, lambda event = None: self._paymentCancel(self._currentLanguage["errorLog"]["message"]["errorPaymentCheck"]), None])
             except Exception:
                 return
