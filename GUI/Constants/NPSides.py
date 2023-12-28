@@ -1,1 +1,1 @@
-Sides = {'1s': True, '2s': False}
+Sides = {'1s': True, '2s': True}

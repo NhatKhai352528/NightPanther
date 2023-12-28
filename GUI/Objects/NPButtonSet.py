@@ -84,6 +84,9 @@ class NPButtonSet(NPObjects):
     def npset(self, attribute: str, value: Any = None):
         if attribute == "status":
             self._setStatus(row = value[0], column = value[1], status = value[2])
+        elif attribute == "imageFile":
+            self._imageFiles[value[0]][value[1]] = value[2]
+            self._buttons[value[0]][value[1]].npset(attribute = "imageFile", value = value[2])
         return super().npset(attribute = attribute, value = value)
     
     def npget(self, attribute: str):
