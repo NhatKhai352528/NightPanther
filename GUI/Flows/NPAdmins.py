@@ -7,8 +7,7 @@ from ..Pages.Admins.NPTutorial2 import NPTutorial2
 from ..Pages.Admins.NPTutorial3 import NPTutorial3
 from ..Pages.Admins.NPVerify import NPVerify
 from ..Objects.NPConfirmBox import NPConfirmBox
-from ..Customs.NPLanguage import NPLanguage 
-from time import sleep
+from ..Customs.NPLanguage import NPLanguage
 import subprocess
 
 class NPAdmins:
@@ -44,7 +43,6 @@ class NPAdmins:
     
     def _verifyToAdmin(self):
         self._master.signIn(password = self._verify.npget(attribute = "password"))
-        sleep(0.5)
         if self._master.npget(attribute = "mode") == "user":
             NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["error"]["incorrectPassword"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
         elif self._master.npget(attribute = "mode") == "admin":
@@ -54,7 +52,6 @@ class NPAdmins:
     
     def _adminToVerify(self):
         self._master.signOut()
-        sleep(0.5)
         if self._master.npget(attribute = "mode") == "user":
             self._initVerify()
             attributes = ["_admin", "_error", "_tutorial1", "_tutorial2", "_tutorial3"]
@@ -67,9 +64,10 @@ class NPAdmins:
 
     def _adminToError(self):
         self._initError()
+        self._admin.place_forget()
 
     def _errorToAdmin(self):
-        self._initAdmin()
+        self._admin.place()
         self._error.destroy()
         self._error = None
     
