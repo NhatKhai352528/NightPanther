@@ -12,16 +12,16 @@ class NPVerify(NPPages):
         super().__init__(master = master, commands = commands)
         
         # Initialize items for data frame
-        self._data.initText(mode = "title", text = self._currentLanguage["admin"]["data"]["title"], wrap = True)
+        self._data.initText(mode = "title", text = self._currentLanguage["adminVerify"]["data"]["title"], wrap = True)
         self._data.initText(mode = "content", text = "", wrap = False)
-        self._modeIndex = self._data.initText(mode = "content", text = self._currentLanguage["admin"]["data"]["loggedOut"] if self._master.npget(attribute = "mode") == "user" else self._currentLanguage["admin"]["data"]["loggedIn"], wrap = True)
+        self._modeIndex = self._data.initText(mode = "content", text = self._currentLanguage["adminVerify"]["data"]["loggedOut"] if self._master.npget(attribute = "mode") == "user" else self._currentLanguage["adminVerify"]["data"]["loggedIn"], wrap = True)
         
         # Initialize items for control frame
-        self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = self._currentLanguage["admin"]["control"]["left"])
-        self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = self._currentLanguage["admin"]["control"]["right"])
+        self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = self._currentLanguage["adminVerify"]["control"]["back"])
+        self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = self._currentLanguage["adminVerify"]["control"]["logIn"])
         
         # Initialize items for interact frame
-        self._interact.initText(mode = "heading", text = self._currentLanguage["admin"]["interact"]["text0"], justify = "center")
+        self._interact.initText(mode = "heading", text = self._currentLanguage["adminVerify"]["interact"]["text0"], justify = "center")
         self._passwordIndex = self._interact.initKeyBoard(default = "", maximum = 8, show = "*", inputTexts = None, actionTexts = None, actionCommands = None)
         self._passwordKeyBoard = self._interact.npget(attribute = "keyBoard", index = self._passwordIndex)
     

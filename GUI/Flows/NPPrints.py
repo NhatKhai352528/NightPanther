@@ -142,7 +142,7 @@ class NPPrints:
 
     def _orderCancelAlert(self):
         self._printToPause()
-        NPConfirmBox(master = self._master, messageText = "NguyenThiTam", buttonTexts = ["cancel", "OK"], buttonCommands = [None, lambda event = None: self._printCancelOrder()])
+        NPConfirmBox(master = self._master, messageText = self._currentLanguage["confirmBox"]["message"]["reset"], buttonTexts = [self._currentLanguage["confirmBox"]["options"]["remain"], self._currentLanguage["confirmBox"]["options"]["return"]], buttonCommands = [None, lambda event = None: self._printCancelOrder()])
 
     def _printCancelOrder(self):
         self.stopEvent.set()
@@ -156,7 +156,7 @@ class NPPrints:
         if self._master.npget(attribute = "mode") == "admin":
             self._pauseToPrint()
         else:
-            NPConfirmBox(master = self._master, messageText = "dang loi, chi admin duoc tiep tuc", buttonTexts = [None, "OK"], buttonCommands = [None, None])
+            NPConfirmBox(master = self._master, messageText = self._currentLanguage["confirmBox"]["message"]["systemError"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
 
     def _pauseToPrint(self):
         self.pauseEvent.clear()
@@ -186,7 +186,7 @@ class NPPrints:
         # listenWebServer.start()
     
     def _paymentCancelAlert(self):
-        NPConfirmBox(master = self._master, messageText = "Bạn có chắc muốn hủy đơn", buttonTexts = ["Có", "Không"], buttonCommands = [lambda event = None: self._paymentCancel(error = ""), None])
+        NPConfirmBox(master = self._master, messageText = self._currentLanguage["confirmBox"]["message"]["cancelOrder"], buttonTexts = [self._currentLanguage["confirmBox"]["options"]["remain"], self._currentLanguage["confirmBox"]["options"]["return"]], buttonCommands = [lambda event = None: self._paymentCancel(error = ""), None])
 
     def _paymentCancel(self, error = ""):
         self.paymentCancelEvent.set()
@@ -207,7 +207,7 @@ class NPPrints:
             urllib.request.urlretrieve(url, "GUI/Images/PaymentQR.png")
             self._payment.npset(attribute = "userQRFile", value = "GUI/Images/PaymentQR.png")
         except urllib.error.URLError:
-            self._master.after(100, NPConfirmBox, self._master, "Mat ket noi mang, vui long lien he", [None, "OK"], [None, lambda event = None: self._paymentCancel(error = "Mat ket noi mang, vui long lien he")])
+            self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["confirmBox"]["message"]["lostConnection"], [None, "OK"], [None, lambda event = None: self._paymentCancel(error = self._currentLanguage["errorLog"]["message"]["errorLostConnection"])])
     
     def _paymentCheck(self): 
         try:
@@ -275,12 +275,13 @@ class NPPrints:
             if (payment == self._userPrice):
                 self._paymentToPrinting()
             else:
-                self._master.after(100, NPConfirmBox, self._master, "Nop sai rui, lien he de gui lai", [None, "OK"], [None, lambda event = None: self._paymentCancel(error = "Nop sai rui, lien he de gui lai"), None])
+                messageStr = str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_1"]) + str(self._serverKey) + ": " + str(self._userPrice) + str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_2"]) + paymentStr + ")."
+                self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["confirm"]["message"]["wrongTransferAmount"], [None, "OK"], [None, lambda event = None: self._paymentCancel(error = messageStr), None])
         except Exception as e:
             print(str(e))
             try:
                 if self.paymentCancelEvent.is_set() == False:
-                    self._master.after(100, NPConfirmBox, self._master, "He thong kiem tra thanh toan xay ra loi", [None, "OK"], [None, lambda event = None: self._paymentCancel("He thong kiem tra thanh toan xay ra loi"), None])
+                    self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["confirmBox"]["message"]["systemError"], [None, "OK"], [None, lambda event = None: self._paymentCancel(self._currentLanguage["errorLog"]["message"]["errorPaymentCheck"]), None])
             except Exception:
                 return
     

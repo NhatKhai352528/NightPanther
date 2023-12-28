@@ -20,25 +20,25 @@ class NPAdmin(NPPages):
                 self._switchCommands[i] = None
         
         # Initialize items for data frame
-        self._data.initText(mode = "title", text = self._currentLanguage["helpInitial"]["data"]["title"], wrap = True)
-        self._data.initText(mode = "content", text = self._currentLanguage["helpInitial"]["data"]["text1"], wrap = True)
+        self._data.initText(mode = "title", text = self._currentLanguage["adminInitial"]["data"]["title"], wrap = True)
+        self._data.initText(mode = "content", text = self._currentLanguage["adminInitial"]["data"]["text1"], wrap = True)
         
         # Initialize items for control frame
-        self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = self._currentLanguage["helpInitial"]["control"]["left"])
-        self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = self._currentLanguage["helpInitial"]["control"]["right"])
+        self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = self._currentLanguage["adminInitial"]["control"]["back"])
+        self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = self._currentLanguage["adminInitial"]["control"]["logOut"])
         
         # Initialize items for interact frame
         self._interact.initText(mode = "content", text = "", justify = "center")
-        self._interact.initText(mode = "heading", text = self._currentLanguage["helpInitial"]["interact"]["text0"], justify = "center")
+        self._interact.initText(mode = "heading", text = self._currentLanguage["adminInitial"]["interact"]["text0"], justify = "center")
         
         self._interact.initText(mode = "content", text = "", justify = "center")
-        self._firstSwitchIndex = self._interact.initButton(command = self._switchCommands[0], text = self._currentLanguage["helpInitial"]["interact"]["text1"])
+        self._firstSwitchIndex = self._interact.initButton(command = self._switchCommands[0], text = self._currentLanguage["adminInitial"]["interact"]["text1"])
         
         self._interact.initText(mode = "content", text = "", justify = "center")
-        self._secondSwitchIndex = self._interact.initButton(command = self._switchCommands[1], text = self._currentLanguage["helpInitial"]["interact"]["text2"])
+        self._secondSwitchIndex = self._interact.initButton(command = self._switchCommands[1], text = self._currentLanguage["adminInitial"]["interact"]["text2"])
+        
+        # self._interact.initText(mode = "content", text = "", justify = "center")
+        # self._thirdSwitchIndex = self._interact.initButton(command = self._switchCommands[2], text = self._currentLanguage["adminInitial"]["interact"]["text3"])
         
         self._interact.initText(mode = "content", text = "", justify = "center")
-        self._thirdSwitchIndex = self._interact.initButton(command = self._switchCommands[2], text = self._currentLanguage["helpInitial"]["interact"]["text3"])
-        
-        self._interact.initText(mode = "content", text = "", justify = "center")
-        self._fourthSwitchIndex = self._interact.initButton(command = self._switchCommands[3], text = self._currentLanguage["helpInitial"]["interact"]["text4"])
+        self._fourthSwitchIndex = self._interact.initButton(command = self._switchCommands[3], text = self._currentLanguage["adminInitial"]["interact"]["text4"])

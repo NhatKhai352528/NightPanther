@@ -277,9 +277,11 @@ Vietnamese = {
         },
         "interact": {
             "text0": "Có thể trả tiền mặt không?",
-            "text1": "Không, hệ thống chỉ chấp nhận thanh toán không tineef mặt bằng cách quét mã thanh toán (trên bất cứ nền tảng được VietQR hỗ trợ).",
+            "text1": "Không, hệ thống chỉ chấp nhận chuyển khoản ngân hàng.",
             "text2": "Tôi có được hoàn tiền không?",
-            "text3": "Không, chức năng hoàn tiền đang được phát triển. Nếu bạn gặp bất kỳ bất tiện nào, vui lòng liên hệ với chúng tôi qua SĐT ở mục 'Trợ giúp' để được hỗ trợ."
+            "text3": "Không, chức năng hoàn tiền đang được phát triển. Nếu bạn gặp bất kỳ bất tiện nào, vui lòng liên hệ với chúng tôi qua SĐT ở mục 'Trợ giúp' để được hỗ trợ.",
+            "text4": "Làm gì khi chuyển khoản sai?",
+            "text5": "Truy cập trang 'Trợ giúp' để liên hệ Admin hỗ trợ."
         },
     },
     "helpError": {
@@ -297,19 +299,36 @@ Vietnamese = {
             "text1": "Vui lòng không tự sửa trang thiết bị."
         },
     },
-    "admin":{
+    "adminVerify":{
         "data": {
             "title": "Admin",
             "loggedOut": "Bạn đã đăng xuất. Vui lòng đăng nhập tài khoản admin để tiếp tục.",
             "loggedIn": "Bạn đã đăng nhập thành công."
         },
         "control": {
-            "left": "Trở lại",
-            "right": "Tắt",
+            "back": "Trở lại",
+            "logIn": "Đăng nhập",
         },
         "interact":{
             "text0": "Nhập mật khẩu"
         }
+    },
+    "adminInitial": {
+        "data": {
+            "title": "Admin",
+            "text1": "Bạn đã đăng nhập tài khoản Admin."
+        },
+        "control": {
+            "back": "Trở lại",
+            "logOut": "Đăng xuất",
+        },
+        "interact": {
+            "text0": "Bảng điều khiển Admin",
+            "text1": "Hướng dẫn sử dụng cho Admin",
+            "text2": "Kiểm tra lỗi hệ thống",
+            "text3": "Future feature",
+            "text4": "Tắt chương trình",
+        },
     },
     "settingsInitial":{
         "data": {
@@ -332,11 +351,27 @@ Vietnamese = {
             "goToSettingFromSubflow": "Nhấn 'Trở lại' trước khi chuyển tới 'Cài đặt'.",
             "goToAdminFromAny": "Nhấn 'Trở lại' trước khi chuyển tới 'Admin'.",
             "goToSetupNotLoggedIn": "Vui lòng đăng nhập với tài khoản Admin.",
-            "reset": "Tiến trình hiện tại sẽ mất. Bạn có chắc muốn quay về?"
+            "reset": "Tiến trình hiện tại sẽ mất. Bạn có chắc muốn quay về?",
+            "wrongPassword": "Sai mật khẩu. Vui lòng thử lại.",
+            "systemError": "Hệ thống đang lỗi. Vui lòng truy cập mục 'Trợ giúp' để liên hệ Admin.",
+            "cancelOrder": "Đơn bị hủy sẽ không được hoàn tiền. Bạn có chắc muốn hủy đơn?",
+            "lostConnection": "Mất kết nối mạng. Vui lòng truy cập mục 'Trợ giúp' để liên hệ Admin.",
+            "wrongTransferAmount": "Chuyển sai số tiền. Vui lòng truy cập mục 'Trợ giúp' để liên hệ Admin.",
+            "turnOffProgram": "Tất cả tiến trình sẽ mất. Bạn có chắc muốn tắt toàn bộ chương trình?",
+            "callUs": "Số điện thoại: +84 358 386 8964",
         },
         "options": {
             "return": "Có",
             "remain": "Ở lại"
+        }
+    },
+    "errorLog": {
+        "message": {
+            "errorLostConnection": "Mất kết nối mạng",
+            "errorTransferAmount_1": "Chuyển khoản sai số tiền. Đơn hàng #",
+            "errorTransferAmount_2": "đã gửi: ",
+            "errorPaymentCheck": "Lỗi hệ thống kiểm tra thanh toán.",
+
         }
     }
 }

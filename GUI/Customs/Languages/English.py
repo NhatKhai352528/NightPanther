@@ -283,9 +283,12 @@ English = {
         },
         "interact": {
             "text0": "Can I pay with cash?",
-            "text1": "No, the system only accept non-cash payment with scan to pay (any platform supported by VietQR).",
+            "text1": "No, the system only accept bank transfer.",
             "text2": "Can I get a refund?",
-            "text3": "No, the refund feature is still in development. If you encountered any inconvenient, please call us with the number in 'Help Center'."
+            "text3": "No, the refund feature is still in development. If you encountered any inconvenient, please call us with the number in 'Help Center'.",
+            "text4": "What to do when I transferred the wrong amount?",
+            "text5": "Please call us with the number in 'Help Center'."
+        
         },
     },
     "helpError": {
@@ -303,19 +306,37 @@ English = {
             "text1": "Please don't try to fix it yourself."
         },
     },
-    "admin":{
+    "adminVerify":{
         "data": {
             "title": "Admin",
             "loggedOut": "You've logged out. Please log in as admin to proceed.",
             "loggedIn": "You've logged in successfully.",
         },
         "control": {
-            "left": "Back",
-            "right": "Quit",
+            "back": "Back",
+            "logIn": "Log in",
+            "logOut": "Log out"
         },
         "interact":{
             "text0": "Enter password"
         }
+    },
+    "adminInitial": {
+        "data": {
+            "title": "Admin",
+            "text1": "You've logged in as admin."
+        },
+        "control": {
+            "back": "Back",
+            "logOut": "Log out",
+        },
+        "interact": {
+            "text0": "Admin Dashboard",
+            "text1": "Admin Guideline",
+            "text2": "System error log",
+            "text3": "Future feature",
+            "text4": "Turn off program",
+        },
     },
     "settingsInitial":{
         "data": {
@@ -338,11 +359,25 @@ English = {
             "goToSettingFromSubflow": "Click 'Back' before going 'Settings'.",
             "goToAdminFromAny": "Click 'Back' before going to 'Admin'.",
             "goToSetupNotLoggedIn": "Log in as admin first.",
-            "reset": "Current progress will be lost. Are you sure you want to go back?"
+            "reset": "Current progress will be lost. Are you sure you want to go back?",
+            "wrongPassword": "Wrong password. Please try again.",
+            "systemError": "System error. Please go to 'Help Center' to contact Admin.",
+            "cancelOrder": "Canceled order won't be refunded. Are you sure you want to cancel?",
+            "lostConnection": "Lost connection. Please go to 'Help Center' to contact Admin.",
+            "wrongTransferAmount": "Transferred wrong amount. Please go to 'Help Center' to contact Admin.",
+            "callUs": "Phone number: +84 358 386 8964"
         },
         "options": {
             "return": "Yes",
             "remain": "No, remain"
+        }
+    },
+    "errorLog": {
+        "message": {
+            "errorLostConnection": "Lost connection.",
+            "errorTransferAmount_1": "Transfer wrong amount. Order #",
+            "errorTransferAmount_2": "transferred: ",
+            "errorPaymentCheck": "Payment checking system failed.",
         }
     }
 }

@@ -27,7 +27,7 @@ class NPPrimary(NPPages):
         # Initialize items for control frame
         self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = self._currentLanguage["settingsInitial"]["control"]["left"])
         # self._control.initButton(position = "right", command = lambda event = None: self._saveSettings(), state = "normal", text = self._currentLanguage["settingsInitial"]["control"]["right"])
-        self._control.initButton(position = "right", command = lambda event = None: NPConfirmBox(master = self._master, messageText = "NguyenThiTam", buttonTexts = ["Cancel", "OK"], buttonCommands = [None, lambda event = None: self._saveSettings()]), state = "normal", text = self._currentLanguage["settingsInitial"]["control"]["right"])
+        self._control.initButton(position = "right", command = lambda event = None: NPConfirmBox(master = self._master, messageText = self._currentLanguage["confirmBox"]["message"]["wrongPassword"], buttonTexts = [self._currentLanguage["confirmBox"]["message"]["remain"], self._currentLanguage["confirmBox"]["message"]["return"]], buttonCommands = [None, lambda event = None: self._saveSettings()]), state = "normal", text = self._currentLanguage["settingsInitial"]["control"]["right"])
         
         # Initialize items for interact frame
         self._interact.initText(mode = "content", text = "", justify = "center")
