@@ -51,6 +51,10 @@ class NPImageButton(Button):
             self._state = value
             super().configure(background = self._background if self._state == "normal" else self._disabledbackground)
             super().configure(state = self._state)
+        elif attribute == "imageFile":
+            self._imageFile = value
+            self._image = NPImage(file = self._imageFile, width = 0.8 * self._width, height = 0.8 * self._height)
+            super().configure(image = self._image)
     
     def npget(self, attribute: str):
         if attribute == "background":

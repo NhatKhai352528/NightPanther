@@ -2,6 +2,7 @@ from tkinter import Tk
 from threading import Thread, Event
 from typing import Any
 from ..Pages.Prints.NPFormat import NPFormat
+from ..Pages.Prints.NPFlip import NPFlip
 from ..Pages.Prints.NPOrder import NPOrder
 from ..Pages.Prints.NPPayment import NPPayment
 from ..Pages.Prints.NPPrinting import NPPrinting
@@ -12,6 +13,7 @@ import subprocess
 import qrcode
 import random
 import globals
+from paymentAccount import PaymentAccount
 from PyPDF2 import PdfReader, PdfWriter
 from ..Customs.NPLanguage import NPLanguage
 from ..Objects.NPConfirmBox import NPConfirmBox
@@ -39,6 +41,7 @@ class NPPrints:
         # Pages
         self._upload = None
         self._format = None
+        self._flip = None
         self._order = None
         self._payment = None
         self._printing = None
@@ -52,6 +55,7 @@ class NPPrints:
         self._fileName = "Test"
         self._filePaper = None
         self._fileSides = None
+        self._fileFlip = None
         self._filePages = 1000
         self._filePrice = 1000
         
@@ -71,7 +75,7 @@ class NPPrints:
         getServerVariables.start()
     
     def destroy(self):
-        attributes = ["_upload", "_format", "_order", "_payment", "_printing", "_success"]
+        attributes = ["_upload", "_format", "_flip", "_order", "_payment", "_printing", "_success"]
         for attribute in attributes:
             try:
                 getattr(self, attribute).destroy()
@@ -81,37 +85,70 @@ class NPPrints:
     
     def _uploadToFormat(self):
         # User not upload file
-        # if self._fileName == self._waitingText:
-        #     NPConfirmBox(master = self._master, messageText = "Ban phai up  file truoc", buttonTexts = [None, "OK"], buttonCommands = [None, None])
-        #     return
+        if self._fileName == self._waitingText:
+            NPConfirmBox(master = self._master, messageText = "Ban phai up  file truoc", buttonTexts = [None, "OK"], buttonCommands = [None, None])
+            return
         # Reset web server to waiting for new order
         resetMessage = "reset"
-        # globals.webServerSocket.send(resetMessage.encode())
+        globals.webServerSocket.send(resetMessage.encode())
         availablePaper = [list(value.values()) for value in Price.values()]
         availableSides = [[availablePaper[j][i] for j in range(len(availablePaper))] for i in range(len(availablePaper[0]))]
         availablePaper = [False if row == [None, None] else True for row in availablePaper]
         availableSides = [False if row == [None, None, None] else True for row in availableSides]
-        self._format = NPFormat(master = self._master, commands = [None, lambda event = None: self._formatToOrder()], fileName = self._fileName, availablePaper = availablePaper, availableSides = availableSides)
+        self._format = NPFormat(master = self._master, commands = [None, lambda event = None: self._formatToFlip()], fileName = self._fileName, availablePaper = availablePaper, availableSides = availableSides)
         self._format.place()
         self._upload.place_forget()
     
-    def _formatToOrder(self):
+    def _formatToFlip(self):
         self._filePaper = self._format.npget(attribute = "filePaper")
         self._fileSides = self._format.npget(attribute = "fileSides")
-        # reader = PdfReader("../CO3091_BE/user_file.pdf")
-        reader = PdfReader("./CO3091_BE/user_file.pdf")
+        if self._fileSides == "1s":
+            self._formatToOrder()
+            return
+        if self._flip == None:
+            self._flip = NPFlip(master = self._master, commands = [lambda event = None: self._flipToFormat(), lambda event = None: self._flipToOrder()], fileLayout = "landscape" if self._isPageLandscape(0, PdfReader("../CO3091_BE/user_file.pdf")) else "portrait") 
+        else:
+            self._flip.npset(attribute = "fileLayout", value = "landscape" if self._isPageLandscape(0, PdfReader("../CO3091_BE/user_file.pdf")) else "portrait")
+        self._flip.place()
+        self._format.place_forget()
+    
+    def _flipToFormat(self):
+        self._format.place()
+        self._flip.place_forget()
+    
+    def _formatToOrder(self):
+        reader = PdfReader("../CO3091_BE/user_file.pdf")
+        # reader = PdfReader("./CO3091_BE/user_file.pdf")
         self._filePrice = Price[self._filePaper][self._fileSides] * len(reader.pages)
         if self._order == None:
             self._order = NPOrder(master = self._master, commands = [lambda event = None: self._orderToFormat(), lambda event = None: self._orderToPayment()], fileName = self._fileName, filePrice = self._filePrice)
         else:
             self._order.npset(attribute = "filePrice", value = self._filePrice)
+            self._order.initControlButton(position = "left", command = lambda event = None: self._orderToFormat(), state = "normal", text = "NguyenThiTam")
         self._order.place()
         self._format.place_forget()
+
+    def _flipToOrder(self):
+        self._fileFlip = self._flip.npget(attribute = "fileFlip")
+        reader = PdfReader("../CO3091_BE/user_file.pdf")
+        # reader = PdfReader("./CO3091_BE/user_file.pdf")
+        self._filePrice = Price[self._filePaper][self._fileSides] * len(reader.pages)
+        if self._order == None:
+            self._order = NPOrder(master = self._master, commands = [lambda event = None: self._orderToFlip(), lambda event = None: self._orderToPayment()], fileName = self._fileName, filePrice = self._filePrice)
+        else:
+            self._order.npset(attribute = "filePrice", value = self._filePrice)
+            self._order.initControlButton(position = "left", command = lambda event = None: self._orderToFlip(), state = "normal", text = "NguyenThiTam")
+        self._order.place()
+        self._flip.place_forget()
     
+    def _orderToFlip(self):
+        self._flip.place()
+        self._order.place_forget()
+   
     def _orderToFormat(self):
         self._format.place()
         self._order.place_forget()
-    
+
     def _orderToPayment(self):
         self._userCopies = self._order.npget(attribute = "userCopies")
         self._userPrice = self._order.npget(attribute = "userPrice")
@@ -121,8 +158,8 @@ class NPPrints:
         self.paymentCancelEvent = Event()
         generateQR = Thread(target = self._generateQR)
         generateQR.start()
-        # paymentCheck = Thread(target = self._paymentCheck)
-        # paymentCheck.start()
+        paymentCheck = Thread(target = self._paymentCheck)
+        paymentCheck.start()
     
     def _paymentToPrinting(self):
         self._printing = NPPrinting(master = self._master, commands = [None, None], fileName = self._fileName, filePages = self._filePages, userCopies = self._userCopies)
@@ -163,7 +200,7 @@ class NPPrints:
         self._printing.initControlButton(position = 'right', command = lambda event = None: self._printToPause(), state = 'normal', text = self._currentLanguage["printing"]["control"]["pause"])
     
     def _getServerVariables(self):
-        # self._serverLink = subprocess.check_output(['hostname','-I']).decode().strip().split()[0] + ':3000'
+        self._serverLink = subprocess.check_output(['hostname','-I']).decode().strip().split()[0] + ':3000'
         self._upload.npset(attribute = "serverLink", value = self._serverLink)
         uploadQR = qrcode.make("http://" + self._serverLink)
         type(uploadQR)
@@ -178,12 +215,12 @@ class NPPrints:
         self._fileName = self._waitingText
         self._upload.npset(attribute = "fileName", value = self._fileName)
         
-        # def _listenWebServer():
-        #     # globals.webServerSocket.send(str(self.printingCode).encode())
-        #     # self._fileName = globals.webServerSocket.recv(1024).decode()
-        #     self._upload.npset(attribute = "fileName", value = self._fileName)
-        # listenWebServer = Thread(target = _listenWebServer)
-        # listenWebServer.start()
+        def _listenWebServer():
+            globals.webServerSocket.send(str(self.printingCode).encode())
+            self._fileName = globals.webServerSocket.recv(1024).decode()
+            self._upload.npset(attribute = "fileName", value = self._fileName)
+        listenWebServer = Thread(target = _listenWebServer)
+        listenWebServer.start()
     
     def _paymentCancelAlert(self):
         NPConfirmBox(master = self._master, messageText = "Bạn có chắc muốn hủy đơn", buttonTexts = ["Có", "Không"], buttonCommands = [lambda event = None: self._paymentCancel(error = ""), None])
@@ -200,8 +237,10 @@ class NPPrints:
 
     def _generateQR(self):
         cost = str(self._userPrice)
-        head_url="https://img.vietqr.io/image/ocb-0004100037889007-HgRYJqu.png?amount="
-        tail_url="&addInfo=SSPS%20" + str(self._serverKey) + "&accountName=Pham%20Van%20Nhat%20Vu"
+        head_url="https://img.vietqr.io/image/" + PaymentAccount["bank"].strip() + "-" + PaymentAccount["accountNumber"].strip() + "-HgRYJqu.png?amount="
+        tail_url="&addInfo=SSPS%20" + str(self._serverKey)
+        if PaymentAccount["accountName"] != None:
+            tail_url = tail_url + "&accountName=" + PaymentAccount["accountName"].strip().replace(" ", "%20")
         url=head_url+cost+tail_url
         try:
             urllib.request.urlretrieve(url, "GUI/Images/PaymentQR.png")
@@ -287,27 +326,27 @@ class NPPrints:
     
     def _logError(self, strError):
         self._master.markErrorOccured(error = strError)
+    
+    def _isPageLandscape(self, pageIndex, reader):
+        page = reader.pages[pageIndex]
+        rotation = page.get('/Rotate')
+        mediabox = page.mediabox
+
+        # Landscape attribute
+        if mediabox.right > mediabox.top:
+            if rotation in [0, 180, None]:
+                return True
+            else:
+                return False
+        else:
+            if rotation in [0, 180, None]:
+                return False
+            else:
+                return True
 
     def _printUserFile(self):
-        # reader = PdfReader("../CO3091_BE/user_file.pdf")
-        reader = PdfReader("./CO3091_BE/user_file.pdf")
-        
-        def isPageLandscape(pageIndex):
-            page = reader.pages[pageIndex]
-            rotation = page.get('/Rotate')
-            mediabox = page.mediabox
-
-            # Landscape attribute
-            if mediabox.right > mediabox.top:
-                if rotation in [0, 180, None]:
-                    return True
-                else:
-                    return False
-            else:
-                if rotation in [0, 180, None]:
-                    return False
-                else:
-                    return True
+        reader = PdfReader("../CO3091_BE/user_file.pdf")
+        # reader = PdfReader("./CO3091_BE/user_file.pdf") 
         
         def getFileSize():
             fileSize = self._format.npget(attribute = "filePaper")
@@ -333,7 +372,7 @@ class NPPrints:
             if (sideOption == "1s"):
                 return "one-sided"
             if (sideOption == "2s"):
-                return "two-sided-short-edge" # For test
+                return "two-sided-" + self._fileFlip
         
         self._filePages = len(reader.pages)
         self._printing.npset(attribute = "userCopies", value = self._userCopies)
@@ -348,17 +387,18 @@ class NPPrints:
                     return
                 writer = PdfWriter()
                 writer.add_page(reader.pages[page])
-                # with open("../CO3091_BE/current_page.pdf", "wb") as fp:
-                with open("./CO3091_BE/current_page.pdf", "wb") as fp:
+                with open("../CO3091_BE/current_page.pdf", "wb") as fp:
+                # with open("./CO3091_BE/current_page.pdf", "wb") as fp:
                     writer.write(fp)
                 
                 printerFile = open("printer.txt")
                 printerName = printerFile.read().strip()
                 printCommand = ["lp", "-d", printerName, "-o","media=" + getFileSize(), "-n", "1", "-o", "sides=" + getSideOption(), "-o", "fit-to-page"]
-                if isPageLandscape(page):
+                if self._isPageLandscape(page, reader):
                     printCommand.extend(["-o", "landscape]"])
-                # printCommand.append("../CO3091_BE/current_page.pdf")
-                printCommand.append("./CO3091_BE/current_page.pdf")
+                printCommand.append("../CO3091_BE/current_page.pdf")
+                print(printCommand)
+                # printCommand.append("./CO3091_BE/current_page.pdf")
                 
                 try:
                     subprocess.run(printCommand, check = True)
@@ -368,7 +408,8 @@ class NPPrints:
 
                 # Time out for error
                 def printingTimeOut():
-                    # printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode().lower()
+                    printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode().lower()
+                    print(printer_status)
                     if (printer_status.find("idle") != -1):
                         pass
                     elif (printer_status.find("rendering completed") != -1):
@@ -377,7 +418,7 @@ class NPPrints:
                         handlePrintError(strError = "There's an error in our system")
                     else:
                         handlePrintError(strError = "Unknown error")
-                timeOutId = self._master.after(1000, printingTimeOut)
+                timeOutId = self._master.after(10000, printingTimeOut)
                 isCommandError = False
                 while True:
                     try:
