@@ -29,16 +29,16 @@ class NPOrigin(NPPages):
         # self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = self._currentLanguage["origin"]["control"]["right"])
         
         # Initialize items for interact frame
-        self._interact.initText(mode = "footnote", text = "", justify = "center")
+        self._interact.initText(mode = "content", text = "", justify = "center")
         self._interact.initText(mode = "heading", text = self._currentLanguage["origin"]["interact"]["text0"], justify = "center")
         
-        self._interact.initText(mode = "footnote", text = "", justify = "center")
+        self._interact.initText(mode = "content", text = "", justify = "center")
         self._firstSwitchIndex = self._interact.initButton(command = self._switchCommands[0], text = self._currentLanguage["origin"]["interact"]["text1"])
         
-        self._interact.initText(mode = "footnote", text = "", justify = "center")
+        self._interact.initText(mode = "content", text = "", justify = "center")
         self._secondSwitchIndex = self._interact.initButton(command = self._switchCommands[1], text = self._currentLanguage["origin"]["interact"]["text2"])
         
-        self._interact.initText(mode = "footnote", text = "", justify = "center")
+        self._interact.initText(mode = "content", text = "", justify = "center")
         self._thirdSwitchIndex = self._interact.initButton(command = self._switchCommands[2], text = self._currentLanguage["origin"]["interact"]["text3"])
         
         # self._interact.initText(mode = "footnote", text = "", justify = "center")
