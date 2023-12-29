@@ -21,13 +21,13 @@ class NPSides(NPPages):
         self._control.initButton(position = "right", command = lambda event = None: self._saveAvailableSides(), state = "normal", text = self._currentLanguage["sides"]["control"]["right"])
         
         # Initialize items for interact frame
-        self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
         self._interact.initText(mode = "heading", text = self._currentLanguage["sides"]["interact"]["text0"], justify = "center")
         self._interact.initText(mode = "content", text = self._currentLanguage["paper"]["interact"]["text1"], justify = "center")
         
         availableSides = [["active" if value else "default" for value in Sides.values()]]
         
-        self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
         self._availableSidesIndex = self._interact.initButtonArray(mode = "multiple", rows = 1, columns = 2, defaults = availableSides, texts = [["1", "2"]])
         self._availableSidesButtonArray = self._interact.npget(attribute = "buttonArray", index = self._availableSidesIndex)
     

@@ -30,14 +30,14 @@ class NPPrinting(NPPages):
         # self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = currentLanguage["printing"]["control"]["pause"])
         
         # Initialize items for interact frame
-        self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
         self._interact.initText(mode = "heading", text = currentLanguage["printing"]["interact"]["text0"], justify = "center")
-        self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
         
         self._userProgressIndex = self._interact.initProgressBar(default = 0, maximum = self._filePages * self._userCopies)
         self._userProgressProgressBar = self._interact.npget(attribute = "progressBar", index = self._userProgressIndex)
         
-        self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
         self._printerPageIndex = self._interact.initText(mode = "content", text = currentLanguage["printing"]["interact"]["text1"] + str(self._printerPage) + "/" + str(self._filePages), justify = "center")
         
         self._printerCopyIndex = self._interact.initText(mode = "content", text = currentLanguage["printing"]["interact"]["text2"] + str(self._printerCopy) + "/" + str(self._userCopies), justify = "center")

@@ -21,13 +21,13 @@ class NPPaper(NPPages):
         self._control.initButton(position = "right", command = lambda event = None: self._saveAvailablePaper(), state = "normal", text = self._currentLanguage["paper"]["control"]["right"])
         
         # Initialize items for interact frame
-        self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
         self._interact.initText(mode = "heading", text = self._currentLanguage["paper"]["interact"]["text0"], justify = "center")
         self._interact.initText(mode = "content", text = self._currentLanguage["paper"]["interact"]["text1"], justify = "center")
         
         availablePaper = [["active" if value else "default" for value in Paper.values()]]
         
-        self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
         self._availablePaperIndex = self._interact.initButtonArray(mode = "multiple", rows = 1, columns = 3, defaults = availablePaper, texts = [["A3", "A4", "A5"]])
         self._availablePaperButtonArray = self._interact.npget(attribute = "buttonArray", index = self._availablePaperIndex)
 

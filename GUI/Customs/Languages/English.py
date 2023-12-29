@@ -49,7 +49,6 @@ English = {
         "data": {
             "title": "Print options",
             "text0": "File name: ",
-            "text1": "Wating for you",
         },
         "control": {
             "left": "Back",
@@ -349,11 +348,21 @@ English = {
             "start": "To start"
         },
         "interact": {
+            "errorUnknown": {
+                "text0": "- System can't detect this error. Please try checking common error, such as: paper stuck, out of ink/paper, etc.",
+                "text1": "- Click 'Done fixing' for user to use.",
+                "text2": "- If you still encounter the same problem, please contact device maintainer.",
+            },
             "errorLostConnection": {
                 "text0": "- Turn off program.",
                 "text1": "- Open dashboard case, connect to mouse and keyboard to connect to Wifi.",
                 "text2": "- Restart the program.",
                 "text3": "- Click 'Done fixing' for user to use.",
+            },
+            "errorPrintFile": {
+                "text0": "- Click 'Done fixing' for user to use.",
+                "text1": "- Restart the entire printing process.",
+                "text2": "",
             },
             "errorTransferAmount": {
                 "text0": "- Check the wrong transferred amount to refund/charge more in person.",
@@ -374,16 +383,6 @@ English = {
                 "text0": "- Check printer error, add more paper if needed.",
                 "text1": "- Click 'Done fixing' for user to use.",
                 "text2": "",
-            },
-            "errorPrintFile": {
-                "text0": "- Click 'Done fixing' for user to use.",
-                "text1": "- Restart the entire printing process.",
-                "text2": "",
-            },
-            "errorUnknown": {
-                "text0": "- System can't detect this error. Please try checking common error, such as: paper stuck, out of ink/paper, etc.",
-                "text1": "- Click 'Done fixing' for user to use.",
-                "text2": "- If you still encounter the same problem, please contact device maintainer.",
             },
         }
     },
@@ -448,14 +447,15 @@ English = {
     },
     "errorLog": {
         "message": {
+            "errorUnknown": "Unknown error.",
             "errorLostConnection": "Lost connection.",
-            "errorTransferAmount_1": "Transfer wrong amount. Order #",
+            "errorTransferAmount": "Transfer wrong amount.",
+            "errorPrintFile": "File to print failed.",
+            "errorTransferAmount_1": " Order #",
             "errorTransferAmount_2": "transferred: ",
-            "errorPaymentCheck": "Payment checking system failed.",
+            "errorPaymentCheck": "Payment checking failed.",
             "errorPaperStuck": "Paper stuck.",
             "errorOutOfPaper": "Run out of paper.",
-            "errorPrintFile": "File to print failed.",
-            "errorUnknown": "Unknown error."
         }
     },
 }

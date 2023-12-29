@@ -27,17 +27,17 @@ class NPA5Price(NPPages):
         self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = self._currentLanguage["a5Price"]["control"]["right"])
         
         # Initialize items for interact frame
-        self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
         self._interact.initText(mode = "heading", text = self._currentLanguage["a5Price"]["interact"]["text0"], justify = "center")
         
-        self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
         self._interact.initText(mode = "content", text = self._currentLanguage["a5Price"]["interact"]["text1"], justify = "center")
         self._a5PaperPriceIndex = self._interact.initSpinBox(default = PaperPrice["a5"], minimum = 0, maximum = 5000, step = 100, wrap = True, actionCommand = None)
         self._a5PaperPriceSpinBox = self._interact.npget(attribute = "spinBox", index = self._a5PaperPriceIndex)
         if Paper["a5"] and Sides["1s"]:
             self._a5PaperPriceSpinBox.npset(attribute = "actionCommand", value = lambda event = None: setPaperPrice("a5", self._a5PaperPriceSpinBox.npget(attribute = "value")))
         
-        self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
         self._interact.initText(mode = "content", text = self._currentLanguage["a5Price"]["interact"]["text2"], justify = "center")
         self._a5InkPriceIndex = self._interact.initSpinBox(default = InkPrice["a5"], minimum = 0, maximum = 5000, step = 100, wrap = True, actionCommand = None)
         self._a5InkPriceSpinBox = self._interact.npget(attribute = "spinBox", index = self._a5InkPriceIndex)

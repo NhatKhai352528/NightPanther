@@ -39,7 +39,7 @@ class NPFormat(NPPages):
         self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = self._currentLanguage["format"]["control"]["right"])
         
         # Initialize items for interact frame
-        self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
         self._interact.initText(mode = "heading", text = self._currentLanguage["format"]["interact"]["text0"], justify = "center")
         self._filePaperIndex = self._interact.initButtonArray(mode = "single", rows = 1, columns = 3, defaults = availablePaper, texts=[["A3", "A4", "A5"]])
         self._filePaperButtonArray = self._interact.npget(attribute = "buttonArray", index = self._filePaperIndex)

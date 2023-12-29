@@ -33,7 +33,7 @@ class NPUpload(NPPages):
         
         # Initialize items for interact frame
         self._interact.initText(mode = "heading", text = self._currentLanguage["upload"]["interact"]["text0"], justify = "center")
-        self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
         self._serverQRIndex = self._interact.initImage(imageFile = self._serverQRFile, imageWidth = 300, imageHeight = 300)
     
     def npset(self, attribute: str, value: Any = None):

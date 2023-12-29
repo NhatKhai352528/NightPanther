@@ -37,7 +37,7 @@ class NPOrder(NPPages):
         self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = self._currentLanguage["order"]["control"]["right"])
         
         # Initialize items for interact frame
-        self._interact.initText(mode = "content", text = "", justify = "left")
+        self._interact.initText(mode = "footnote", text = "", justify = "left")
         self._interact.initText(mode = "heading", text = self._currentLanguage["order"]["interact"]["text0"], justify = "center")
         self._userCopiesIndex = self._interact.initSpinBox(default = self._userCopies, minimum = 1, maximum = 100, step = 1, wrap = False, actionCommand = None)
         self._userCopiesSpinBox = self._interact.npget(attribute = "spinBox", index = self._userCopiesIndex)

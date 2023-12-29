@@ -12,14 +12,24 @@ class NPTutorial3(NPPages):
         super().__init__(master = master, commands = commands)
         
         # Initialize items for data frame
-        self._data.initText(mode = "title", text = self._currentLanguage["welcome"]["data"]["title"], wrap = True)
-        self._data.initText(mode = "content", text = self._currentLanguage["welcome"]["data"]["text0"], wrap = True)
+        self._data.initText(mode = "title", text = self._currentLanguage["adminInstruction"]["data"]["title"], wrap = True)
+        self._data.initText(mode = "Content", text = self._currentLanguage["adminInstruction"]["data"]["subtitle"], wrap = True)
+        self._data.initText(mode = "content", text = self._currentLanguage["adminInstruction"]["data"]["text1"], wrap = True)
+        self._data.initText(mode = "content", text = self._currentLanguage["adminInstruction"]["data"]["text2"], wrap = True)
 
         # Initialize items for control frame
-        self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = self._currentLanguage["welcome"]["control"]["left"])
-        self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = self._currentLanguage["welcome"]["control"]["right"])
+        self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = self._currentLanguage["adminInstruction"]["control"]["back"])
+        self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = self._currentLanguage["adminInstruction"]["control"]["start"])
         
         # Initialize items for interact frame
-        self._interact.initText(mode = "content", text = "", justify = "center")
-        # self._interact.initText(mode = "heading", text = self._currentLanguage["welcome"]["interact"]["text0"], justify = "left")
-        self._interact.initText(mode = "heading", text = "Vẫn muốn đặt niềm tin vào những yêu thương.", justify = "left")
+        # Error file
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
+        self._interact.initText(mode = "heading", text = self._currentLanguage["errorLog"]["message"]["errorPaperStuck"], justify = "left")
+        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorPaperStuck"]["text0"], justify = "left")
+        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorPaperStuck"]["text1"], justify = "left")
+
+        # Error wrong transfer amount
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
+        self._interact.initText(mode = "heading", text = self._currentLanguage["errorLog"]["message"]["errorOutOfPaper"], justify = "left")
+        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorOutOfPaper"]["text0"], justify = "left")
+        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorOutOfPaper"]["text1"], justify = "left")

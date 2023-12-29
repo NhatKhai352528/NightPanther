@@ -344,6 +344,11 @@ Vietnamese = {
             "start": "Từ đầu"
         },
         "interact": {
+            "errorUnknown": {
+                "text0": "- Hệ thống không thể nhận diện được lỗi này. Vui lòng thử kiểm tra các vấn đề thường gặp như: kẹt giấy, hết mực/giấy, v.v",
+                "text1": "- Tắt lỗi và chạy thử lại hệ thống.",
+                "text2": "- Nếu vẫn tiếp tục gặp lỗi, vui lòng liên hệ đơn vị bảo trì thiết bị.",
+            },
             "errorLostConnection": {
                 "text0": "- Tắt chương trình.",
                 "text1": "- Mở hộp bảng điều khiển, kết nối với chuột và bàn phím rời để truy cập lại mạng Wifi.",
@@ -355,30 +360,25 @@ Vietnamese = {
                 "text1": "- Tắt lỗi để người dùng tiếp tục in",
                 "text2": "",
             },
+            "errorPrintFile": {
+                "text0": "- Tắt lỗi để người dùng tiếp tục in.",
+                "text1": "- Bắt đầu quá trình đặt in lại từ đầu.",
+                "text2": "",
+            },
             "errorPaymentCheck": {
                 "text0": "- Tạm thời: Kiểm tra kết nối với MightyText và số tiền người dùng đã chuyển. Tắt lỗi để người dùng tiếp tục in.",
                 "text1": "- Lâu dài: Liên hệ đơn vị bảo trì hệ thống.",
                 "text2": "",
             },
             "errorPaperStuck": {
-                "text0": "- Kiểm tra và sửa máy in, bổ sung thêm giấy nếu cần.",
+                "text0": "- Kiểm tra, sửa máy in, bổ sung giấy nếu cần.",
                 "text1": "- Tắt lỗi để người dùng tiếp tục in.",
                 "text2": "",
             },
             "errorOutOfPaper": {
-                "text0": "- Kiểm tra và sửa máy in, bổ sung thêm giấy nếu cần.",
+                "text0": "- Kiểm tra, sửa máy in, bổ sung giấy nếu cần.",
                 "text1": "- Tắt lỗi để người dùng tiếp tục in.",
                 "text2": "",
-            },
-            "errorPrintFile": {
-                "text0": "- Tắt lỗi để người dùng tiếp tục in.",
-                "text1": "- Bắt đầu quá trình đặt in lại từ đầu.",
-                "text2": "",
-            },
-            "errorCritical": {
-                "text0": "- Hệ thống không thể nhận diện được lỗi này. Vui lòng thử kiểm tra các vấn đề thường gặp như: kẹt giấy, hết mực/giấy, v.v",
-                "text1": "- Tắt lỗi và chạy thử lại hệ thống.",
-                "text2": "- Nếu vẫn tiếp tục gặp lỗi, vui lòng liên hệ đơn vị bảo trì thiết bị.",
             },
         }
     },
@@ -443,14 +443,15 @@ Vietnamese = {
     },
     "errorLog": {
         "message": {
-            "errorLostConnection": "Mất kết nối mạng",
-            "errorTransferAmount_1": "Chuyển khoản sai số tiền. Đơn hàng #",
+            "errorUnknown": "Không thể nhận diện lỗi.",
+            "errorLostConnection": "Mất kết nối mạng.",
+            "errorPrintFile": "File in bị lỗi.",
+            "errorTransferAmount": "Chuyển khoản sai số tiền.",
+            "errorTransferAmount_1": " Đơn hàng #",
             "errorTransferAmount_2": "đã gửi: ",
-            "errorPaymentCheck": "Hệ thống kiểm tra thanh toán bị lỗi.",
+            "errorPaymentCheck": "Kiểm tra thanh toán bị lỗi.",
             "errorPaperStuck": "Kẹt giấy.",
             "errorOutOfPaper": "Hết giấy.",
-            "errorPrintFile": "File in bị lỗi.",
-            "errorCritical": "Lỗi nghiêm trọng."
         }
     }
 }

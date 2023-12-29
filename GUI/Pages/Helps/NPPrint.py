@@ -20,5 +20,5 @@ class NPPrint(NPPages):
         self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = self._currentLanguage["helpPrint"]["control"]["right"])
         
         # Initialize items for interact frame
-        self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
         self._interact.initText(mode = "content", text = self._currentLanguage["helpPrint"]["interact"]["text1"], justify = "left")

@@ -20,8 +20,8 @@ class NPError(NPPages):
         self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = self._currentLanguage["adminError"]["control"]["deleteError"])
         
         # Initialize items for interact frame
-        self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
         self._interact.initText(mode = "heading", text = self._currentLanguage["adminError"]["interact"]["text0"], justify = "left") #self._currentLanguage["adminError"]["interact"]["text0"], justify = "left")
-        self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
         for error in errorList:
             self._interact.initText(mode = "content", text = error, justify = "left")

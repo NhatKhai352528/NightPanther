@@ -353,7 +353,7 @@ class NPPrints:
             if (payment == self._userPrice):
                 self._paymentToPrinting()
             else:
-                messageStr = str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_1"]) + str(self._serverKey) + ": " + str(self._userPrice) + str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_2"]) + paymentStr + ")."
+                messageStr = str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount"]) + str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_1"]) + str(self._serverKey) + ": " + str(self._userPrice) + str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_2"]) + paymentStr + ")."
                 self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["confirm"]["message"]["wrongTransferAmount"], [None, "OK"], [None, lambda event = None: self._paymentCancel(error = messageStr), None])
         except Exception as e:
             try:

@@ -30,12 +30,12 @@ class NPPrimary(NPPages):
         self._control.initButton(position = "right", command = lambda event = None: NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["confirm"]["saveSettings"], buttonTexts = [self._currentLanguage["popup"]["options"]["remain"], self._currentLanguage["popup"]["options"]["return"]], buttonCommands = [None, lambda event = None: self._saveSettings()]), state = "normal", text = self._currentLanguage["settingsInitial"]["control"]["right"])
         
         # Initialize items for interact frame
-        self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
         self._interact.initText(mode = "heading", text = self._currentLanguage["settingsInitial"]["interact"]["text0"], justify = "center")
         self._languagesIndex = self._interact.initButtonArray(mode = "single", rows = 1, columns = 2, defaults = languages, texts = [["EN", "VN"]])
         self._languagesButtonArray = self._interact.npget(attribute = "buttonArray", index = self._languagesIndex)
 
-        self._interact.initText(mode = "content", text = "", justify = "center")
+        self._interact.initText(mode = "footnote", text = "", justify = "center")
         self._interact.initText(mode = "heading", text = self._currentLanguage["settingsInitial"]["interact"]["text1"], justify = "center")
         self._themesIndex = self._interact.initButtonArray(mode = "single", rows = 1, columns = 2, defaults = themes, texts = [[self._currentLanguage["settingsInitial"]["interact"]["light"], self._currentLanguage["settingsInitial"]["interact"]["dark"]]])
         self._themesButtonArray = self._interact.npget(attribute = "buttonArray", index = self._themesIndex)
