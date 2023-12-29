@@ -356,34 +356,34 @@ English = {
                 "text3": "- Click 'Done fixing' for user to use.",
             },
             "errorTransferAmount": {
-                "text0": "Kiểm tra số tiền chuyển sai để hoàn tiền/thu thêm thủ công.",
-                "text1": "Tắt lỗi để người dùng tiếp tục in",
+                "text0": "- Check the wrong transferred amount to refund/charge more in person.",
+                "text1": "- Click 'Done fixing' for user to use.",
                 "text2": "",
             },
             "errorPaymentCheck": {
-                "text0": "- Tạm thời: Kiểm tra kết nối với MightyText và số tiền người dùng đã chuyển. Tắt lỗi để người dùng tiếp tục in.",
-                "text1": "- Lâu dài: Liên hệ đơn vị bảo trì hệ thống.",
+                "text0": "- Temporary: Check connection/transferred amount to MightyText. Click 'Done fixing' for user to use.",
+                "text1": "- Long-term: Contact device maintainer.",
                 "text2": "",
             },
             "errorPaperStuck": {
-                "text0": "- Kiểm tra và sửa máy in, bổ sung thêm giấy nếu cần.",
-                "text1": "Tắt lỗi để người dùng tiếp tục in.",
+                "text0": "- Check printer error, add more paper if needed.",
+                "text1": "- Click 'Done fixing' for user to use.",
                 "text2": "",
             },
             "errorOutOfPaper": {
-                "text0": "- Kiểm tra và sửa máy in, bổ sung thêm giấy nếu cần.",
-                "text1": "- Tắt lỗi để người dùng tiếp tục in.",
+                "text0": "- Check printer error, add more paper if needed.",
+                "text1": "- Click 'Done fixing' for user to use.",
                 "text2": "",
             },
             "errorPrintFile": {
-                "text0": "- Tắt lỗi để người dùng tiếp tục in.",
-                "text1": "- Bắt đầu quá trình đặt in lại từ đầu.",
+                "text0": "- Click 'Done fixing' for user to use.",
+                "text1": "- Restart the entire printing process.",
                 "text2": "",
             },
-            "errorCritical": {
-                "text0": "- Hệ thống không thể nhận diện được lỗi này. Vui lòng thử kiểm tra các vấn đề thường gặp như: kẹt giấy, hết mực/giấy, v.v",
-                "text1": "- Tắt lỗi và chạy thử lại hệ thống.",
-                "text2": "- Nếu vẫn tiếp tục gặp lỗi, vui lòng liên hệ đơn vị bảo trì thiết bị.",
+            "errorUnknown": {
+                "text0": "- System can't detect this error. Please try checking common error, such as: paper stuck, out of ink/paper, etc.",
+                "text1": "- Click 'Done fixing' for user to use.",
+                "text2": "- If you still encounter the same problem, please contact device maintainer.",
             },
         }
     },
@@ -438,7 +438,6 @@ English = {
             "incorrectPassword": "Wrong password. Please try again.",
             "lostConnection": "Lost connection. Please go to 'Help Center' to contact Admin.",
             "wrongTransferAmount": "Transferred wrong amount. Please go to 'Help Center' to contact Admin.",
-
         },
         "options": {
             "return": "Yes",
@@ -456,7 +455,7 @@ English = {
             "errorPaperStuck": "Paper stuck.",
             "errorOutOfPaper": "Run out of paper.",
             "errorPrintFile": "File to print failed.",
-            "errorCritical": "Critical error."
+            "errorUnknown": "Unknown error."
         }
     },
 }

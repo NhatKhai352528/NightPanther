@@ -351,8 +351,8 @@ Vietnamese = {
                 "text3": "- Tắt lỗi để người dùng tiếp tục in.",
             },
             "errorTransferAmount": {
-                "text0": "Kiểm tra số tiền chuyển sai để hoàn tiền/thu thêm thủ công.",
-                "text1": "Tắt lỗi để người dùng tiếp tục in",
+                "text0": "- Kiểm tra số tiền chuyển sai để hoàn tiền/thu thêm thủ công.",
+                "text1": "- Tắt lỗi để người dùng tiếp tục in",
                 "text2": "",
             },
             "errorPaymentCheck": {
@@ -361,18 +361,18 @@ Vietnamese = {
                 "text2": "",
             },
             "errorPaperStuck": {
-                "text0": "Kiểm tra và sửa máy in, bổ sung thêm giấy nếu cần.",
-                "text1": "Tắt lỗi để người dùng tiếp tục in.",
+                "text0": "- Kiểm tra và sửa máy in, bổ sung thêm giấy nếu cần.",
+                "text1": "- Tắt lỗi để người dùng tiếp tục in.",
                 "text2": "",
             },
             "errorOutOfPaper": {
-                "text0": "Kiểm tra và sửa máy in, bổ sung thêm giấy nếu cần.",
-                "text1": "Tắt lỗi để người dùng tiếp tục in.",
+                "text0": "- Kiểm tra và sửa máy in, bổ sung thêm giấy nếu cần.",
+                "text1": "- Tắt lỗi để người dùng tiếp tục in.",
                 "text2": "",
             },
             "errorPrintFile": {
-                "text0": "Tắt lỗi để người dùng tiếp tục in.",
-                "text1": "Bắt đầu quá trình đặt in lại từ đầu.",
+                "text0": "- Tắt lỗi để người dùng tiếp tục in.",
+                "text1": "- Bắt đầu quá trình đặt in lại từ đầu.",
                 "text2": "",
             },
             "errorCritical": {
