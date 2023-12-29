@@ -13,9 +13,11 @@ class NPTutorial3(NPPages):
         
         # Initialize items for data frame
         self._data.initText(mode = "title", text = self._currentLanguage["adminInstruction"]["data"]["title"], wrap = True)
-        self._data.initText(mode = "Content", text = self._currentLanguage["adminInstruction"]["data"]["subtitle"], wrap = True)
-        self._data.initText(mode = "content", text = self._currentLanguage["adminInstruction"]["data"]["text1"], wrap = True)
-        self._data.initText(mode = "content", text = self._currentLanguage["adminInstruction"]["data"]["text2"], wrap = True)
+        # self._data.initText(mode = "Content", text = self._currentLanguage["adminInstruction"]["data"]["subtitle"], wrap = True)
+        self._data.initText(mode = "footnote", text = "", wrap = False)
+        self._data.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["data"]["text1"], wrap = True)
+        self._data.initText(mode = "footnote", text = "", wrap = False)
+        self._data.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["data"]["text2"], wrap = True)
 
         # Initialize items for control frame
         self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = self._currentLanguage["adminInstruction"]["control"]["back"])

@@ -27,10 +27,12 @@ class NPFlows:
         self._settings = None
         self._admins = None
         
-        self._mainFlow = Literal["_starts", "_setups", "_prints"]
-        self._subFlow = Literal["_helps", "_settings", "_admins"]
-        self._previousFlow: Optional[Union[self._mainFlow, self._subFlow]] = None
-        self._currentFlow: Optional[Union[self._mainFlow, self._subFlow]] = None
+        self._mainFlows = Literal["_setups", "_prints"]
+        self._subFlows = Literal["_helps", "_settings", "_admins"]
+        self._flows = Literal["_bars", "_starts", "_setups", "_prints", "_helps", "_settings", "_admins"]
+        
+        self._previousFlow: Optional[Literal["_start", Union[self._mainFlows, self._subFlows]]] = None
+        self._currentFlow: Optional[Literal["_start", Union[self._mainFlows, self._subFlows]]] = None
     
     def place(self):
         self._bars = NPBars(master = self._master, menuCommands = [lambda event = None: self._confirmToStart(), lambda event = None: self._currentToHelps(), lambda event = None: self._currentToSettings(), lambda event = None: self._currentToAdmins()])
@@ -38,10 +40,9 @@ class NPFlows:
         self._currentToStarts()
     
     def destroy(self):
-        attributes = ["_bars", "_starts", "_setups", "_prints", "_helps", "_settings", "_admins"]
-        for attribute in attributes:
+        for flow in self._flows:
             try:
-                getattr(self, attribute).destroy()
+                getattr(self, flow).destroy()
             except:
                 pass
         self.__dict__.clear()
@@ -62,13 +63,12 @@ class NPFlows:
             self._currentFlow = "_starts"
         
         # Automatically destroy unusable flows
-        attributes = ["_setups", "_prints", "_helps", "_settings", "_admins"]
-        for attribute in attributes:
+        for flow in self._mainFlows.__args__ + self._subFlows.__args__:
             try:
-                getattr(self, attribute).destroy()
+                getattr(self, flow).destroy()
             except:
                 pass
-            setattr(self, attribute, None)
+            setattr(self, flow, None)
     
     #
     # Helps
@@ -76,17 +76,19 @@ class NPFlows:
     def _currentToHelps(self):
         if self._currentFlow == "_helps":
             return
-        if self._currentFlow in self._subFlow.__args__:
+        if self._currentFlow in self._subFlows.__args__:
             NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["guide"]["goToHelpFromAny"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
             return
         if self._currentFlow != "_helps":
-            self._previousFlow = self._currentFlow
             self._helps = NPHelps(master = self._master, destroyCommand = lambda event = None: self._helpsToPrevious())
+            self._previousFlow = self._currentFlow
             self._helps.place()
             self._currentFlow = "_helps"
+            getattr(self, self._previousFlow).place_forget()
     
     def _helpsToPrevious(self):
         if self._currentFlow == "_helps":
+            getattr(self, self._previousFlow).place()
             self._currentFlow = self._previousFlow
             self._helps.destroy()
             self._helps = None
@@ -97,17 +99,19 @@ class NPFlows:
     def _currentToSettings(self):
         if self._currentFlow == "_settings":
             return
-        if self._currentFlow in self._subFlow.__args__:
+        if self._currentFlow in self._subFlows.__args__:
             NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["guide"]["goToSettingFromSubflow"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
             return
         if self._currentFlow != "_settings":
-            self._previousFlow = self._currentFlow
             self._settings = NPSettings(master = self._master, destroyCommand = lambda event = None: self._settingsToPrevious())
+            self._previousFlow = self._currentFlow
             self._settings.place()
             self._currentFlow = "_settings"
+            getattr(self, self._previousFlow).place_forget()
     
     def _settingsToPrevious(self):
         if self._currentFlow == "_settings":
+            getattr(self, self._previousFlow).place()
             self._currentFlow = self._previousFlow
             self._settings.destroy()
             self._settings = None
@@ -118,17 +122,19 @@ class NPFlows:
     def _currentToAdmins(self):
         if self._currentFlow == "_admins":
             return
-        if self._currentFlow in self._subFlow.__args__:
+        if self._currentFlow in self._subFlows.__args__:
             NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["guide"]["goToAdminFromAny"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
             return
         if self._currentFlow != "_admins":
-            self._previousFlow = self._currentFlow
             self._admins = NPAdmins(master = self._master, destroyCommand = lambda event = None: self._adminsToPrevious())
+            self._previousFlow = self._currentFlow
             self._admins.place()
             self._currentFlow = "_admins"
+            getattr(self, self._previousFlow).place_forget()
     
     def _adminsToPrevious(self):
         if self._currentFlow == "_admins":
+            getattr(self, self._previousFlow).place()
             self._currentFlow = self._previousFlow
             self._admins.destroy()
             self._admins = None

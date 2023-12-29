@@ -15,7 +15,7 @@ class NPData(NPFrames):
         
         self._currentY = self._distance
     
-    def initText(self, mode: Literal["title", "Heading", "heading", "Content", "content"], text: str, wrap: bool):
+    def initText(self, mode: Literal["title", "Heading", "heading", "Content", "content", "smallThin", "footnote"], text: str, wrap: bool):
         
         # This frame allows the last item to exceed its boundaries
         if self._currentY >= self._height:
@@ -37,6 +37,12 @@ class NPData(NPFrames):
             currentForeground = self._currentTheme["foreground"]["highlight"]
         elif mode == "content":
             currentFont = self._currentTheme["font"]["normal"]
+            currentForeground = self._currentTheme["foreground"]["default"]
+        elif mode == "smallThin":
+            currentFont = self._currentTheme["font"]["smallThin"]
+            currentForeground = self._currentTheme["foreground"]["default"]
+        elif mode == "footnote":
+            currentFont = self._currentTheme["font"]["tiny"]
             currentForeground = self._currentTheme["foreground"]["default"]
         else:
             currentFont = self._currentTheme["font"]["default"]
