@@ -166,6 +166,7 @@ Vietnamese = {
         "data": {
             "title": "Quản lý",
             "text0": "Đơn giá: A3",
+            "text1": "Vui lòng nhấn confirm sau khi điều chỉnh đơn giá."
         },
         "control": {
             "left": "Trở lại",
@@ -181,6 +182,7 @@ Vietnamese = {
         "data": {
             "title": "Quản lý",
             "text0": "Đơn giá: A4",
+            "text1": "Vui lòng nhấn confirm sau khi điều chỉnh đơn giá."
         },
         "control": {
             "left": "A3",
@@ -196,6 +198,7 @@ Vietnamese = {
         "data": {
             "title": "Quản lý",
             "text0": "Đơn giá: A5",
+            "text1": "Vui lòng nhấn confirm sau khi điều chỉnh đơn giá."
         },
         "control": {
             "left": "A4",

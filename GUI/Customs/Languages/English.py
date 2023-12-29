@@ -170,6 +170,7 @@ English = {
         "data": {
             "title": "Manage",
             "text0": "A3 Pricing",
+            "text1": "Please confirm after modifying the price."
         },
         "control": {
             "left": "Back",
@@ -185,6 +186,7 @@ English = {
         "data": {
             "title": "Manage",
             "text0": "A4 Pricing",
+            "text1": "Please confirm after modifying the price."
         },
         "control": {
             "left": "Setup A3",
@@ -200,6 +202,7 @@ English = {
         "data": {
             "title": "Manage",
             "text0": "A5 Pricing",
+            "text1": "Please confirm after modifying the price."
         },
         "control": {
             "left": "Setup A4",

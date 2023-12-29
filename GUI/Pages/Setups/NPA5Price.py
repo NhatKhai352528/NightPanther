@@ -18,6 +18,7 @@ class NPA5Price(NPPages):
         # Initialize items for data frame
         self._data.initText(mode = "title", text = self._currentLanguage["a5Price"]["data"]["title"], wrap = True)
         self._data.initText(mode = "Content", text = self._currentLanguage["a5Price"]["data"]["text0"], wrap = True)
+        self._data.initText(mode = "content", text= self._currentLanguage["a5Price"]["data"]["text1"], wrap = True)
         
         # Initialize items for control frame
         self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = self._currentLanguage["a5Price"]["control"]["left"])
