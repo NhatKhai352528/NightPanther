@@ -35,6 +35,7 @@ English = {
             "text1": "Link: ",
             "text2": "Key: ",
             "text3": "File name: ",
+            "text4": "Wait for file upload..."
         },
         "control": {
             "left": "Back",
@@ -80,6 +81,7 @@ English = {
             "text0": "File name: ",
             "text1": "Number of copies: ",
             "text2": "Total price: ",
+            "text3": "Order ID: "
         },
         "control": {
             "left": "Back",
@@ -334,6 +336,57 @@ English = {
             "text4": "Turn off program",
         },
     },
+    "adminInstruction": {
+        "data": {
+            "title": "Admin",
+            "subtitle": "Admin Guideline",
+            "text1": "Choose 'View system error' to check current errors. After done fixing, choose 'Done fixing' to delete errors and re-run program.",
+            "text2": "Caution: 'Done fixing' doesn't guarantee the system would function normally. This only delete the error flag to let user use the system."
+        },
+        "control": {
+            "back": "Back",
+            "more": "See more",
+            "start": "To start"
+        },
+        "interact": {
+            "errorLostConnection": {
+                "text0": "- Turn off program.",
+                "text1": "- Open dashboard case, connect to mouse and keyboard to connect to Wifi.",
+                "text2": "- Restart the program.",
+                "text3": "- Click 'Done fixing' for user to use.",
+            },
+            "errorTransferAmount": {
+                "text0": "Kiểm tra số tiền chuyển sai để hoàn tiền/thu thêm thủ công.",
+                "text1": "Tắt lỗi để người dùng tiếp tục in",
+                "text2": "",
+            },
+            "errorPaymentCheck": {
+                "text0": "- Tạm thời: Kiểm tra kết nối với MightyText và số tiền người dùng đã chuyển. Tắt lỗi để người dùng tiếp tục in.",
+                "text1": "- Lâu dài: Liên hệ đơn vị bảo trì hệ thống.",
+                "text2": "",
+            },
+            "errorPaperStuck": {
+                "text0": "- Kiểm tra và sửa máy in, bổ sung thêm giấy nếu cần.",
+                "text1": "Tắt lỗi để người dùng tiếp tục in.",
+                "text2": "",
+            },
+            "errorOutOfPaper": {
+                "text0": "- Kiểm tra và sửa máy in, bổ sung thêm giấy nếu cần.",
+                "text1": "- Tắt lỗi để người dùng tiếp tục in.",
+                "text2": "",
+            },
+            "errorPrintFile": {
+                "text0": "- Tắt lỗi để người dùng tiếp tục in.",
+                "text1": "- Bắt đầu quá trình đặt in lại từ đầu.",
+                "text2": "",
+            },
+            "errorCritical": {
+                "text0": "- Hệ thống không thể nhận diện được lỗi này. Vui lòng thử kiểm tra các vấn đề thường gặp như: kẹt giấy, hết mực/giấy, v.v",
+                "text1": "- Tắt lỗi và chạy thử lại hệ thống.",
+                "text2": "- Nếu vẫn tiếp tục gặp lỗi, vui lòng liên hệ đơn vị bảo trì thiết bị.",
+            },
+        }
+    },
     "adminError": {
         "data": {
             "title": "Admin",
@@ -362,7 +415,7 @@ English = {
             "dark": "Dark"
         }
     },
-        "popup":{
+    "popup":{
         "guide":{
             "goToHelpFromAny": "Click 'Back' before going to 'Help Center'.",
             "goToSettingFromSubflow": "Click 'Back' before going 'Settings'.",
@@ -400,7 +453,10 @@ English = {
             "errorTransferAmount_1": "Transfer wrong amount. Order #",
             "errorTransferAmount_2": "transferred: ",
             "errorPaymentCheck": "Payment checking system failed.",
-            "errorCritical": "Please contact system maintain"
+            "errorPaperStuck": "Paper stuck.",
+            "errorOutOfPaper": "Run out of paper.",
+            "errorPrintFile": "File to print failed.",
+            "errorCritical": "Critical error."
         }
-    }
+    },
 }

@@ -27,7 +27,7 @@ class NPPayment(NPPages):
         self._data.initText(mode = "heading", text = self._currentLanguage["payment"]["data"]["text0"], wrap = False)
         self._fileNameIndex = self._data.initText(mode = "content", text = self._fileName, wrap = False)
         
-        self._serverKeyIndex = self._data.initText(mode = "heading", text = "Ma don hang: " + self._serverKey, wrap = False)
+        self._serverKeyIndex = self._data.initText(mode = "heading", text = self._currentLanguage["payment"]["data"]["text3"] + self._serverKey, wrap = False)
         self._userCopiesIndex = self._data.initText(mode = "heading", text = self._currentLanguage["payment"]["data"]["text1"] + str(self._userCopies), wrap = False)
         
         self._data.initText(mode = "Heading", text = self._currentLanguage["payment"]["data"]["text2"], wrap = False)
