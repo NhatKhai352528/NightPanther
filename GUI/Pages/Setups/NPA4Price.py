@@ -1,10 +1,12 @@
 from tkinter import Tk
 from typing import Any
 from ..NPPages import NPPages
-from ...Constants.NPPrice import Price
+from ...Constants.NPPaperPrice import PaperPrice
+from ...Constants.NPInkPrice import InkPrice
 from ...Constants.NPPaper import Paper
 from ...Constants.NPSides import Sides
-from .NPPrice import setPrice
+from .NPPrice import setInkPrice
+from .NPPrice import setPaperPrice
 from ...Customs.NPLanguage import NPLanguage
 
 class NPA4Price(NPPages):
@@ -29,14 +31,14 @@ class NPA4Price(NPPages):
         
         self._interact.initText(mode = "content", text = "", justify = "center")
         self._interact.initText(mode = "content", text = self._currentLanguage["a4Price"]["interact"]["text1"], justify = "center")
-        self._a41sPriceIndex = self._interact.initSpinBox(default = Price["a4"]["1s"], minimum = 0, maximum = 5000, step = 100, wrap = True, actionCommand = None)
-        self._a41sPriceSpinBox = self._interact.npget(attribute = "spinBox", index = self._a41sPriceIndex)
-        if Paper["a4"] and Sides["1s"]:
-            self._a41sPriceSpinBox.npset(attribute = "actionCommand", value = lambda event = None: setPrice("a4", "1s", self._a41sPriceSpinBox.npget(attribute = "value")))
+        self._a4PaperPriceIndex = self._interact.initSpinBox(default = PaperPrice["a4"], minimum = 0, maximum = 5000, step = 100, wrap = True, actionCommand = None)
+        self._a4PaperPriceSpinBox = self._interact.npget(attribute = "spinBox", index = self._a4PaperPriceIndex)
+        if Paper["a4"]:
+            self._a4PaperPriceSpinBox.npset(attribute = "actionCommand", value = lambda event = None: setPaperPrice("a4", self._a4PaperPriceSpinBox.npget(attribute = "value")))
         
         self._interact.initText(mode = "content", text = "", justify = "center")
         self._interact.initText(mode = "content", text = self._currentLanguage["a4Price"]["interact"]["text2"], justify = "center")
-        self._a42sPriceIndex = self._interact.initSpinBox(default = Price["a4"]["2s"], minimum = 0, maximum = 5000, step = 100, wrap = True, actionCommand = None)
-        self._a42sPriceSpinBox = self._interact.npget(attribute = "spinBox", index = self._a42sPriceIndex)
-        if Paper["a4"] and Sides["2s"]:
-            self._a42sPriceSpinBox.npset(attribute = "actionCommand", value = lambda event = None: setPrice("a4", "2s", self._a42sPriceSpinBox.npget(attribute = "value")))
+        self._a4InkPriceIndex = self._interact.initSpinBox(default = InkPrice["a4"], minimum = 0, maximum = 5000, step = 100, wrap = True, actionCommand = None)
+        self._a4InkPriceSpinBox = self._interact.npget(attribute = "spinBox", index = self._a4InkPriceIndex)
+        if Paper["a4"]:
+            self._a4InkPriceSpinBox.npset(attribute = "actionCommand", value = lambda event = None: setInkPrice("a4", self._a4InkPriceSpinBox.npget(attribute = "value")))

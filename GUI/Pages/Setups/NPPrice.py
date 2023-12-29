@@ -1,6 +1,12 @@
-from ...Constants.NPPrice import Price
+from ...Constants.NPPaperPrice import PaperPrice
+from ...Constants.NPInkPrice import InkPrice
 
-def setPrice(paper, side, price):
-    Price[paper][side] = price
-    with open("GUI/Constants/NPPrice.py", "w") as file:
-        file.write("Price = " + repr(Price))
+def setPaperPrice(paper, price):
+    PaperPrice[paper] = price
+    with open("GUI/Constants/NPPaperPrice.py", "w") as file:
+        file.write("PaperPrice = " + repr(PaperPrice))
+
+def setInkPrice(paper, price):
+    InkPrice[paper] = price
+    with open("GUI/Constants/NPInkPrice.py", "w") as file:
+        file.write("InkPrice = " + repr(InkPrice))
