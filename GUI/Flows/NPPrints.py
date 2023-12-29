@@ -218,7 +218,7 @@ class NPPrints:
         self.printingCode = random.randint(100000, 999999)
         self._serverKey = str(self.printingCode)
         self._upload.npset(attribute = "serverKey", value = self._serverKey)
-        self._waitingText = "Waiting for user to upload file ..."
+        self._waitingText = self._currentLanguage["upload"]["data"]["text4"]
         self._fileName = self._waitingText
         self._upload.npset(attribute = "fileName", value = self._fileName)
         
@@ -458,7 +458,7 @@ class NPPrints:
                     try:
                         printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode()
                     except subprocess.CalledProcessError as e:
-                        self._master.after(100, handlePrintError, self._currentLanguage["error"]["message"]["errorCritical"], self._currentLanguage["popup"]["error"]["systemError"])
+                        self._master.after(100, handlePrintError, self._currentLanguage["errorLog"]["message"]["errorCritical"], self._currentLanguage["popup"]["error"]["systemError"])
                         isCommandError = True
                     if (printer_status.find("idle") != -1):
                         break

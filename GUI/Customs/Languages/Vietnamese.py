@@ -31,6 +31,7 @@ Vietnamese = {
             "text1": "Link: ",
             "text2": "Key: ",
             "text3": "Tên file: ",
+            "text4": "Chờ tải file lên..."
         },
         "control": {
             "left": "Trở lại",
@@ -76,6 +77,7 @@ Vietnamese = {
             "text0": "Tên file: ",
             "text1": "Số bản sao: ",
             "text2": "Tổng tiền: ",
+            "text3": "Mã đơn: "
         },
         "control": {
             "left": "Trở lại",
@@ -166,6 +168,7 @@ Vietnamese = {
         "data": {
             "title": "Quản lý",
             "text0": "Đơn giá: A3",
+            "text1": "Vui lòng nhấn confirm sau khi điều chỉnh đơn giá."
         },
         "control": {
             "left": "Trở lại",
@@ -181,6 +184,7 @@ Vietnamese = {
         "data": {
             "title": "Quản lý",
             "text0": "Đơn giá: A4",
+            "text1": "Vui lòng nhấn confirm sau khi điều chỉnh đơn giá."
         },
         "control": {
             "left": "A3",
@@ -196,6 +200,7 @@ Vietnamese = {
         "data": {
             "title": "Quản lý",
             "text0": "Đơn giá: A5",
+            "text1": "Vui lòng nhấn confirm sau khi điều chỉnh đơn giá."
         },
         "control": {
             "left": "A4",
@@ -320,11 +325,62 @@ Vietnamese = {
         },
         "interact": {
             "text0": "Bảng điều khiển Admin",
-            "text1": "Hướng dẫn sử dụng cho Admin",
+            "text1": "Hướng dẫn cho Admin",
             "text2": "Kiểm tra lỗi hệ thống",
             "text3": "Future feature",
             "text4": "Tắt chương trình",
         },
+    },
+    "adminInstruction": {
+        "data": {
+            "title": "Admin",
+            "subtitle": "Hướng dẫn cho Admin",
+            "text1": "Chọn 'Kiểm tra lỗi hệ thống' để xem lỗi hiện tại để sửa. Sau khi sửa lỗi, vui lòng chọn 'Tắt lỗi' để xóa lỗi và chạy lại hệ thống.",
+            "text2": "Lưu ý: Việc 'Tắt lỗi' không đảm bảo hệ thống đã hết lỗi mà chỉ xóa cờ báo lỗi để người dùng được phép sử dụng hệ thống."
+        },
+        "control": {
+            "back": "Trở lại",
+            "more": "Xem thêm",
+            "start": "Từ đầu"
+        },
+        "interact": {
+            "errorLostConnection": {
+                "text0": "- Tắt chương trình.",
+                "text1": "- Mở hộp bảng điều khiển, kết nối với chuột và bàn phím rời để truy cập lại mạng Wifi.",
+                "text2": "- Khởi động lại chương trình.",
+                "text3": "- Tắt lỗi để người dùng tiếp tục in.",
+            },
+            "errorTransferAmount": {
+                "text0": "- Kiểm tra số tiền chuyển sai để hoàn tiền/thu thêm thủ công.",
+                "text1": "- Tắt lỗi để người dùng tiếp tục in",
+                "text2": "",
+            },
+            "errorPaymentCheck": {
+                "text0": "- Tạm thời: Kiểm tra kết nối với MightyText và số tiền người dùng đã chuyển. Tắt lỗi để người dùng tiếp tục in.",
+                "text1": "- Lâu dài: Liên hệ đơn vị bảo trì hệ thống.",
+                "text2": "",
+            },
+            "errorPaperStuck": {
+                "text0": "- Kiểm tra và sửa máy in, bổ sung thêm giấy nếu cần.",
+                "text1": "- Tắt lỗi để người dùng tiếp tục in.",
+                "text2": "",
+            },
+            "errorOutOfPaper": {
+                "text0": "- Kiểm tra và sửa máy in, bổ sung thêm giấy nếu cần.",
+                "text1": "- Tắt lỗi để người dùng tiếp tục in.",
+                "text2": "",
+            },
+            "errorPrintFile": {
+                "text0": "- Tắt lỗi để người dùng tiếp tục in.",
+                "text1": "- Bắt đầu quá trình đặt in lại từ đầu.",
+                "text2": "",
+            },
+            "errorCritical": {
+                "text0": "- Hệ thống không thể nhận diện được lỗi này. Vui lòng thử kiểm tra các vấn đề thường gặp như: kẹt giấy, hết mực/giấy, v.v",
+                "text1": "- Tắt lỗi và chạy thử lại hệ thống.",
+                "text2": "- Nếu vẫn tiếp tục gặp lỗi, vui lòng liên hệ đơn vị bảo trì thiết bị.",
+            },
+        }
     },
     "adminError": {
         "data": {
@@ -390,8 +446,11 @@ Vietnamese = {
             "errorLostConnection": "Mất kết nối mạng",
             "errorTransferAmount_1": "Chuyển khoản sai số tiền. Đơn hàng #",
             "errorTransferAmount_2": "đã gửi: ",
-            "errorPaymentCheck": "Lỗi hệ thống kiểm tra thanh toán.",
-            "errorCritical": "Vui lòng liên hệ đơn vị bảo trì hệ thống."
+            "errorPaymentCheck": "Hệ thống kiểm tra thanh toán bị lỗi.",
+            "errorPaperStuck": "Kẹt giấy.",
+            "errorOutOfPaper": "Hết giấy.",
+            "errorPrintFile": "File in bị lỗi.",
+            "errorCritical": "Lỗi nghiêm trọng."
         }
     }
 }

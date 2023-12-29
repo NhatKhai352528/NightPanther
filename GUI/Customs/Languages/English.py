@@ -35,6 +35,7 @@ English = {
             "text1": "Link: ",
             "text2": "Key: ",
             "text3": "File name: ",
+            "text4": "Wait for file upload..."
         },
         "control": {
             "left": "Back",
@@ -80,6 +81,7 @@ English = {
             "text0": "File name: ",
             "text1": "Number of copies: ",
             "text2": "Total price: ",
+            "text3": "Order ID: "
         },
         "control": {
             "left": "Back",
@@ -170,6 +172,7 @@ English = {
         "data": {
             "title": "Manage",
             "text0": "A3 Pricing",
+            "text1": "Please confirm after modifying the price."
         },
         "control": {
             "left": "Back",
@@ -185,6 +188,7 @@ English = {
         "data": {
             "title": "Manage",
             "text0": "A4 Pricing",
+            "text1": "Please confirm after modifying the price."
         },
         "control": {
             "left": "Setup A3",
@@ -200,6 +204,7 @@ English = {
         "data": {
             "title": "Manage",
             "text0": "A5 Pricing",
+            "text1": "Please confirm after modifying the price."
         },
         "control": {
             "left": "Setup A4",
@@ -331,6 +336,57 @@ English = {
             "text4": "Turn off program",
         },
     },
+    "adminInstruction": {
+        "data": {
+            "title": "Admin",
+            "subtitle": "Admin Guideline",
+            "text1": "Choose 'View system error' to check current errors. After done fixing, choose 'Done fixing' to delete errors and re-run program.",
+            "text2": "Caution: 'Done fixing' doesn't guarantee the system would function normally. This only delete the error flag to let user use the system."
+        },
+        "control": {
+            "back": "Back",
+            "more": "See more",
+            "start": "To start"
+        },
+        "interact": {
+            "errorLostConnection": {
+                "text0": "- Turn off program.",
+                "text1": "- Open dashboard case, connect to mouse and keyboard to connect to Wifi.",
+                "text2": "- Restart the program.",
+                "text3": "- Click 'Done fixing' for user to use.",
+            },
+            "errorTransferAmount": {
+                "text0": "- Check the wrong transferred amount to refund/charge more in person.",
+                "text1": "- Click 'Done fixing' for user to use.",
+                "text2": "",
+            },
+            "errorPaymentCheck": {
+                "text0": "- Temporary: Check connection/transferred amount to MightyText. Click 'Done fixing' for user to use.",
+                "text1": "- Long-term: Contact device maintainer.",
+                "text2": "",
+            },
+            "errorPaperStuck": {
+                "text0": "- Check printer error, add more paper if needed.",
+                "text1": "- Click 'Done fixing' for user to use.",
+                "text2": "",
+            },
+            "errorOutOfPaper": {
+                "text0": "- Check printer error, add more paper if needed.",
+                "text1": "- Click 'Done fixing' for user to use.",
+                "text2": "",
+            },
+            "errorPrintFile": {
+                "text0": "- Click 'Done fixing' for user to use.",
+                "text1": "- Restart the entire printing process.",
+                "text2": "",
+            },
+            "errorUnknown": {
+                "text0": "- System can't detect this error. Please try checking common error, such as: paper stuck, out of ink/paper, etc.",
+                "text1": "- Click 'Done fixing' for user to use.",
+                "text2": "- If you still encounter the same problem, please contact device maintainer.",
+            },
+        }
+    },
     "adminError": {
         "data": {
             "title": "Admin",
@@ -359,7 +415,7 @@ English = {
             "dark": "Dark"
         }
     },
-        "popup":{
+    "popup":{
         "guide":{
             "goToHelpFromAny": "Click 'Back' before going to 'Help Center'.",
             "goToSettingFromSubflow": "Click 'Back' before going 'Settings'.",
@@ -382,7 +438,6 @@ English = {
             "incorrectPassword": "Wrong password. Please try again.",
             "lostConnection": "Lost connection. Please go to 'Help Center' to contact Admin.",
             "wrongTransferAmount": "Transferred wrong amount. Please go to 'Help Center' to contact Admin.",
-
         },
         "options": {
             "return": "Yes",
@@ -397,7 +452,10 @@ English = {
             "errorTransferAmount_1": "Transfer wrong amount. Order #",
             "errorTransferAmount_2": "transferred: ",
             "errorPaymentCheck": "Payment checking system failed.",
-            "errorCritical": "Please contact system maintain"
+            "errorPaperStuck": "Paper stuck.",
+            "errorOutOfPaper": "Run out of paper.",
+            "errorPrintFile": "File to print failed.",
+            "errorUnknown": "Unknown error."
         }
-    }
+    },
 }
