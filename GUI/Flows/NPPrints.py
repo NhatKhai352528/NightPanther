@@ -80,7 +80,7 @@ class NPPrints:
         self._upload = NPUpload(master = self._master, commands = [None, lambda event = None: self._uploadToFormat()], serverLink = self._serverLink, serverKey = self._serverKey, fileName = self._fileName)
         self._upload.place()
         getServerVariables = Thread(target = self._getServerVariables)
-        # getServerVariables.start()
+        getServerVariables.start()
     
     def destroy(self):
         attributes = ["_upload", "_format", "_flip", "_order", "_payment", "_printing", "_success"]
@@ -327,7 +327,7 @@ class NPPrints:
                 while True:
                     messageIndex = messageIndex + 1
                     try:
-                        messageList = browser.find_elements(By.XPATH,'/html/body/div[1]/div/div/div[3]/div/div[2]/div[1]/div[2]/div[1]')
+                        messageList = browser.find_elements(By.XPATH,'/html/body/div[1]/div/div/div[3]/div/div[2]/div[1]/div[2]/div[' + str(messageIndex) + ']')
                     except NoSuchElementException:
                         break
 
@@ -353,13 +353,18 @@ class NPPrints:
             if (payment == self._userPrice):
                 self._paymentToPrinting()
             else:
+<<<<<<< HEAD
                 messageStr = str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount"]) + str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_1"]) + str(self._serverKey) + ": " + str(self._userPrice) + str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_2"]) + paymentStr + ")."
                 self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["confirm"]["message"]["wrongTransferAmount"], [None, "OK"], [None, lambda event = None: self._paymentCancel(error = messageStr), None])
+=======
+                messageStr = str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_1"]) + str(self._serverKey) + " (" + str(self._userPrice) + str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_2"]) + paymentStr + ")."
+                self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["popup"]["error"]["wrongTransferAmount"], [None, "OK"], [None, lambda event = None: self._paymentCancel(error = messageStr)])
+>>>>>>> f2b4577 (fix: fix transfer amount error log)
         except Exception as e:
             try:
                 if self.paymentCancelEvent.is_set() == False:
                     print(str(e))
-                    self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["popup"]["error"]["systemError"], [None, "OK"], [None, lambda event = None: self._paymentCancel(self._currentLanguage["errorLog"]["message"]["errorPaymentCheck"]), None])
+                    self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["popup"]["error"]["systemError"], [None, "OK"], [None, lambda event = None: self._paymentCancel(self._currentLanguage["errorLog"]["message"]["errorPaymentCheck"])])
             except Exception:
                 return
     
