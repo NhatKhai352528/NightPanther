@@ -402,12 +402,12 @@ class NPPrints:
 
         # Landscape attribute
         if mediabox.right > mediabox.top:
-            if rotation in [0, 180, None]:
+            if rotation == None or rotation % 180 == 0:
                 return True
             else:
                 return False
         else:
-            if rotation in [0, 180, None]:
+            if rotation == None or rotation % 180 == 0:
                 return False
             else:
                 return True

@@ -1,2 +1,3 @@
-python main.py &
-node ../CO3091_BE/server.js &
+python main.py & 
+cd ../CO3091_BE
+node server.js
