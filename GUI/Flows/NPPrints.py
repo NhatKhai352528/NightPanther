@@ -8,7 +8,10 @@ from ..Pages.Prints.NPPayment import NPPayment
 from ..Pages.Prints.NPPrinting import NPPrinting
 from ..Pages.Prints.NPSuccess import NPSuccess
 from ..Pages.Prints.NPUpload import NPUpload
-from ..Constants.NPPrice import Price
+from ..Constants.NPPaperPrice import PaperPrice
+from ..Constants.NPInkPrice import InkPrice
+from ..Constants.NPPaper import Paper
+from ..Constants.NPSides import Sides
 import subprocess
 import qrcode
 import random
@@ -96,10 +99,8 @@ class NPPrints:
         # Reset web server to waiting for new order
         resetMessage = "reset"
         globals.webServerSocket.send(resetMessage.encode())
-        availablePaper = [list(value.values()) for value in Price.values()]
-        availableSides = [[availablePaper[j][i] for j in range(len(availablePaper))] for i in range(len(availablePaper[0]))]
-        availablePaper = [False if row == [None, None] else True for row in availablePaper]
-        availableSides = [False if row == [None, None, None] else True for row in availableSides]
+        availablePaper = Paper.values()
+        availableSides = Sides.values()
         self._format = NPFormat(master = self._master, commands = [None, lambda event = None: self._formatToFlip()], fileName = self._fileName, availablePaper = availablePaper, availableSides = availableSides)
         self._format.place()
         self._upload.place_forget()
@@ -126,7 +127,11 @@ class NPPrints:
     def _formatToOrder(self):
         reader = PdfReader("../CO3091_BE/user_file.pdf")
         # reader = PdfReader("./CO3091_BE/user_file.pdf")
-        self._filePrice = Price[self._filePaper][self._fileSides] * len(reader.pages)
+        self._filePrice = PaperPrice[self._filePaper] * len(reader.pages)
+        if self._fileSides == "1s":
+            self._filePrice = self._filePrice + InkPrice[self._filePaper] * len(reader.pages)
+        else:
+            self._filePrice = self._filePrice + 2 * InkPrice[self._filePaper] * len(reader.pages)
         if self._order == None:
             self._order = NPOrder(master = self._master, commands = [lambda event = None: self._orderToFormat(), lambda event = None: self._orderToPayment()], fileName = self._fileName, filePrice = self._filePrice)
         else:
@@ -139,7 +144,11 @@ class NPPrints:
         self._fileFlip = self._flip.npget(attribute = "fileFlip")
         reader = PdfReader("../CO3091_BE/user_file.pdf")
         # reader = PdfReader("./CO3091_BE/user_file.pdf")
-        self._filePrice = Price[self._filePaper][self._fileSides] * len(reader.pages)
+        self._filePrice = PaperPrice[self._filePaper] * len(reader.pages)
+        if self._fileSides == "1s":
+            self._filePrice = self._filePrice + InkPrice[self._filePaper] * len(reader.pages)
+        else:
+            self._filePrice = self._filePrice + 2 * InkPrice[self._filePaper] * len(reader.pages)
         if self._order == None:
             self._order = NPOrder(master = self._master, commands = [lambda event = None: self._orderToFlip(), lambda event = None: self._orderToPayment()], fileName = self._fileName, filePrice = self._filePrice)
         else:
