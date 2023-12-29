@@ -28,6 +28,12 @@ class NPTk(Tk):
     def mainloop(self):
         super().mainloop()
     
+    def place(self):
+        # Do not move this import
+        from ..Flows.NPFlows import NPFlows
+        self._flows = NPFlows(master = self)
+        self._flows.place()
+    
     def destroy(self):
         globals.webServerSocket.shutdown(socket.SHUT_RDWR)
         globals.webServerSocket.close()

@@ -8,7 +8,8 @@ NPTheme.setTheme(themeCode = 1)
 from .Customs.NPLanguage import NPLanguage
 NPLanguage.setLanguage(languageCode = 1)
 
-root.resetFlows()
+# root.resetFlows()
+root.place()
 
 def tester():
     try:
@@ -16,6 +17,6 @@ def tester():
     except:
         print("Fail")
     root.after(1000, tester)
-#root.after(1000, tester)
+root.after(1000, tester)
 
 root.mainloop()

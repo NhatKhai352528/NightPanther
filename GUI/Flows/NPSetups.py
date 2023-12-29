@@ -22,6 +22,8 @@ class NPSetups:
         self._a4Price = None
         self._a5Price = None
         
+        self._pricePages = Literal["_a3Price", "_a4Price", "_a5Price"]
+        
         self._pages = Literal["_origin", "_paper", "_sides", "_a3Price", "_a4Price", "_a5Price"]
         self._currentPage: Optional[self._pages] = None
     
@@ -36,13 +38,7 @@ class NPSetups:
             getattr(self, self._currentPage).place_forget()
     
     def destroy(self):
-        # attributes = ["_origin", "_paper", "_sides", "_a3Price", "_a4Price", "_a5Price"]
-        # for attribute in attributes:
-        #     try:
-        #         getattr(self, attribute).destroy()
-        #     except:
-        #         pass
-        for page in self._pages:
+        for page in self._pages.__args__:
             try:
                 getattr(self, page).destroy()
             except:
@@ -111,10 +107,9 @@ class NPSetups:
     def _priceToOrigin(self):
         self._origin.place()
         self._currentPage = "_origin"
-        attributes = ["_a3Price", "_a4Price", "_a5Price"]
-        for attribute in attributes:
+        for page in self._pricePages.__args__:
             try:
-                getattr(self, attribute).destroy()
+                getattr(self, page).destroy()
             except:
                 pass
-            setattr(self, attribute, None)
+            setattr(self, page, None)

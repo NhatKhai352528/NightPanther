@@ -1,5 +1,5 @@
 from tkinter import Tk
-from typing import Any
+from typing import Any, Literal, Optional
 from ..Pages.Settings.NPPrimary import NPPrimary
 
 class NPSettings:
@@ -12,15 +12,28 @@ class NPSettings:
         # Pages
         self._primary = None
         
+        self._pages = Literal["_primary"]
+        self._currentPage: Optional[self._pages] = None
+        
     def place(self):
-        self._primary = NPPrimary(master = self._master, commands = [self._destroyCommand, None])
-        self._primary.place()
+        if self._currentPage == None:
+            self._initPrimary()
+        else:
+            getattr(self, self._currentPage).place()
+    
+    def place_forget(self):
+        if self._currentPage != None:
+            getattr(self, self._currentPage).place_forget()
     
     def destroy(self):
-        attributes = ["_primary"]
-        for attribute in attributes:
+        for page in self._pages.__args__:
             try:
-                getattr(self, attribute).destroy()
+                getattr(self, page).destroy()
             except:
                 pass
         self.__dict__.clear()
+    
+    def _initPrimary(self):
+        self._primary = NPPrimary(master = self._master, commands = [self._destroyCommand, None])
+        self._primary.place()
+        self._currentPage = "_primary"
