@@ -430,7 +430,7 @@ Vietnamese = {
             "goToAdminFromAny": "Nhấn 'Trở lại' trước khi chuyển tới 'Admin'.",
             "goToSetupNotLoggedIn": "Vui lòng đăng nhập với tài khoản Admin.",
             "uploadBeforeFormat": "Vui lòng tải tài liệu lên hệ thống.",
-            "callUs": "Số điện thoại: (+84) 358 386 8964",
+            "callUs": "Số điện thoại: (+84) 358 386 864",
             "noError": "Hệ thống hoạt động bình thường.",
         },
         "confirm": {

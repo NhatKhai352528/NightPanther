@@ -436,7 +436,7 @@ English = {
             "goToSetupNotLoggedIn": "Log in as admin first.",
             "reset": "Current progress will be lost. Are you sure you want to go back?",
             "uploadBeforeFormat": "Please upload file to print.",
-            "callUs": "Phone number: (+84) 358 386 8964",
+            "callUs": "Phone number: (+84) 358 386 864",
             "noError": "The system is functioning normally.",
         },
         "confirm": {

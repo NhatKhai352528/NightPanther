@@ -5,6 +5,8 @@ from ..Pages.Helps.NPInitial import NPInitial
 from ..Pages.Helps.NPPay import NPPay
 from ..Pages.Helps.NPPrint import NPPrint
 from ..Pages.Helps.NPUpload import NPUpload
+from ..Customs.NPLanguage import NPLanguage
+from ..Objects.NPConfirmBox import NPConfirmBox
 
 class NPHelps:
     
@@ -12,7 +14,9 @@ class NPHelps:
     
         self._master = master
         self._destroyCommand = destroyCommand
-        
+
+        self._currentLanguage = NPLanguage.getLanguage()
+
         # Pages
         self._initial = None
         self._upload = None
@@ -41,13 +45,16 @@ class NPHelps:
                 pass
         self.__dict__.clear()
     
+    def _showContact(self):
+        NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["guide"]["callUs"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
+
     def _initInitial(self):
-        self._initial = NPInitial(master = self._master, commands = [self._destroyCommand, None], switchCommands = [lambda event = None: self._initialToUpload(), lambda event = None: self._initialToPrint(), lambda event = None: self._initialToPay(), lambda event = None: self._initialToError(), None])
+        self._initial = NPInitial(master = self._master, commands = [self._destroyCommand, lambda event = None: self._showContact()], switchCommands = [lambda event = None: self._initialToUpload(), lambda event = None: self._initialToPrint(), lambda event = None: self._initialToPay(), lambda event = None: self._initialToError(), None])
         self._initial.place()
         self._currentPage = "_initial"
     
     def _initialToUpload(self):
-        self._upload = NPUpload(master = self._master, commands = [lambda event = None: self._uploadToInitial(), None])
+        self._upload = NPUpload(master = self._master, commands = [lambda event = None: self._uploadToInitial(), lambda event = None: self._showContact()])
         self._upload.place()
         self._currentPage = "_upload"
         self._initial.place_forget()
@@ -59,7 +66,7 @@ class NPHelps:
         self._upload = None
 
     def _initialToPrint(self):
-        self._print = NPPrint(master = self._master, commands = [lambda event = None: self._printToInitial(), None])
+        self._print = NPPrint(master = self._master, commands = [lambda event = None: self._printToInitial(), lambda event = None: self._showContact()])
         self._print.place()
         self._currentPage = "_print"
         self._initial.place_forget()
@@ -71,7 +78,7 @@ class NPHelps:
         self._print = None
     
     def _initialToPay(self):
-        self._pay = NPPay(master = self._master, commands = [lambda event = None: self._payToInitial(), None])
+        self._pay = NPPay(master = self._master, commands = [lambda event = None: self._payToInitial(), lambda event = None: self._showContact()])
         self._pay.place()
         self._currentPage = "_pay"
         self._initial.place_forget()
@@ -83,7 +90,7 @@ class NPHelps:
         self._pay = None
     
     def _initialToError(self):
-        self._error = NPError(master = self._master, commands = [lambda event = None: self._errorToInitial(), None])
+        self._error = NPError(master = self._master, commands = [lambda event = None: self._errorToInitial(), lambda event = None: self._showContact()])
         self._error.place()
         self._currentPage = "_error"
         self._initial.place_forget()
