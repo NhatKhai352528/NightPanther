@@ -25,17 +25,17 @@ class NPTutorial1(NPPages):
 
         # Error unknown
         self._interact.initText(mode = "footnote", text = "", justify = "center")
-        self._interact.initText(mode = "heading", text = self._currentLanguage["errorLog"]["message"]["errorUnknown"], justify = "left")
-        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorUnknown"]["text0"], justify = "left")
-        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorUnknown"]["text1"], justify = "left")
-        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorUnknown"]["text2"], justify = "left")
+        self._interact.initText(mode = "contentBold", text = self._currentLanguage["errorLog"]["message"]["errorUnknown"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["interact"]["errorUnknown"]["text0"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["interact"]["errorUnknown"]["text1"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["interact"]["errorUnknown"]["text2"], justify = "left")
         
         # Error lost connection
         self._interact.initText(mode = "footnote", text = "", justify = "center")
-        self._interact.initText(mode = "heading", text = self._currentLanguage["errorLog"]["message"]["errorLostConnection"], justify = "left")
-        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorLostConnection"]["text0"], justify = "left")
-        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorLostConnection"]["text1"], justify = "left")
-        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorLostConnection"]["text2"], justify = "left")
-        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorLostConnection"]["text3"], justify = "left")
+        self._interact.initText(mode = "contentBold", text = self._currentLanguage["errorLog"]["message"]["errorLostConnection"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["interact"]["errorLostConnection"]["text0"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["interact"]["errorLostConnection"]["text1"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["interact"]["errorLostConnection"]["text2"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["interact"]["errorLostConnection"]["text3"], justify = "left")
 
         

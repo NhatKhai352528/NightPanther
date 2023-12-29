@@ -24,12 +24,12 @@ class NPTutorial3(NPPages):
         # Initialize items for interact frame
         # Error file
         self._interact.initText(mode = "footnote", text = "", justify = "center")
-        self._interact.initText(mode = "heading", text = self._currentLanguage["errorLog"]["message"]["errorPaperStuck"], justify = "left")
-        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorPaperStuck"]["text0"], justify = "left")
-        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorPaperStuck"]["text1"], justify = "left")
+        self._interact.initText(mode = "contentBold", text = self._currentLanguage["errorLog"]["message"]["errorPaperStuck"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["interact"]["errorPaperStuck"]["text0"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["interact"]["errorPaperStuck"]["text1"], justify = "left")
 
         # Error wrong transfer amount
         self._interact.initText(mode = "footnote", text = "", justify = "center")
-        self._interact.initText(mode = "heading", text = self._currentLanguage["errorLog"]["message"]["errorOutOfPaper"], justify = "left")
-        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorOutOfPaper"]["text0"], justify = "left")
-        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorOutOfPaper"]["text1"], justify = "left")
+        self._interact.initText(mode = "contentBold", text = self._currentLanguage["errorLog"]["message"]["errorOutOfPaper"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["interact"]["errorOutOfPaper"]["text0"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["interact"]["errorOutOfPaper"]["text1"], justify = "left")

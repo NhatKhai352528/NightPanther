@@ -23,18 +23,18 @@ class NPTutorial2(NPPages):
         
         # Error file
         self._interact.initText(mode = "footnote", text = "", justify = "center")
-        self._interact.initText(mode = "heading", text = self._currentLanguage["errorLog"]["message"]["errorPrintFile"], justify = "left")
-        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorPrintFile"]["text0"], justify = "left")
-        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorPrintFile"]["text1"], justify = "left")
+        self._interact.initText(mode = "contentBold", text = self._currentLanguage["errorLog"]["message"]["errorPrintFile"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["interact"]["errorPrintFile"]["text0"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["interact"]["errorPrintFile"]["text1"], justify = "left")
 
         # Error wrong transfer amount
         self._interact.initText(mode = "footnote", text = "", justify = "center")
-        self._interact.initText(mode = "heading", text = self._currentLanguage["errorLog"]["message"]["errorTransferAmount"], justify = "left")
-        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorTransferAmount"]["text0"], justify = "left")
-        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorTransferAmount"]["text1"], justify = "left")
+        self._interact.initText(mode = "contentBold", text = self._currentLanguage["errorLog"]["message"]["errorTransferAmount"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["interact"]["errorTransferAmount"]["text0"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["interact"]["errorTransferAmount"]["text1"], justify = "left")
 
         # Error Payment checking system
         self._interact.initText(mode = "footnote", text = "", justify = "center")
-        self._interact.initText(mode = "heading", text = self._currentLanguage["errorLog"]["message"]["errorPaymentCheck"], justify = "left")
-        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorPaymentCheck"]["text0"], justify = "left")
-        self._interact.initText(mode = "small", text = self._currentLanguage["adminInstruction"]["interact"]["errorPaymentCheck"]["text1"], justify = "left")
+        self._interact.initText(mode = "contentBold", text = self._currentLanguage["errorLog"]["message"]["errorPaymentCheck"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["interact"]["errorPaymentCheck"]["text0"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["adminInstruction"]["interact"]["errorPaymentCheck"]["text1"], justify = "left")

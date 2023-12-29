@@ -38,6 +38,9 @@ class NPData(NPFrames):
         elif mode == "content":
             currentFont = self._currentTheme["font"]["normal"]
             currentForeground = self._currentTheme["foreground"]["default"]
+        else:
+            currentFont = self._currentTheme["font"]["default"]
+            currentForeground = self._currentTheme["foreground"]["default"]
         
         # Define a new text label, place it onto the frame, and update position for the next item
         self._items.append(NPTextLabel(master = self._frame, x = self._distance, y = self._currentY, width = self._width - 2 * self._distance, anchor = "nw", background = self._currentTheme["background"]["default"], font = currentFont, foreground = currentForeground, justify = "left", text = text, textAnchor = "nw", underline = -1, wraplength = 0 if wrap == False else self._width - 2 * self._distance))

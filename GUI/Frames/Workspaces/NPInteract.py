@@ -71,7 +71,7 @@ class NPInteract(NPFrames):
     #
     # NPTextLabel
     
-    def initText(self, mode: Literal["section", "heading", "content", "small", "footnote"], text: str, justify: Literal["left", "center", "right"]):
+    def initText(self, mode: Literal["section", "heading", "content", "contentBold", "smallThin", "footnote"], text: str, justify: Literal["left", "center", "right"]):
         
         # Get current font and foreground
         if mode == "section":
@@ -83,11 +83,17 @@ class NPInteract(NPFrames):
         elif mode == "content":
             currentFont = self._currentTheme["font"]["normal"]
             currentForeground = self._currentTheme["foreground"]["default"]
-        elif mode == "small":
-            currentFont = self._currentTheme["font"]["small"]
+        elif mode == "contentBold":
+            currentFont = self._currentTheme["font"]["strong"]
+            currentForeground = self._currentTheme["foreground"]["default"]
+        elif mode == "smallThin":
+            currentFont = self._currentTheme["font"]["smallThin"]
             currentForeground = self._currentTheme["foreground"]["default"]
         elif mode == "footnote":
             currentFont = self._currentTheme["font"]["tiny"]
+            currentForeground = self._currentTheme["foreground"]["default"]
+        else:
+            currentFont = self._currentTheme["font"]["default"]
             currentForeground = self._currentTheme["foreground"]["default"]
         
         # Define a new text label, place it onto the frame, and update position for the next item

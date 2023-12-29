@@ -21,13 +21,13 @@ class NPUpload(NPPages):
         
         # Initialize items for interact frame
         self._interact.initText(mode = "footnote", text = "", justify = "center")
-        self._interact.initText(mode = "heading", text = self._currentLanguage["helpUpload"]["interact"]["text0"], justify = "left")
-        self._interact.initText(mode = "content", text = self._currentLanguage["helpUpload"]["interact"]["text1"], justify = "left")
+        self._interact.initText(mode = "contentBold", text = self._currentLanguage["helpUpload"]["interact"]["text0"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["helpUpload"]["interact"]["text1"], justify = "left")
 
         self._interact.initText(mode = "footnote", text = "", justify = "center")
-        self._interact.initText(mode = "heading", text = self._currentLanguage["helpUpload"]["interact"]["text2"], justify = "left")
-        self._interact.initText(mode = "content", text = self._currentLanguage["helpUpload"]["interact"]["text3"], justify = "left")
+        self._interact.initText(mode = "contentBold", text = self._currentLanguage["helpUpload"]["interact"]["text2"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["helpUpload"]["interact"]["text3"], justify = "left")
         
         self._interact.initText(mode = "footnote", text = "", justify = "center")
-        self._interact.initText(mode = "heading", text = self._currentLanguage["helpUpload"]["interact"]["text4"], justify = "left")
-        self._interact.initText(mode = "content", text = self._currentLanguage["helpUpload"]["interact"]["text5"], justify = "left")
+        self._interact.initText(mode = "contentBold", text = self._currentLanguage["helpUpload"]["interact"]["text4"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["helpUpload"]["interact"]["text5"], justify = "left")

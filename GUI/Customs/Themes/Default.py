@@ -15,6 +15,7 @@ Default = {
         "strong": Font(family = BasicFont["verdana"], size = 16, weight = "bold", slant = "roman", underline = False, overstrike = False),
         "normal": Font(family = BasicFont["verdana"], size = 16, weight = "normal", slant = "roman", underline = False, overstrike = False),
         "small": Font(family = BasicFont["verdana"], size = 12, weight = "bold", slant = "roman", underline = False, overstrike = False),
+        "smallThin": Font(family = BasicFont["verdana"], size = 12, weight = "normal", slant = "roman", underline = False, overstrike = False),
         "tiny": Font(family = BasicFont["verdana"], size = 8, weight = "normal", slant = "italic", underline = False, overstrike = False),
     },
     "foreground": {

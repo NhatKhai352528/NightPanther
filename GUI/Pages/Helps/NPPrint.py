@@ -21,4 +21,5 @@ class NPPrint(NPPages):
         
         # Initialize items for interact frame
         self._interact.initText(mode = "footnote", text = "", justify = "center")
-        self._interact.initText(mode = "content", text = self._currentLanguage["helpPrint"]["interact"]["text1"], justify = "left")
+        self._interact.initText(mode = "contentBold", text = self._currentLanguage["helpPrint"]["interact"]["text0"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["helpPrint"]["interact"]["text1"], justify = "left")

@@ -309,8 +309,8 @@ Vietnamese = {
             "right": "Liên hệ",
         },
         "interact": {
-            "text0": "Liên hệ qua SĐT trong mục 'Trợ giúp' khi bạn gặp phải bất kỳ lỗi nào.",
-            "text1": "Vui lòng không tự sửa trang thiết bị."
+            "text0": "Hệ thống báo lỗi.",
+            "text1": "Liên hệ qua SĐT trong mục 'Trợ giúp' khi bạn gặp phải bất kỳ lỗi nào. Vui lòng không tự sửa trang thiết bị."
         },
     },
     "adminVerify":{

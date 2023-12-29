@@ -21,13 +21,13 @@ class NPPay(NPPages):
         
         # Initialize items for interact frame
         self._interact.initText(mode = "footnote", text = "", justify = "center")
-        self._interact.initText(mode = "heading", text = self._currentLanguage["helpPay"]["interact"]["text0"], justify = "left")
-        self._interact.initText(mode = "content", text = self._currentLanguage["helpPay"]["interact"]["text1"], justify = "left")
+        self._interact.initText(mode = "contentBold", text = self._currentLanguage["helpPay"]["interact"]["text0"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["helpPay"]["interact"]["text1"], justify = "left")
         
         self._interact.initText(mode = "footnote", text = "", justify = "center")
-        self._interact.initText(mode = "heading", text = self._currentLanguage["helpPay"]["interact"]["text2"], justify = "left")
-        self._interact.initText(mode = "content", text = self._currentLanguage["helpPay"]["interact"]["text3"], justify = "left")
+        self._interact.initText(mode = "contentBold", text = self._currentLanguage["helpPay"]["interact"]["text2"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["helpPay"]["interact"]["text3"], justify = "left")
 
         self._interact.initText(mode = "footnote", text = "", justify = "center")
-        self._interact.initText(mode = "heading", text = self._currentLanguage["helpPay"]["interact"]["text4"], justify = "left")
-        self._interact.initText(mode = "content", text = self._currentLanguage["helpPay"]["interact"]["text5"], justify = "left")
+        self._interact.initText(mode = "contentBold", text = self._currentLanguage["helpPay"]["interact"]["text4"], justify = "left")
+        self._interact.initText(mode = "smallThin", text = self._currentLanguage["helpPay"]["interact"]["text5"], justify = "left")
