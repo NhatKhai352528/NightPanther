@@ -70,7 +70,7 @@ English = {
         },
         "interact": {
             "text0": "Paper flipping",
-            "text1": "Top-Bottom                      Left-Right"
+            "text1": "Top-Bottom        Left-Right"
         }
     },
     "order": {

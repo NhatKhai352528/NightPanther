@@ -66,7 +66,7 @@ Vietnamese = {
         },
         "interact": {
             "text0": "Chiều lật giấy",
-            "text1": "Trên-Dưới                      Trái-Phải"
+            "text1": "Trên-Dưới           Trái-Phải"
         }
     },
     "order": {

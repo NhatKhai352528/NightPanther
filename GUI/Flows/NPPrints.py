@@ -93,12 +93,13 @@ class NPPrints:
     
     def _uploadToFormat(self):
         # User not upload file
-        if self._fileName == self._waitingText:
+        if self._fileName == self._waitingText and globals.runningMode == "Release":
             NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["guide"]["uploadBeforeFormat"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
             return
         # Reset web server to waiting for new order
         resetMessage = "reset"
-        globals.webServerSocket.send(resetMessage.encode())
+        if globals.runningMode == "Release":
+            globals.webServerSocket.send(resetMessage.encode())
         availablePaper = Paper.values()
         availableSides = Sides.values()
         self._format = NPFormat(master = self._master, commands = [None, lambda event = None: self._formatToFlip()], fileName = self._fileName, availablePaper = availablePaper, availableSides = availableSides)
@@ -112,7 +113,7 @@ class NPPrints:
             self._formatToOrder()
             return
         if self._flip == None:
-            self._flip = NPFlip(master = self._master, commands = [lambda event = None: self._flipToFormat(), lambda event = None: self._flipToOrder()], fileLayout = "landscape" if self._isPageLandscape(0, PdfReader("../CO3091_BE/user_file.pdf")) else "portrait")
+            self._flip = NPFlip(master = self._master, commands = [lambda event = None: self._flipToFormat(), lambda event = None: self._flipToOrder()], fileLayout = "landscape" if self._isPageLandscape(0, PdfReader("../CO3091_BE/user_file.pdf")) else "portrait", fileName = self._fileName)
             # self._flip = NPFlip(master = self._master, commands = [lambda event = None: self._flipToFormat(), lambda event = None: self._flipToOrder()], fileLayout = "landscape" if self._isPageLandscape(0, PdfReader("./CO3091_BE/user_file.pdf")) else "portrait")
         else:
             self._flip.npset(attribute = "fileLayout", value = "landscape" if self._isPageLandscape(0, PdfReader("../CO3091_BE/user_file.pdf")) else "portrait")
@@ -216,11 +217,12 @@ class NPPrints:
         self._printing.initControlButton(position = 'right', command = lambda event = None: self._printToPause(), state = 'normal', text = self._currentLanguage["printing"]["control"]["pause"])
     
     def _getServerVariables(self):
-        self._serverLink = subprocess.check_output(['hostname','-I']).decode().strip().split()[0] + ':3000'
-        self._upload.npset(attribute = "serverLink", value = self._serverLink)
-        uploadQR = qrcode.make("http://" + self._serverLink)
-        type(uploadQR)
-        uploadQR.save("GUI/Images/UploadQR.png")
+        if globals.runningMode == "Release":
+            self._serverLink = subprocess.check_output(['hostname','-I']).decode().strip().split()[0] + ':3000'
+            self._upload.npset(attribute = "serverLink", value = self._serverLink)
+            uploadQR = qrcode.make("http://" + self._serverLink)
+            type(uploadQR)
+            uploadQR.save("GUI/Images/UploadQR.png")
         self._upload.npset(attribute = "serverQRFile", value = "GUI/Images/UploadQR.png")
 
         random.seed()
@@ -231,12 +233,13 @@ class NPPrints:
         self._fileName = self._waitingText
         self._upload.npset(attribute = "fileName", value = self._fileName)
         
-        def _listenWebServer():
-            globals.webServerSocket.send(str(self.printingCode).encode())
-            self._fileName = globals.webServerSocket.recv(1024).decode()
-            self._upload.npset(attribute = "fileName", value = self._fileName)
-        listenWebServer = Thread(target = _listenWebServer)
-        listenWebServer.start()
+        if globals.runningMode == "Release":
+            def _listenWebServer():
+                globals.webServerSocket.send(str(self.printingCode).encode())
+                self._fileName = globals.webServerSocket.recv(1024).decode()
+                self._upload.npset(attribute = "fileName", value = self._fileName)
+            listenWebServer = Thread(target = _listenWebServer)
+            listenWebServer.start()
     
     def _paymentCancelAlert(self):
         NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["confirm"]["cancelOrder"], buttonTexts = [self._currentLanguage["popup"]["options"]["remain"], self._currentLanguage["popup"]["options"]["return"]], buttonCommands = [None, lambda event = None: self._paymentCancel(error = "")])
@@ -265,6 +268,10 @@ class NPPrints:
             self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["popup"]["error"]["lostConnection"], [None, "OK"], [None, lambda event = None: self._paymentCancel(error = self._currentLanguage["errorLog"]["message"]["errorLostConnection"])])
     
     def _paymentCheck(self): 
+        if globals.runningMode == "Debug":
+            sleep(3)
+            self._paymentToPrinting()
+            return
         try:
             googleUserInfo = "/home/pi/Desktop/NPPayCheck"
             option = webdriver.ChromeOptions()
@@ -365,7 +372,7 @@ class NPPrints:
     
     
     def _logError(self, strError):
-        file_log = open("error_log.txt", "a")
+        file_log = open("error_log.txt", "a", encoding = "utf8")
         file_log.write(str(datetime.now().strftime("%Y-%m-%d %H:%M:%S")) + " : " + strError + "\n")
         file_log.close()
         self._master.markErrorOccured()
@@ -428,53 +435,56 @@ class NPPrints:
             for page in range(0, self._filePages):
                 if self.stopEvent.is_set():
                     return
-                writer = PdfWriter()
-                writer.add_page(reader.pages[page])
-                with open("../CO3091_BE/current_page.pdf", "wb") as fp:
-                # with open("./CO3091_BE/current_page.pdf", "wb") as fp:
-                    writer.write(fp)
-                
-                printerFile = open("printer.txt")
-                printerName = printerFile.read().strip()
-                printCommand = ["lp", "-d", printerName, "-o","media=" + getFileSize(), "-n", "1", "-o", "sides=" + getSideOption(), "-o", "fit-to-page"]
-                if self._isPageLandscape(page, reader):
-                    printCommand.extend(["-o", "landscape]"])
-                printCommand.append("../CO3091_BE/current_page.pdf")
-                # printCommand.append("./CO3091_BE/current_page.pdf")
-                print(printCommand)
-                
-                try:
-                    subprocess.run(printCommand, check = True)
-                except subprocess.CalledProcessError as e:
-                    self._master.after(100, handlePrintError, self._currentLanguage["errorLog"]["message"]["errorCritical"], self._currentLanguage["popup"]["error"]["systemError"])
-                    return
-
-                # Time out for error
-                def printingTimeOut():
-                    printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode().lower()
-                    print(printer_status)
-                    if (printer_status.find("idle") != -1):
-                        pass
-                    elif (printer_status.find("rendering completed") != -1):
-                        handlePrintError(strError = self._currentLanguage["errorLog"]["message"]["errorCritical"], cfrmError = self._currentLanguage["popup"]["error"]["systemError"])
-                    elif (printer_status.find("sending data to printer") != -1):
-                        handlePrintError(strError = self._currentLanguage["errorLog"]["message"]["errorCritical"], cfrmError = self._currentLanguage["popup"]["error"]["systemError"])
-                    else:
-                        handlePrintError(strError = self._currentLanguage["errorLog"]["message"]["errorCritical"], cfrmError = self._currentLanguage["popup"]["error"]["systemError"])
-                timeOutId = self._master.after(30000, printingTimeOut)
-                isCommandError = False
-                while True:
+                if globals.runningMode == "Release":
+                    writer = PdfWriter()
+                    writer.add_page(reader.pages[page])
+                    with open("../CO3091_BE/current_page.pdf", "wb") as fp:
+                    # with open("./CO3091_BE/current_page.pdf", "wb") as fp:
+                        writer.write(fp)
+                    
+                    printerFile = open("printer.txt", encoding = "utf8")
+                    printerName = printerFile.read().strip()
+                    printCommand = ["lp", "-d", printerName, "-o","media=" + getFileSize(), "-n", "1", "-o", "sides=" + getSideOption(), "-o", "fit-to-page"]
+                    if self._isPageLandscape(page, reader):
+                        printCommand.extend(["-o", "landscape]"])
+                    printCommand.append("../CO3091_BE/current_page.pdf")
+                    # printCommand.append("./CO3091_BE/current_page.pdf")
+                    print(printCommand)
+                    
                     try:
-                        printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode()
+                        subprocess.run(printCommand, check = True)
                     except subprocess.CalledProcessError as e:
                         self._master.after(100, handlePrintError, self._currentLanguage["errorLog"]["message"]["errorCritical"], self._currentLanguage["popup"]["error"]["systemError"])
-                        isCommandError = True
-                    if (printer_status.find("idle") != -1):
-                        break
-                if isCommandError:
-                    return
-                # Print successfully, cancel the error time out
-                self._master.after_cancel(timeOutId)
+                        return
+
+                    # Time out for error
+                    def printingTimeOut():
+                        printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode().lower()
+                        print(printer_status)
+                        if (printer_status.find("idle") != -1):
+                            pass
+                        elif (printer_status.find("rendering completed") != -1):
+                            handlePrintError(strError = self._currentLanguage["errorLog"]["message"]["errorCritical"], cfrmError = self._currentLanguage["popup"]["error"]["systemError"])
+                        elif (printer_status.find("sending data to printer") != -1):
+                            handlePrintError(strError = self._currentLanguage["errorLog"]["message"]["errorCritical"], cfrmError = self._currentLanguage["popup"]["error"]["systemError"])
+                        else:
+                            handlePrintError(strError = self._currentLanguage["errorLog"]["message"]["errorCritical"], cfrmError = self._currentLanguage["popup"]["error"]["systemError"])
+                    timeOutId = self._master.after(30000, printingTimeOut)
+                    isCommandError = False
+                    while True:
+                        try:
+                            printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode()
+                        except subprocess.CalledProcessError as e:
+                            self._master.after(100, handlePrintError, self._currentLanguage["errorLog"]["message"]["errorCritical"], self._currentLanguage["popup"]["error"]["systemError"])
+                            isCommandError = True
+                        if (printer_status.find("idle") != -1):
+                            break
+                    if isCommandError:
+                        return
+                    # Print successfully, cancel the error time out
+                    self._master.after_cancel(timeOutId)
+                else:
+                    sleep(2)
 
                 # Update GUI
                 if self._printerCopy < self._userCopies:

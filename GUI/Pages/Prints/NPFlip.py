@@ -5,11 +5,12 @@ from ...Customs.NPLanguage import NPLanguage
 
 class NPFlip(NPPages):
     
-    def __init__(self, master: Tk, commands: list[Any, Any] = None, fileLayout: str = None):
+    def __init__(self, master: Tk, commands: list[Any, Any] = None, fileLayout: str = None, fileName: str = None):
 
         self._currentLanguage = NPLanguage.getLanguage()
         self._fileLayout = fileLayout
-
+        self._fileName = fileName
+        
         super().__init__(master = master, commands = commands)
         
         # Initialize items for data frame

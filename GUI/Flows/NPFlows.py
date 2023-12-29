@@ -151,7 +151,7 @@ class NPFlows:
     # Setups
     
     def _startsToSetups(self):
-        if self._master.npget(attribute = "mode") != "_admin":
+        if self._master.npget(attribute = "mode") != "admin":
             NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["guide"]["goToSetupNotLoggedIn"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
             return
         if self._currentFlow == "_starts":

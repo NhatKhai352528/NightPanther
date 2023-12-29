@@ -80,7 +80,7 @@ class NPAdmins:
 
     def _adminToError(self):
         if (self._master.npget(attribute = "state") == "error"):
-            error_file = open("error_log.txt", "r")
+            error_file = open("error_log.txt", "r", encoding = "utf8")
             self._error = NPError(master = self._master, commands = [lambda event = None: self._errorToAdmin(), lambda event = None: NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["confirm"]["completeDebug"], buttonTexts = [self._currentLanguage["popup"]["options"]["no"], self._currentLanguage["popup"]["options"]["yes"]], buttonCommands = [None, lambda event = None: self._markErrorFixed()])], errorList = error_file.read().split('\n'))
             error_file.close()
             self._error.place()
@@ -136,7 +136,7 @@ class NPAdmins:
             setattr(self, page, None)
 
     def _markErrorFixed(self):
-        empty_file = open("error_log.txt", "w")
+        empty_file = open("error_log.txt", "w", encoding = "utf8")
         empty_file.close()
         self._master.markErrorFixed()
         self._errorToAdmin()
