@@ -13,21 +13,23 @@ class NPFlip(NPPages):
         super().__init__(master = master, commands = commands)
         
         # Initialize items for data frame
-        self._data.initText(mode = "title", text = self._currentLanguage["welcome"]["data"]["title"], wrap = True)
-        self._data.initText(mode = "content", text = self._currentLanguage["welcome"]["data"]["text0"], wrap = True)
+        self._data.initText(mode = "title", text = self._currentLanguage["flip"]["data"]["title"], wrap = True)
+        self._data.initText(mode = "heading", text = self._currentLanguage["flip"]["data"]["text0"], wrap = False)
+        self._data.initText(mode = "Content", text = self._fileName, wrap = True)
 
         # Initialize items for control frame
-        self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = self._currentLanguage["welcome"]["control"]["left"])
-        self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = self._currentLanguage["welcome"]["control"]["right"])
+        self._control.initButton(position = "left", command = self._commands[0], state = "normal", text = self._currentLanguage["flip"]["control"]["left"])
+        self._control.initButton(position = "right", command = self._commands[1], state = "normal", text = self._currentLanguage["flip"]["control"]["right"])
         
         # Initialize items for interact frame
         self._interact.initText(mode = "footnote", text = "", justify = "center")
-        self._interact.initText(mode = "heading", text = self._currentLanguage["welcome"]["interact"]["text0"], justify = "left")
+        self._interact.initText(mode = "heading", text = self._currentLanguage["flip"]["interact"]["text0"], justify = "left")
         self._interact.initText(mode = "footnote", text = "", justify = "center")
        
         self._fileLayoutIndex = self._interact.initButtonSet(mode = "single", rows = 1, columns = 2, defaults = [["default", "active"]], imageFiles = [[None, None]])
         self._fileLayoutButtonSet = self._interact.npget(attribute = "buttonSet", index = self._fileLayoutIndex)
         self.npset(attribute = "fileLayout", value = self._fileLayout)
+        self._interact.initText(mode = "heading", text = self._currentLanguage["flip"]["interact"]["text1"], justify = "center")
                 
     def npset(self, attribute: str, value: Any = None):
         if attribute == "fileLayout":

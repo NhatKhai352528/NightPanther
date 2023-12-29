@@ -30,7 +30,6 @@ class NPFormat(NPPages):
         
         # Initialize items for data frame
         self._data.initText(mode = "title", text = self._currentLanguage["format"]["data"]["title"], wrap = True)
-        
         self._data.initText(mode = "heading", text = self._currentLanguage["format"]["data"]["text0"], wrap = False)
         self._data.initText(mode = "Content", text = self._fileName, wrap = True)
         

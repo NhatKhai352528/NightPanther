@@ -59,6 +59,20 @@ English = {
             "text1": "Number of side:",
         },
     },
+    "flip": {
+        "data": {
+            "title": "Print options",
+            "text0": "File name: ",
+        },
+        "control": {
+            "left": "Back",
+            "right": "Next",
+        },
+        "interact": {
+            "text0": "Paper flipping",
+            "text1": "Top-Bottom                      Left-Right"
+        }
+    },
     "order": {
         "data": {
             "title": "Your order",

@@ -45,7 +45,6 @@ Vietnamese = {
         "data": {
             "title": "Lựa chọn",
             "text0": "Tên file: ",
-            "text1": "Phi phai",
         },
         "control": {
             "left": "Trở lại",
@@ -55,6 +54,20 @@ Vietnamese = {
             "text0": "Kích thước giấy:",
             "text1": "Số mặt in:",
         },
+    },
+    "flip": {
+        "data": {
+            "title": "Lựa chọn",
+            "text0": "Tên file: ",
+        },
+        "control": {
+            "left": "Trở lại",
+            "right": "Tiếp",
+        },
+        "interact": {
+            "text0": "Chiều lật giấy",
+            "text1": "Trên-Dưới                      Trái-Phải"
+        }
     },
     "order": {
         "data": {
