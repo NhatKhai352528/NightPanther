@@ -41,5 +41,5 @@ class NPA3Price(NPPages):
         self._interact.initText(mode = "content", text = self._currentLanguage["a3Price"]["interact"]["text2"], justify = "center")
         self._a3InkPriceIndex = self._interact.initSpinBox(default = InkPrice["a3"], minimum = 0, maximum = 5000, step = 100, wrap = True, actionCommand = None)
         self._a3InkPriceSpinBox = self._interact.npget(attribute = "spinBox", index = self._a3InkPriceIndex)        
-        if Paper["a3"] and Sides["2s"]:
+        if Paper["a3"]:
             self._a3InkPriceSpinBox.npset(attribute = "actionCommand", value = lambda event = None: setInkPrice("a3", self._a3InkPriceSpinBox.npget(attribute = "value")))

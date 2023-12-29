@@ -214,7 +214,7 @@ class NPPrints:
 
     def _orderCancelAlert(self):
         self._printToPause()
-        NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["confirm"]["reset"], buttonTexts = [self._currentLanguage["popup"]["options"]["remain"], self._currentLanguage["popup"]["options"]["return"]], buttonCommands = [None, lambda event = None: self._printCancelOrder()])
+        NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["confirm"]["cancelOrder"], buttonTexts = [self._currentLanguage["popup"]["options"]["remain"], self._currentLanguage["popup"]["options"]["return"]], buttonCommands = [None, lambda event = None: self._printCancelOrder()])
 
     def _printCancelOrder(self):
         self.stopEvent.set()
