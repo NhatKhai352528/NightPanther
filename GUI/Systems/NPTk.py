@@ -40,13 +40,8 @@ class NPTk(Tk):
         super().destroy()
     
     def resetFlows(self):
-        try:
-            self._flows.destroy()
-        except:
-            pass
-        from ..Flows.NPFlows import NPFlows
-        self._flows = NPFlows(master = self)
-        self._flows.place()
+        self._flows.destroy()
+        self.place()
     
     def _nphash(self, password):
         dig = hmac.new(b'NightPanther', msg = password.encode(), digestmod = hashlib.sha256).digest()

@@ -14,5 +14,3 @@ else:
     (globals.webServerSocket, _) = globals.ipcSocket.accept()
 
 import GUI.gui
-
-
