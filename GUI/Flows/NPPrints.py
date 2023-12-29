@@ -353,13 +353,8 @@ class NPPrints:
             if (payment == self._userPrice):
                 self._paymentToPrinting()
             else:
-<<<<<<< HEAD
-                messageStr = str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount"]) + str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_1"]) + str(self._serverKey) + ": " + str(self._userPrice) + str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_2"]) + paymentStr + ")."
-                self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["confirm"]["message"]["wrongTransferAmount"], [None, "OK"], [None, lambda event = None: self._paymentCancel(error = messageStr), None])
-=======
                 messageStr = str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_1"]) + str(self._serverKey) + " (" + str(self._userPrice) + str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_2"]) + paymentStr + ")."
                 self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["popup"]["error"]["wrongTransferAmount"], [None, "OK"], [None, lambda event = None: self._paymentCancel(error = messageStr)])
->>>>>>> f2b4577 (fix: fix transfer amount error log)
         except Exception as e:
             try:
                 if self.paymentCancelEvent.is_set() == False:
