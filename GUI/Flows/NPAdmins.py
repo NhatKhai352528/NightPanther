@@ -63,8 +63,14 @@ class NPAdmins:
                 setattr(self, attribute, None)
 
     def _adminToError(self):
-        self._initError()
-        self._admin.place_forget()
+        if (self._master.npget(attribute = "state") == "error"):
+            error_file = open("error_log.txt", "r")
+            self._error = NPError(master = self._master, commands = [lambda event = None: self._errorToAdmin(), lambda event = None: NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["confirm"]["completeDebug"], buttonTexts = [self._currentLanguage["popup"]["options"]["no"], self._currentLanguage["popup"]["options"]["yes"]], buttonCommands = [None, lambda event = None: self._markErrorFixed()])], errorList = error_file.read().split('\n'))
+            error_file.close()
+            self._error.place()
+            self._admin.place_forget()
+        else:
+            NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["guide"]["noError"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
 
     def _errorToAdmin(self):
         self._admin.place()
@@ -124,13 +130,3 @@ class NPAdmins:
     def _initVerify(self):
         self._verify = NPVerify(master = self._master, commands = [self._destroyCommand, lambda event = None: self._verifyToAdmin()])
         self._verify.place()
-
-    def _initError(self):
-        if (self._master.npget(attribute = "state") == "error"):
-            error_file = open("error_log.txt", "r")
-            self._error = NPError(master = self._master, commands = [lambda event = None: self._errorToAdmin(), lambda event = None: NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["confirm"]["completeDebug"], buttonTexts = [self._currentLanguage["popup"]["options"]["no"], self._currentLanguage["popup"]["options"]["yes"]], buttonCommands = [None, lambda event = None: self._markErrorFixed()])], errorList = error_file.read().split('\n'))
-            error_file.close()
-            self._error.place()
-        else:
-            NPConfirmBox(master = self._master, messageText = self._currentLanguage["popup"]["guide"]["noError"], buttonTexts = [None, "OK"], buttonCommands = [None, None])
-        
