@@ -1,4 +1,4 @@
 xcompmgr &
-python main.py & 
+python main.py &
 cd ../CO3091_BE
 node server.js
