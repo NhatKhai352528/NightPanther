@@ -378,7 +378,7 @@ class NPPrints:
             if (payment == self._userPrice):
                 self._paymentToPrinting()
             else:
-                messageStr = str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_1"]) + str(self._serverKey) + " (" + str(self._userPrice) + str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_2"]) + paymentStr + ")."
+                messageStr = str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_1"]) + str(self._serverKey) + " (" + str(self._userPrice) + ") " +  str(self._currentLanguage["errorLog"]["message"]["errorTransferAmount_2"]) + paymentStr.replace(',','').strip() + "."
                 self._master.after(100, NPConfirmBox, self._master, self._currentLanguage["popup"]["error"]["wrongTransferAmount"], [None, "OK"], [None, lambda event = None: self._paymentCancel(error = messageStr)])
         except Exception as e:
             try:
@@ -472,7 +472,7 @@ class NPPrints:
                     try:
                         subprocess.run(printCommand, check = True)
                     except subprocess.CalledProcessError as e:
-                        self._master.after(100, handlePrintError, self._currentLanguage["errorLog"]["message"]["errorCritical"], self._currentLanguage["popup"]["error"]["systemError"])
+                        self._master.after(100, handlePrintError, self._currentLanguage["errorLog"]["message"]["errorUnknown"], self._currentLanguage["popup"]["error"]["systemError"])
                         return
 
                     # Time out for error
@@ -482,18 +482,18 @@ class NPPrints:
                         if (printer_status.find("idle") != -1):
                             pass
                         elif (printer_status.find("rendering completed") != -1):
-                            handlePrintError(strError = self._currentLanguage["errorLog"]["message"]["errorCritical"], cfrmError = self._currentLanguage["popup"]["error"]["systemError"])
+                            handlePrintError(strError = self._currentLanguage["errorLog"]["message"]["errorPaperStuck"], cfrmError = self._currentLanguage["popup"]["error"]["systemError"])
                         elif (printer_status.find("sending data to printer") != -1):
-                            handlePrintError(strError = self._currentLanguage["errorLog"]["message"]["errorCritical"], cfrmError = self._currentLanguage["popup"]["error"]["systemError"])
+                            handlePrintError(strError = self._currentLanguage["errorLog"]["message"]["errorUnknown"], cfrmError = self._currentLanguage["popup"]["error"]["systemError"])
                         else:
-                            handlePrintError(strError = self._currentLanguage["errorLog"]["message"]["errorCritical"], cfrmError = self._currentLanguage["popup"]["error"]["systemError"])
-                    timeOutId = self._master.after(30000, printingTimeOut)
+                            handlePrintError(strError = self._currentLanguage["errorLog"]["message"]["errorUnknown"], cfrmError = self._currentLanguage["popup"]["error"]["systemError"])
+                    timeOutId = self._master.after(20000, printingTimeOut)
                     isCommandError = False
                     while True:
                         try:
                             printer_status = subprocess.check_output(["lpstat", "-p", printerName]).decode()
                         except subprocess.CalledProcessError as e:
-                            self._master.after(100, handlePrintError, self._currentLanguage["errorLog"]["message"]["errorCritical"], self._currentLanguage["popup"]["error"]["systemError"])
+                            self._master.after(100, handlePrintError, self._currentLanguage["errorLog"]["message"]["errorUnknown"], self._currentLanguage["popup"]["error"]["systemError"])
                             isCommandError = True
                         if (printer_status.find("idle") != -1):
                             break

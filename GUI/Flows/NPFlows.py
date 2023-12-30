@@ -40,7 +40,7 @@ class NPFlows:
         self._currentToStarts()
     
     def destroy(self):
-        for flow in self._flows:
+        for flow in self._flows.__args__:
             try:
                 getattr(self, flow).destroy()
             except:

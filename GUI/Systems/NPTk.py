@@ -7,6 +7,7 @@ import base64
 import os
 import globals
 import socket
+import subprocess
 
 class NPTk(Tk):
     
@@ -37,6 +38,9 @@ class NPTk(Tk):
     def destroy(self):
         globals.webServerSocket.shutdown(socket.SHUT_RDWR)
         globals.webServerSocket.close()
+        subprocess.run(["pkill", "-9", "node"])        
+        subprocess.run(["pkill", "-9", "xcompmgr"])        
+        subprocess.run(["pkill", "-9", "chromium-browse"])        
         super().destroy()
     
     def resetFlows(self):

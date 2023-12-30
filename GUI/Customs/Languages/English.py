@@ -98,7 +98,7 @@ English = {
         },
         "control": {
             "left": "Back",
-            "right": "Cancel order",
+            "right": "Escape",
         },
         "interact": {
             "text0": "Scan QR code to pay",
@@ -109,7 +109,7 @@ English = {
             "title": "Printing",
         },
         "control": {
-            "cancel": "Cancel order",
+            "cancel": "Escape",
             "pause": "Pause",
             "continue": "Continue"
         },
