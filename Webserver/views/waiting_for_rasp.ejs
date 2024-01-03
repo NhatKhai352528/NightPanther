@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            text-align: center;
+            margin: 50px;
+        }
+        .message {
+            padding: 20px;
+            background-color: #3498db;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="message">
+        <p>Please make a new order on dashboard and then restart this page.</p>
+    </div>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        if ('<%-print_success%>' == '1') {
+            alert("Uploaded successfully")
+    }});
+</script>
+</html>   

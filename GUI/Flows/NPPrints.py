@@ -122,10 +122,10 @@ class NPPrints:
             self._formatToOrder()
             return
         if self._flip == None:
-            self._flip = NPFlip(master = self._master, commands = [lambda event = None: self._flipToFormat(), lambda event = None: self._flipToOrder()], fileLayout = "landscape" if self._isPageLandscape(0, PdfReader("../CO3091_BE/user_file.pdf")) else "portrait", fileName = self._fileName)
+            self._flip = NPFlip(master = self._master, commands = [lambda event = None: self._flipToFormat(), lambda event = None: self._flipToOrder()], fileLayout = "landscape" if self._isPageLandscape(0, PdfReader("./Webserver/user_file.pdf")) else "portrait", fileName = self._fileName)
             # self._flip = NPFlip(master = self._master, commands = [lambda event = None: self._flipToFormat(), lambda event = None: self._flipToOrder()], fileLayout = "landscape" if self._isPageLandscape(0, PdfReader("./CO3091_BE/user_file.pdf")) else "portrait")
         else:
-            self._flip.npset(attribute = "fileLayout", value = "landscape" if self._isPageLandscape(0, PdfReader("../CO3091_BE/user_file.pdf")) else "portrait")
+            self._flip.npset(attribute = "fileLayout", value = "landscape" if self._isPageLandscape(0, PdfReader("./Webserver/user_file.pdf")) else "portrait")
             # self._flip.npset(attribute = "fileLayout", value = "landscape" if self._isPageLandscape(0, PdfReader("./CO3091_BE/user_file.pdf")) else "portrait")
         self._flip.place()
         self._currentPage = "_flip"
@@ -137,7 +137,7 @@ class NPPrints:
         self._flip.place_forget()
     
     def _formatToOrder(self):
-        reader = PdfReader("../CO3091_BE/user_file.pdf")
+        reader = PdfReader("./Webserver/user_file.pdf")
         # reader = PdfReader("./CO3091_BE/user_file.pdf")
         self._filePrice = PaperPrice[self._filePaper] * len(reader.pages)
         if self._fileSides == "1s":
@@ -155,7 +155,7 @@ class NPPrints:
 
     def _flipToOrder(self):
         self._fileFlip = self._flip.npget(attribute = "fileFlip")
-        reader = PdfReader("../CO3091_BE/user_file.pdf")
+        reader = PdfReader("./Webserver/user_file.pdf")
         # reader = PdfReader("./CO3091_BE/user_file.pdf")
         self._filePrice = PaperPrice[self._filePaper] * len(reader.pages)
         if self._fileSides == "1s":
@@ -413,7 +413,7 @@ class NPPrints:
                 return True
 
     def _printUserFile(self):
-        reader = PdfReader("../CO3091_BE/user_file.pdf")
+        reader = PdfReader("./Webserver/user_file.pdf")
         # reader = PdfReader("./CO3091_BE/user_file.pdf") 
         
         def getFileSize():
@@ -456,7 +456,7 @@ class NPPrints:
                 if globals.runningMode == "Release":
                     writer = PdfWriter()
                     writer.add_page(reader.pages[page])
-                    with open("../CO3091_BE/current_page.pdf", "wb") as fp:
+                    with open("./Webserver/current_page.pdf", "wb") as fp:
                     # with open("./CO3091_BE/current_page.pdf", "wb") as fp:
                         writer.write(fp)
                     
@@ -465,7 +465,7 @@ class NPPrints:
                     printCommand = ["lp", "-d", printerName, "-o","media=" + getFileSize(), "-n", "1", "-o", "sides=" + getSideOption(), "-o", "fit-to-page"]
                     if self._isPageLandscape(page, reader):
                         printCommand.extend(["-o", "landscape]"])
-                    printCommand.append("../CO3091_BE/current_page.pdf")
+                    printCommand.append("./Webserver/current_page.pdf")
                     # printCommand.append("./CO3091_BE/current_page.pdf")
                     print(printCommand)
                     

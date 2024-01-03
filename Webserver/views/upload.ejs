@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorful PDF File and Code Input</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        label:hover {
+            background-color: #2980b9;
+        }
+
+        #selected-file {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        #printing-code {
+            margin-top: 20px;
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            color: #333;
+        }
+
+        #printing-code:focus {
+            outline: none;
+            border: 1px solid #2980b9;
+        }
+
+        #upload-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2ecc71;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        #upload-button:hover {
+            background-color: #27ae60;
+        }
+
+    </style>
+</head>
+<body>
+    <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+        <div class="container">
+            <label for="file-input">Choose PDF File (Max file size is 25MB) </label>
+            <input name="customer_file" type="file" id="file-input" accept=".pdf" onchange="displayFileName()"/>
+            <div id="selected-file"></div>
+
+            <input name="printing_code" type="number" id="printing-code" placeholder="Enter code for printing"/>
+
+            <input type="submit" id="upload-button" onclick="upload()"/>
+        </div>
+    </form>
+
+    <script>
+        function displayFileName() {
+            const fileInput = document.getElementById('file-input');
+            const selectedFile = document.getElementById('selected-file');
+
+            if (fileInput.files[0] && fileInput.files[0].type === 'application/pdf') {
+                if (fileInput.files[0].size <= 25 * 1024 * 1024) {
+                    selectedFile.textContent = `Selected PDF File: ${fileInput.files[0].name}`;
+                } else {
+                    alert('Please select a file less than 25MB.');
+                    fileInput.value = ''; // Clear the input field
+                    selectedFile.textContent = ''; // Clear the display
+                }
+            } else {
+                alert('Please select a valid PDF file.');
+                fileInput.value = ''; // Clear the input field
+                selectedFile.textContent = ''; // Clear the display
+            }
+        }
+
+        function upload() {
+            var uploadForm = document.getElementById("upload-form");
+            uploadForm.onsubmit = function(event) {
+                if (document.getElementById('printing-code').value != '<%-printing_code%>') {
+                    alert("Wrong printing code");
+                    event.preventDefault();
+                }
+                if (document.getElementById('file-input').value == '') {
+                    alert("Please choose a file first");
+                    event.preventDefault();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
