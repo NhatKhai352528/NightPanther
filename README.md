@@ -17,7 +17,7 @@ Based on the detailed interface design (High-fidelity Wireframe), my team implem
 - **System:** The complete application system comprising Flows and a Logic mechanism controlling interactions, and managing the operation of the file uploading server.
 
 ## File uploading Web Server
-To provide a user interface for sending files to the GUI application, my team built a web page running on the Raspberry Pi:
+To provide a user interface for sending files to the GUI application, my team built a web server running on the Raspberry Pi:
 - The **ExpressJS** framework is used to built the server.
 - The **express-fileupload** middleware is used to implement the file upload feature.
 - **EJS templates** are used to facilitate communication between the NodeJS backend program and the HTML, CSS code on the frontend of the web page, serving the key-based connection verification process.
