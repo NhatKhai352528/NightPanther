@@ -1,5 +1,5 @@
 # Self-service printing system
-A course project for Logical Design Project course at HCMUT ... (Description). We implement our system on embedded computer Raspberry Pi
+A team project for the Logical Design Project course at HCMUT involving a system to make printing more accessible, allowing printers to operate independently. The key deliverables include a dashboard device and a web application (implementing an embedded computer, Raspberry Pi ) with file uploaders, online payment functionality, and secured pick-up.
 
 ## GUI Architecture
 Based on the detailed interface design (High-fidelity Wireframe), my team implemented the printer control GUI using Python Tkinter. Users will interact with the interface through the touch screen of the control panel. Considering the described interface requirements and interactions, my team proposes a layered model for the application's objects as follows:
