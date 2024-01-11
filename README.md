@@ -26,7 +26,7 @@ To provide a user interface for sending files to the GUI application, my team bu
 In addition, my team established a connection between the interface program and the web server by creating a TCP connection between the two programs using the **net** module of NodeJS and the **socket** module of Python.
 
 ## Payment checking
-- With the necessary information of the system owner (bank account number, name of their bank), customer's file (number of pages, paper size, number of side printiv ng), and system configuration (price per printed page), we utilize **VietQR Quick Link** tool to generate a QR Code for customers to scan and pay for their orders.
+- With the necessary information of the system owner (bank account number, name of their bank), customer's file (number of pages, paper size, number of side printing), and system configuration (price per printed page), we utilize **VietQR Quick Link** tool to generate a QR Code for customers to scan and pay for their orders.
 - To verify the payment, we use the **Mighty Text** application to forward the system owner's phone messages to our system and check for payment information (contained in messages sent from the bank of the system's owner).
 
 The project documents are:
