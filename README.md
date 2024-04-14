@@ -30,8 +30,9 @@ In addition, my team established a connection between the interface program and 
 - To verify the payment, we use the **Mighty Text** application to forward the system owner's phone messages to our system and check for payment information (contained in messages sent from the bank of the system's owner).
 
 The project documents are:
-- Detailed report (in Vietnamese): [here](https://github.com/NhatKhai352528/NightPanther/blob/main/doc/%5BCO3091%5D%20B%C3%A1o%20c%C3%A1o%20nghi%E1%BB%87m%20thu.pdf).
-- Brief overview with Google Slide (in Vietnamese): [here](https://github.com/NhatKhai352528/NightPanther/blob/main/doc/%5BCO3091%5D%20Slide%20thuy%E1%BA%BFt%20tr%C3%ACnh.pdf)
+- Detailed report (in Vietnamese): [PDF view](https://github.com/NhatKhai352528/NightPanther/blob/main/doc/%5BCO3091%5D%20B%C3%A1o%20c%C3%A1o%20nghi%E1%BB%87m%20thu.pdf).
+- Brief presentation slide (in Vietnamese): [Google Slide](https://github.com/NhatKhai352528/NightPanther/blob/main/doc/%5BCO3091%5D%20Slide%20thuy%E1%BA%BFt%20tr%C3%ACnh.pdf)
+- Demo video (in Vietnamese): [Youtube](https://youtu.be/V1D8avwDxCs)
 
 ## Final product
 ![image](https://github.com/NhatKhai352528/NightPanther/assets/87921251/6af321ce-f2f6-4227-9304-99c3c2bfb6c1)
